@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.areatecnica.sigf_SIGFRegistroBoletos_jar_1.0PU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.areatecnica.nanduappgb.entities.InstitucionSalud</class>
+    <class>com.areatecnica.nanduappgb.entities.TipoCuenta</class>
+    <class>com.areatecnica.nanduappgb.entities.Empresa</class>
+    <class>com.areatecnica.nanduappgb.entities.FormaPago</class>
+    <class>com.areatecnica.nanduappgb.entities.RepresentanteLegal</class>
+    <class>com.areatecnica.nanduappgb.entities.Servicio</class>
+    <class>com.areatecnica.nanduappgb.entities.RegistroBoleto</class>
+    <class>com.areatecnica.nanduappgb.entities.Mutual</class>
+    <class>com.areatecnica.nanduappgb.entities.MarcaBus</class>
+    <class>com.areatecnica.nanduappgb.entities.Guia</class>
+    <class>com.areatecnica.nanduappgb.entities.TipoCotizacionTrabajador</class>
+    <class>com.areatecnica.nanduappgb.entities.ProcesoRecaudacion</class>
+    <class>com.areatecnica.nanduappgb.entities.Terminal</class>
+    <class>com.areatecnica.nanduappgb.entities.Flota</class>
+    <class>com.areatecnica.nanduappgb.entities.CajaCompensacion</class>
+    <class>com.areatecnica.nanduappgb.entities.Ciudad</class>
+    <class>com.areatecnica.nanduappgb.entities.EstadoCivil</class>
+    <class>com.areatecnica.nanduappgb.entities.ModeloMarcaBus</class>
+    <class>com.areatecnica.nanduappgb.entities.AsignacionFamiliar</class>
+    <class>com.areatecnica.nanduappgb.entities.Trabajador</class>
+    <class>com.areatecnica.nanduappgb.entities.EstadoBus</class>
+    <class>com.areatecnica.nanduappgb.entities.Cuenta</class>
+    <class>com.areatecnica.nanduappgb.entities.Comuna</class>
+    <class>com.areatecnica.nanduappgb.entities.InstitucionPrevision</class>
+    <class>com.areatecnica.nanduappgb.entities.UnidadNegocio</class>
+    <class>com.areatecnica.nanduappgb.entities.InstitucionApv</class>
+    <class>com.areatecnica.nanduappgb.entities.Bus</class>
+    <class>com.areatecnica.nanduappgb.entities.GrupoServicio</class>
+    <class>com.areatecnica.nanduappgb.entities.CentroCosto</class>
+    <class>com.areatecnica.nanduappgb.entities.Region</class>
+    <class>com.areatecnica.nanduappgb.entities.Sindicato</class>
+    <class>com.areatecnica.nanduappgb.entities.Boleto</class>
+    <class>com.areatecnica.nanduappgb.entities.TipoInstitucionApv</class>
+    <class>com.areatecnica.nanduappgb.entities.OperadorTransporte</class>
+    <class>com.areatecnica.nanduappgb.entities.TarifaGrupoServicio</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://www.areatecnica.cl:3306/sigf"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="NintendO64"/>
+    </properties>
+  </persistence-unit>
+</persistence>
