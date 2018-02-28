@@ -60,7 +60,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.areatecnica.nanduappgm.views.MDIApplicationMain</mainClass>
+                            <mainClass>com.areatecnica.nanduappgb.views.MainView</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
