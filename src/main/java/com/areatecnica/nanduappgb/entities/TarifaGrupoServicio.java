@@ -5,8 +5,6 @@
  */
 package com.areatecnica.nanduappgb.entities;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -22,11 +20,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * corregir tarifas activas
  * @author ianfrancoconcha
  */
 @Entity
@@ -35,18 +32,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "TarifaGrupoServicio.findAll", query = "SELECT t FROM TarifaGrupoServicio t")
     , @NamedQuery(name = "TarifaGrupoServicio.findByTarifaGrupoServicioId", query = "SELECT t FROM TarifaGrupoServicio t WHERE t.tarifaGrupoServicioId = :tarifaGrupoServicioId")
-    , @NamedQuery(name = "TarifaGrupoServicio.findByTarifaGrupoServicioDirecto", query = "SELECT t FROM TarifaGrupoServicio t WHERE t.tarifaGrupoServicioDirecto = :tarifaGrupoServicioDirecto")
-    , @NamedQuery(name = "TarifaGrupoServicio.findByTarifaGrupoServicioPlanVina", query = "SELECT t FROM TarifaGrupoServicio t WHERE t.tarifaGrupoServicioPlanVina = :tarifaGrupoServicioPlanVina")
-    , @NamedQuery(name = "TarifaGrupoServicio.findByTarifaGrupoServicioLocal", query = "SELECT t FROM TarifaGrupoServicio t WHERE t.tarifaGrupoServicioLocal = :tarifaGrupoServicioLocal")
-    , @NamedQuery(name = "TarifaGrupoServicio.findByTarifaGrupoServicioEscolarDirecto", query = "SELECT t FROM TarifaGrupoServicio t WHERE t.tarifaGrupoServicioEscolarDirecto = :tarifaGrupoServicioEscolarDirecto")
-    , @NamedQuery(name = "TarifaGrupoServicio.findByTarifaGrupoServicioEscolarLocal", query = "SELECT t FROM TarifaGrupoServicio t WHERE t.tarifaGrupoServicioEscolarLocal = :tarifaGrupoServicioEscolarLocal")
-    , @NamedQuery(name = "TarifaGrupoServicio.findByTarifaGrupoServicioFechaDesde", query = "SELECT t FROM TarifaGrupoServicio t WHERE t.tarifaGrupoServicioFechaDesde = :tarifaGrupoServicioFechaDesde")
-    , @NamedQuery(name = "TarifaGrupoServicio.findByTarifaGrupoServicioFechaHasta", query = "SELECT t FROM TarifaGrupoServicio t WHERE t.tarifaGrupoServicioFechaHasta = :tarifaGrupoServicioFechaHasta")
-    , @NamedQuery(name = "TarifaGrupoServicio.findByTarifaGrupoServicioActiva", query = "SELECT t FROM TarifaGrupoServicio t WHERE t.tarifaGrupoServicioActiva = :tarifaGrupoServicioActiva")})
+    , @NamedQuery(name = "TarifaGrupoServicio.findByTarifaGrupoServicioValor", query = "SELECT t FROM TarifaGrupoServicio t WHERE t.tarifaGrupoServicioValor = :tarifaGrupoServicioValor")
+    , @NamedQuery(name = "TarifaGrupoServicio.findByTarifaGrupoServicioFecha", query = "SELECT t FROM TarifaGrupoServicio t WHERE t.tarifaGrupoServicioFecha = :tarifaGrupoServicioFecha")
+    , @NamedQuery(name = "TarifaGrupoServicio.findByTarifaGrupoServicioActiva", query = "SELECT t FROM TarifaGrupoServicio t WHERE t.tarifaGrupoServicioActiva = :tarifaGrupoServicioActiva")
+    , @NamedQuery(name = "TarifaGrupoServicio.findAllByGrupo", query = "SELECT t FROM TarifaGrupoServicio t WHERE t.tarifaGrupoServicioIdGrupo = :tarifaGrupoServicioIdGrupo")})
 public class TarifaGrupoServicio implements Serializable {
-
-    @Transient
-    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,31 +45,18 @@ public class TarifaGrupoServicio implements Serializable {
     @Column(name = "tarifa_grupo_servicio_id")
     private Integer tarifaGrupoServicioId;
     @Basic(optional = false)
-    @Column(name = "tarifa_grupo_servicio_directo")
-    private int tarifaGrupoServicioDirecto;
+    @Column(name = "tarifa_grupo_servicio_valor")
+    private int tarifaGrupoServicioValor;
     @Basic(optional = false)
-    @Column(name = "tarifa_grupo_servicio_plan_vina")
-    private int tarifaGrupoServicioPlanVina;
-    @Basic(optional = false)
-    @Column(name = "tarifa_grupo_servicio_local")
-    private int tarifaGrupoServicioLocal;
-    @Basic(optional = false)
-    @Column(name = "tarifa_grupo_servicio_escolar_directo")
-    private int tarifaGrupoServicioEscolarDirecto;
-    @Basic(optional = false)
-    @Column(name = "tarifa_grupo_servicio_escolar_local")
-    private int tarifaGrupoServicioEscolarLocal;
-    @Basic(optional = false)
-    @Column(name = "tarifa_grupo_servicio_fecha_desde")
+    @Column(name = "tarifa_grupo_servicio_fecha")
     @Temporal(TemporalType.DATE)
-    private Date tarifaGrupoServicioFechaDesde;
-    @Basic(optional = false)
-    @Column(name = "tarifa_grupo_servicio_fecha_hasta")
-    @Temporal(TemporalType.DATE)
-    private Date tarifaGrupoServicioFechaHasta;
+    private Date tarifaGrupoServicioFecha;
     @Basic(optional = false)
     @Column(name = "tarifa_grupo_servicio_activa")
     private boolean tarifaGrupoServicioActiva;
+    @JoinColumn(name = "tarifa_grupo_servicio_id_boleto", referencedColumnName = "boleto_id")
+    @ManyToOne(optional = false)
+    private Boleto tarifaGrupoServicioIdBoleto;
     @JoinColumn(name = "tarifa_grupo_servicio_id_grupo", referencedColumnName = "grupo_servicio_id")
     @ManyToOne(optional = false)
     private GrupoServicio tarifaGrupoServicioIdGrupo;
@@ -91,15 +68,10 @@ public class TarifaGrupoServicio implements Serializable {
         this.tarifaGrupoServicioId = tarifaGrupoServicioId;
     }
 
-    public TarifaGrupoServicio(Integer tarifaGrupoServicioId, int tarifaGrupoServicioDirecto, int tarifaGrupoServicioPlanVina, int tarifaGrupoServicioLocal, int tarifaGrupoServicioEscolarDirecto, int tarifaGrupoServicioEscolarLocal, Date tarifaGrupoServicioFechaDesde, Date tarifaGrupoServicioFechaHasta, boolean tarifaGrupoServicioActiva) {
+    public TarifaGrupoServicio(Integer tarifaGrupoServicioId, int tarifaGrupoServicioValor, Date tarifaGrupoServicioFecha, boolean tarifaGrupoServicioActiva) {
         this.tarifaGrupoServicioId = tarifaGrupoServicioId;
-        this.tarifaGrupoServicioDirecto = tarifaGrupoServicioDirecto;
-        this.tarifaGrupoServicioPlanVina = tarifaGrupoServicioPlanVina;
-        this.tarifaGrupoServicioLocal = tarifaGrupoServicioLocal;
-        this.tarifaGrupoServicioEscolarDirecto = tarifaGrupoServicioEscolarDirecto;
-        this.tarifaGrupoServicioEscolarLocal = tarifaGrupoServicioEscolarLocal;
-        this.tarifaGrupoServicioFechaDesde = tarifaGrupoServicioFechaDesde;
-        this.tarifaGrupoServicioFechaHasta = tarifaGrupoServicioFechaHasta;
+        this.tarifaGrupoServicioValor = tarifaGrupoServicioValor;
+        this.tarifaGrupoServicioFecha = tarifaGrupoServicioFecha;
         this.tarifaGrupoServicioActiva = tarifaGrupoServicioActiva;
     }
 
@@ -108,79 +80,23 @@ public class TarifaGrupoServicio implements Serializable {
     }
 
     public void setTarifaGrupoServicioId(Integer tarifaGrupoServicioId) {
-        Integer oldTarifaGrupoServicioId = this.tarifaGrupoServicioId;
         this.tarifaGrupoServicioId = tarifaGrupoServicioId;
-        changeSupport.firePropertyChange("tarifaGrupoServicioId", oldTarifaGrupoServicioId, tarifaGrupoServicioId);
     }
 
-    public int getTarifaGrupoServicioDirecto() {
-        return tarifaGrupoServicioDirecto;
+    public int getTarifaGrupoServicioValor() {
+        return tarifaGrupoServicioValor;
     }
 
-    public void setTarifaGrupoServicioDirecto(int tarifaGrupoServicioDirecto) {
-        int oldTarifaGrupoServicioDirecto = this.tarifaGrupoServicioDirecto;
-        this.tarifaGrupoServicioDirecto = tarifaGrupoServicioDirecto;
-        changeSupport.firePropertyChange("tarifaGrupoServicioDirecto", oldTarifaGrupoServicioDirecto, tarifaGrupoServicioDirecto);
+    public void setTarifaGrupoServicioValor(int tarifaGrupoServicioValor) {
+        this.tarifaGrupoServicioValor = tarifaGrupoServicioValor;
     }
 
-    public int getTarifaGrupoServicioPlanVina() {
-        return tarifaGrupoServicioPlanVina;
+    public Date getTarifaGrupoServicioFecha() {
+        return tarifaGrupoServicioFecha;
     }
 
-    public void setTarifaGrupoServicioPlanVina(int tarifaGrupoServicioPlanVina) {
-        int oldTarifaGrupoServicioPlanVina = this.tarifaGrupoServicioPlanVina;
-        this.tarifaGrupoServicioPlanVina = tarifaGrupoServicioPlanVina;
-        changeSupport.firePropertyChange("tarifaGrupoServicioPlanVina", oldTarifaGrupoServicioPlanVina, tarifaGrupoServicioPlanVina);
-    }
-
-    public int getTarifaGrupoServicioLocal() {
-        return tarifaGrupoServicioLocal;
-    }
-
-    public void setTarifaGrupoServicioLocal(int tarifaGrupoServicioLocal) {
-        int oldTarifaGrupoServicioLocal = this.tarifaGrupoServicioLocal;
-        this.tarifaGrupoServicioLocal = tarifaGrupoServicioLocal;
-        changeSupport.firePropertyChange("tarifaGrupoServicioLocal", oldTarifaGrupoServicioLocal, tarifaGrupoServicioLocal);
-    }
-
-    public int getTarifaGrupoServicioEscolarDirecto() {
-        return tarifaGrupoServicioEscolarDirecto;
-    }
-
-    public void setTarifaGrupoServicioEscolarDirecto(int tarifaGrupoServicioEscolarDirecto) {
-        int oldTarifaGrupoServicioEscolarDirecto = this.tarifaGrupoServicioEscolarDirecto;
-        this.tarifaGrupoServicioEscolarDirecto = tarifaGrupoServicioEscolarDirecto;
-        changeSupport.firePropertyChange("tarifaGrupoServicioEscolarDirecto", oldTarifaGrupoServicioEscolarDirecto, tarifaGrupoServicioEscolarDirecto);
-    }
-
-    public int getTarifaGrupoServicioEscolarLocal() {
-        return tarifaGrupoServicioEscolarLocal;
-    }
-
-    public void setTarifaGrupoServicioEscolarLocal(int tarifaGrupoServicioEscolarLocal) {
-        int oldTarifaGrupoServicioEscolarLocal = this.tarifaGrupoServicioEscolarLocal;
-        this.tarifaGrupoServicioEscolarLocal = tarifaGrupoServicioEscolarLocal;
-        changeSupport.firePropertyChange("tarifaGrupoServicioEscolarLocal", oldTarifaGrupoServicioEscolarLocal, tarifaGrupoServicioEscolarLocal);
-    }
-
-    public Date getTarifaGrupoServicioFechaDesde() {
-        return tarifaGrupoServicioFechaDesde;
-    }
-
-    public void setTarifaGrupoServicioFechaDesde(Date tarifaGrupoServicioFechaDesde) {
-        Date oldTarifaGrupoServicioFechaDesde = this.tarifaGrupoServicioFechaDesde;
-        this.tarifaGrupoServicioFechaDesde = tarifaGrupoServicioFechaDesde;
-        changeSupport.firePropertyChange("tarifaGrupoServicioFechaDesde", oldTarifaGrupoServicioFechaDesde, tarifaGrupoServicioFechaDesde);
-    }
-
-    public Date getTarifaGrupoServicioFechaHasta() {
-        return tarifaGrupoServicioFechaHasta;
-    }
-
-    public void setTarifaGrupoServicioFechaHasta(Date tarifaGrupoServicioFechaHasta) {
-        Date oldTarifaGrupoServicioFechaHasta = this.tarifaGrupoServicioFechaHasta;
-        this.tarifaGrupoServicioFechaHasta = tarifaGrupoServicioFechaHasta;
-        changeSupport.firePropertyChange("tarifaGrupoServicioFechaHasta", oldTarifaGrupoServicioFechaHasta, tarifaGrupoServicioFechaHasta);
+    public void setTarifaGrupoServicioFecha(Date tarifaGrupoServicioFecha) {
+        this.tarifaGrupoServicioFecha = tarifaGrupoServicioFecha;
     }
 
     public boolean getTarifaGrupoServicioActiva() {
@@ -188,9 +104,15 @@ public class TarifaGrupoServicio implements Serializable {
     }
 
     public void setTarifaGrupoServicioActiva(boolean tarifaGrupoServicioActiva) {
-        boolean oldTarifaGrupoServicioActiva = this.tarifaGrupoServicioActiva;
         this.tarifaGrupoServicioActiva = tarifaGrupoServicioActiva;
-        changeSupport.firePropertyChange("tarifaGrupoServicioActiva", oldTarifaGrupoServicioActiva, tarifaGrupoServicioActiva);
+    }
+
+    public Boleto getTarifaGrupoServicioIdBoleto() {
+        return tarifaGrupoServicioIdBoleto;
+    }
+
+    public void setTarifaGrupoServicioIdBoleto(Boleto tarifaGrupoServicioIdBoleto) {
+        this.tarifaGrupoServicioIdBoleto = tarifaGrupoServicioIdBoleto;
     }
 
     public GrupoServicio getTarifaGrupoServicioIdGrupo() {
@@ -198,9 +120,7 @@ public class TarifaGrupoServicio implements Serializable {
     }
 
     public void setTarifaGrupoServicioIdGrupo(GrupoServicio tarifaGrupoServicioIdGrupo) {
-        GrupoServicio oldTarifaGrupoServicioIdGrupo = this.tarifaGrupoServicioIdGrupo;
         this.tarifaGrupoServicioIdGrupo = tarifaGrupoServicioIdGrupo;
-        changeSupport.firePropertyChange("tarifaGrupoServicioIdGrupo", oldTarifaGrupoServicioIdGrupo, tarifaGrupoServicioIdGrupo);
     }
 
     @Override
@@ -228,12 +148,4 @@ public class TarifaGrupoServicio implements Serializable {
         return "com.areatecnica.nanduappgb.entities.TarifaGrupoServicio[ tarifaGrupoServicioId=" + tarifaGrupoServicioId + " ]";
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
-    }
-    
 }

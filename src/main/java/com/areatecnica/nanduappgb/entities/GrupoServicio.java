@@ -5,8 +5,6 @@
  */
 package com.areatecnica.nanduappgb.entities;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -22,7 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -39,9 +36,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "GrupoServicio.findByGrupoServicioIdentificador", query = "SELECT g FROM GrupoServicio g WHERE g.grupoServicioIdentificador = :grupoServicioIdentificador")
     , @NamedQuery(name = "GrupoServicio.findByGrupoServicioAccesoInspector", query = "SELECT g FROM GrupoServicio g WHERE g.grupoServicioAccesoInspector = :grupoServicioAccesoInspector")})
 public class GrupoServicio implements Serializable {
-
-    @Transient
-    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -86,9 +80,7 @@ public class GrupoServicio implements Serializable {
     }
 
     public void setGrupoServicioId(Integer grupoServicioId) {
-        Integer oldGrupoServicioId = this.grupoServicioId;
         this.grupoServicioId = grupoServicioId;
-        changeSupport.firePropertyChange("grupoServicioId", oldGrupoServicioId, grupoServicioId);
     }
 
     public String getGrupoServicioIdentificador() {
@@ -96,9 +88,7 @@ public class GrupoServicio implements Serializable {
     }
 
     public void setGrupoServicioIdentificador(String grupoServicioIdentificador) {
-        String oldGrupoServicioIdentificador = this.grupoServicioIdentificador;
         this.grupoServicioIdentificador = grupoServicioIdentificador;
-        changeSupport.firePropertyChange("grupoServicioIdentificador", oldGrupoServicioIdentificador, grupoServicioIdentificador);
     }
 
     public boolean getGrupoServicioAccesoInspector() {
@@ -106,9 +96,7 @@ public class GrupoServicio implements Serializable {
     }
 
     public void setGrupoServicioAccesoInspector(boolean grupoServicioAccesoInspector) {
-        boolean oldGrupoServicioAccesoInspector = this.grupoServicioAccesoInspector;
         this.grupoServicioAccesoInspector = grupoServicioAccesoInspector;
-        changeSupport.firePropertyChange("grupoServicioAccesoInspector", oldGrupoServicioAccesoInspector, grupoServicioAccesoInspector);
     }
 
     @XmlTransient
@@ -134,9 +122,7 @@ public class GrupoServicio implements Serializable {
     }
 
     public void setGrupoServicioIdCuenta(Cuenta grupoServicioIdCuenta) {
-        Cuenta oldGrupoServicioIdCuenta = this.grupoServicioIdCuenta;
         this.grupoServicioIdCuenta = grupoServicioIdCuenta;
-        changeSupport.firePropertyChange("grupoServicioIdCuenta", oldGrupoServicioIdCuenta, grupoServicioIdCuenta);
     }
 
     public Terminal getGrupoServicioIdTerminal() {
@@ -144,9 +130,7 @@ public class GrupoServicio implements Serializable {
     }
 
     public void setGrupoServicioIdTerminal(Terminal grupoServicioIdTerminal) {
-        Terminal oldGrupoServicioIdTerminal = this.grupoServicioIdTerminal;
         this.grupoServicioIdTerminal = grupoServicioIdTerminal;
-        changeSupport.firePropertyChange("grupoServicioIdTerminal", oldGrupoServicioIdTerminal, grupoServicioIdTerminal);
     }
 
     @XmlTransient
@@ -180,15 +164,7 @@ public class GrupoServicio implements Serializable {
 
     @Override
     public String toString() {
-        return grupoServicioIdentificador;
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
+        return "com.areatecnica.nanduappgb.entities.GrupoServicio[ grupoServicioId=" + grupoServicioId + " ]";
     }
     
 }

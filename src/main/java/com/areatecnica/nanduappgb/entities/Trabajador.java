@@ -136,9 +136,9 @@ public class Trabajador implements Serializable {
     @Basic(optional = false)
     @Column(name = "trabajador_posee_cuenta_banco")
     private boolean trabajadorPoseeCuentaBanco;
-    @JoinColumn(name = "trabajador_id_cuenta", referencedColumnName = "cuenta_id")
+    @JoinColumn(name = "trabajador_id_institucion_prevision", referencedColumnName = "institucion_prevision_id")
     @ManyToOne(optional = false)
-    private Cuenta trabajadorIdCuenta;
+    private InstitucionPrevision trabajadorIdInstitucionPrevision;
     @JoinColumn(name = "trabajador_id_institucion_apv", referencedColumnName = "institucion_apv_id")
     @ManyToOne(optional = false)
     private InstitucionApv trabajadorIdInstitucionApv;
@@ -154,21 +154,21 @@ public class Trabajador implements Serializable {
     @JoinColumn(name = "trabajador_id_tipo_cotizacion_trabajador", referencedColumnName = "tipo_cotizacion_trabajador_id")
     @ManyToOne(optional = false)
     private TipoCotizacionTrabajador trabajadorIdTipoCotizacionTrabajador;
+    @JoinColumn(name = "trabajador_id_cuenta", referencedColumnName = "cuenta_id")
+    @ManyToOne(optional = false)
+    private Cuenta trabajadorIdCuenta;
+    @JoinColumn(name = "trabajador_id_terminal", referencedColumnName = "terminal_id")
+    @ManyToOne(optional = false)
+    private Terminal trabajadorIdTerminal;
     @JoinColumn(name = "trabajador_id_estado_civil", referencedColumnName = "estado_civil_id")
     @ManyToOne(optional = false)
     private EstadoCivil trabajadorIdEstadoCivil;
     @JoinColumn(name = "trabajador_id_forma_pago", referencedColumnName = "forma_pago_id")
     @ManyToOne(optional = false)
     private FormaPago trabajadorIdFormaPago;
-    @JoinColumn(name = "trabajador_id_institucion_prevision", referencedColumnName = "institucion_prevision_id")
-    @ManyToOne(optional = false)
-    private InstitucionPrevision trabajadorIdInstitucionPrevision;
     @JoinColumn(name = "trabajador_id_institucion_salud", referencedColumnName = "institucion_salud_id")
     @ManyToOne(optional = false)
     private InstitucionSalud trabajadorIdInstitucionSalud;
-    @JoinColumn(name = "trabajador_id_terminal", referencedColumnName = "terminal_id")
-    @ManyToOne(optional = false)
-    private Terminal trabajadorIdTerminal;
     @JoinColumn(name = "trabajador_id_sindicato", referencedColumnName = "sindicato_id")
     @ManyToOne(optional = false)
     private Sindicato trabajadorIdSindicato;
@@ -414,12 +414,12 @@ public class Trabajador implements Serializable {
         this.trabajadorPoseeCuentaBanco = trabajadorPoseeCuentaBanco;
     }
 
-    public Cuenta getTrabajadorIdCuenta() {
-        return trabajadorIdCuenta;
+    public InstitucionPrevision getTrabajadorIdInstitucionPrevision() {
+        return trabajadorIdInstitucionPrevision;
     }
 
-    public void setTrabajadorIdCuenta(Cuenta trabajadorIdCuenta) {
-        this.trabajadorIdCuenta = trabajadorIdCuenta;
+    public void setTrabajadorIdInstitucionPrevision(InstitucionPrevision trabajadorIdInstitucionPrevision) {
+        this.trabajadorIdInstitucionPrevision = trabajadorIdInstitucionPrevision;
     }
 
     public InstitucionApv getTrabajadorIdInstitucionApv() {
@@ -462,6 +462,22 @@ public class Trabajador implements Serializable {
         this.trabajadorIdTipoCotizacionTrabajador = trabajadorIdTipoCotizacionTrabajador;
     }
 
+    public Cuenta getTrabajadorIdCuenta() {
+        return trabajadorIdCuenta;
+    }
+
+    public void setTrabajadorIdCuenta(Cuenta trabajadorIdCuenta) {
+        this.trabajadorIdCuenta = trabajadorIdCuenta;
+    }
+
+    public Terminal getTrabajadorIdTerminal() {
+        return trabajadorIdTerminal;
+    }
+
+    public void setTrabajadorIdTerminal(Terminal trabajadorIdTerminal) {
+        this.trabajadorIdTerminal = trabajadorIdTerminal;
+    }
+
     public EstadoCivil getTrabajadorIdEstadoCivil() {
         return trabajadorIdEstadoCivil;
     }
@@ -478,28 +494,12 @@ public class Trabajador implements Serializable {
         this.trabajadorIdFormaPago = trabajadorIdFormaPago;
     }
 
-    public InstitucionPrevision getTrabajadorIdInstitucionPrevision() {
-        return trabajadorIdInstitucionPrevision;
-    }
-
-    public void setTrabajadorIdInstitucionPrevision(InstitucionPrevision trabajadorIdInstitucionPrevision) {
-        this.trabajadorIdInstitucionPrevision = trabajadorIdInstitucionPrevision;
-    }
-
     public InstitucionSalud getTrabajadorIdInstitucionSalud() {
         return trabajadorIdInstitucionSalud;
     }
 
     public void setTrabajadorIdInstitucionSalud(InstitucionSalud trabajadorIdInstitucionSalud) {
         this.trabajadorIdInstitucionSalud = trabajadorIdInstitucionSalud;
-    }
-
-    public Terminal getTrabajadorIdTerminal() {
-        return trabajadorIdTerminal;
-    }
-
-    public void setTrabajadorIdTerminal(Terminal trabajadorIdTerminal) {
-        this.trabajadorIdTerminal = trabajadorIdTerminal;
     }
 
     public Sindicato getTrabajadorIdSindicato() {
@@ -541,7 +541,7 @@ public class Trabajador implements Serializable {
 
     @Override
     public String toString() {
-        return trabajadorApellidoPaterno + " " + trabajadorApellidoMaterno + " " + trabajadorNombres.substring(0, 1) + ".";
+        return trabajadorApellidoPaterno +" "+trabajadorApellidoMaterno+" "+trabajadorNombres.substring(0, 1);
     }
-
+    
 }

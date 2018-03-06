@@ -61,6 +61,8 @@ public class Cuenta implements Serializable {
     private List<InstitucionSalud> institucionSaludList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "flotaIdCuenta")
     private List<Flota> flotaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "boletoIdCuenta")
+    private List<Boleto> boletoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "procesoRecaudacionIdCuenta")
     private List<ProcesoRecaudacion> procesoRecaudacionList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sindicatoIdCuenta")
@@ -171,6 +173,15 @@ public class Cuenta implements Serializable {
 
     public void setFlotaList(List<Flota> flotaList) {
         this.flotaList = flotaList;
+    }
+
+    @XmlTransient
+    public List<Boleto> getBoletoList() {
+        return boletoList;
+    }
+
+    public void setBoletoList(List<Boleto> boletoList) {
+        this.boletoList = boletoList;
     }
 
     @XmlTransient

@@ -12,6 +12,7 @@ import com.areatecnica.nanduappgb.dao.impl.BusDaoImpl;
 import com.areatecnica.nanduappgb.dao.impl.GuiaDaoImpl;
 import com.areatecnica.nanduappgb.entities.Bus;
 import com.areatecnica.nanduappgb.entities.Guia;
+import com.areatecnica.nanduappgb.models.RegistroGuiaTableModel;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -56,9 +57,11 @@ public class FindBusSolyMarFocusLost extends FocusAdapter {
                 Guia _guia = this.guiaDao.findLastGuiaByBusFecha(_bus, fecha);
 
                 if (_guia != null) {
-
+                    this.controller.getView().getTable().setModel(new RegistroGuiaTableModel(_guia, false));
                 } else {
                     this.controller.getView().getEstadoBoletoTextField().setText("Atención: Deben registrar los boletos");
+                    
+                    this.controller.getView().getTable().setModel(new RegistroGuiaTableModel(this.controller.getTarifas(), true));
                 }
 
             } else {

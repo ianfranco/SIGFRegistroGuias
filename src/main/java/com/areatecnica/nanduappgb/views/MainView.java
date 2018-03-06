@@ -38,6 +38,7 @@ public class MainView extends javax.swing.JFrame {
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         registroBoletoMenuItem = new javax.swing.JMenuItem();
+        registroVueltaMenuItem = new javax.swing.JMenuItem();
         advancedMenu = new javax.swing.JMenu();
         tarifasMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
@@ -63,13 +64,21 @@ public class MainView extends javax.swing.JFrame {
         editMenu.setText("Acciones");
 
         registroBoletoMenuItem.setMnemonic('t');
-        registroBoletoMenuItem.setText("Registro");
+        registroBoletoMenuItem.setText("Registro de Guías");
         registroBoletoMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registroBoletoMenuItemActionPerformed(evt);
             }
         });
         editMenu.add(registroBoletoMenuItem);
+
+        registroVueltaMenuItem.setText("Registro de Vueltas");
+        registroVueltaMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registroVueltaMenuItemActionPerformed(evt);
+            }
+        });
+        editMenu.add(registroVueltaMenuItem);
 
         advancedMenu.setText("Avanzado");
 
@@ -129,6 +138,10 @@ public class MainView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_registroBoletoMenuItemActionPerformed
 
+    private void registroVueltaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroVueltaMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registroVueltaMenuItemActionPerformed
+
     private void setNewTab(JPanel panel, String title) {
         this.tabbedPane.add(title, panel);
         this.tabbedPane.setSelectedComponent(panel);
@@ -184,6 +197,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem registroBoletoMenuItem;
+    private javax.swing.JMenuItem registroVueltaMenuItem;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JMenuItem tarifasMenuItem;
     // End of variables declaration//GEN-END:variables

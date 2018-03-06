@@ -29,12 +29,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "RegistroBoleto.findAll", query = "SELECT r FROM RegistroBoleto r")
     , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoId", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoId = :registroBoletoId")
-    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoDirecto", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoDirecto = :registroBoletoDirecto")
-    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoPlanVina", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoPlanVina = :registroBoletoPlanVina")
-    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoLocal", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoLocal = :registroBoletoLocal")
-    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoEscolarDirecto", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoEscolarDirecto = :registroBoletoEscolarDirecto")
-    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoEscolarLocal", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoEscolarLocal = :registroBoletoEscolarLocal")
-    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoTotal", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoTotal = :registroBoletoTotal")})
+    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoNumeroVuelta", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoNumeroVuelta = :registroBoletoNumeroVuelta")
+    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoValor", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoValor = :registroBoletoValor")
+    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoInicio", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoInicio = :registroBoletoInicio")
+    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoTermino", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoTermino = :registroBoletoTermino")
+    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoCantidad", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoCantidad = :registroBoletoCantidad")
+    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoTotal", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoTotal = :registroBoletoTotal")
+    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoEsNuevo", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoEsNuevo = :registroBoletoEsNuevo")})
 public class RegistroBoleto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,23 +45,28 @@ public class RegistroBoleto implements Serializable {
     @Column(name = "registro_boleto_id")
     private Integer registroBoletoId;
     @Basic(optional = false)
-    @Column(name = "registro_boleto_directo")
-    private int registroBoletoDirecto;
+    @Column(name = "registro_boleto_numero_vuelta")
+    private int registroBoletoNumeroVuelta;
     @Basic(optional = false)
-    @Column(name = "registro_boleto_plan_vina")
-    private int registroBoletoPlanVina;
+    @Column(name = "registro_boleto_valor")
+    private int registroBoletoValor;
     @Basic(optional = false)
-    @Column(name = "registro_boleto_local")
-    private int registroBoletoLocal;
+    @Column(name = "registro_boleto_inicio")
+    private int registroBoletoInicio;
     @Basic(optional = false)
-    @Column(name = "registro_boleto_escolar_directo")
-    private int registroBoletoEscolarDirecto;
+    @Column(name = "registro_boleto_termino")
+    private int registroBoletoTermino;
     @Basic(optional = false)
-    @Column(name = "registro_boleto_escolar_local")
-    private int registroBoletoEscolarLocal;
+    @Column(name = "registro_boleto_cantidad")
+    private int registroBoletoCantidad;
     @Basic(optional = false)
     @Column(name = "registro_boleto_total")
     private int registroBoletoTotal;
+    @Column(name = "registro_boleto_es_nuevo")
+    private Boolean registroBoletoEsNuevo;
+    @JoinColumn(name = "registro_boleto_id_boleto", referencedColumnName = "boleto_id")
+    @ManyToOne(optional = false)
+    private Boleto registroBoletoIdBoleto;
     @JoinColumn(name = "registro_boleto_id_guia", referencedColumnName = "guia_id")
     @ManyToOne(optional = false)
     private Guia registroBoletoIdGuia;
@@ -75,13 +81,13 @@ public class RegistroBoleto implements Serializable {
         this.registroBoletoId = registroBoletoId;
     }
 
-    public RegistroBoleto(Integer registroBoletoId, int registroBoletoDirecto, int registroBoletoPlanVina, int registroBoletoLocal, int registroBoletoEscolarDirecto, int registroBoletoEscolarLocal, int registroBoletoTotal) {
+    public RegistroBoleto(Integer registroBoletoId, int registroBoletoNumeroVuelta, int registroBoletoValor, int registroBoletoInicio, int registroBoletoTermino, int registroBoletoCantidad, int registroBoletoTotal) {
         this.registroBoletoId = registroBoletoId;
-        this.registroBoletoDirecto = registroBoletoDirecto;
-        this.registroBoletoPlanVina = registroBoletoPlanVina;
-        this.registroBoletoLocal = registroBoletoLocal;
-        this.registroBoletoEscolarDirecto = registroBoletoEscolarDirecto;
-        this.registroBoletoEscolarLocal = registroBoletoEscolarLocal;
+        this.registroBoletoNumeroVuelta = registroBoletoNumeroVuelta;
+        this.registroBoletoValor = registroBoletoValor;
+        this.registroBoletoInicio = registroBoletoInicio;
+        this.registroBoletoTermino = registroBoletoTermino;
+        this.registroBoletoCantidad = registroBoletoCantidad;
         this.registroBoletoTotal = registroBoletoTotal;
     }
 
@@ -93,44 +99,44 @@ public class RegistroBoleto implements Serializable {
         this.registroBoletoId = registroBoletoId;
     }
 
-    public int getRegistroBoletoDirecto() {
-        return registroBoletoDirecto;
+    public int getRegistroBoletoNumeroVuelta() {
+        return registroBoletoNumeroVuelta;
     }
 
-    public void setRegistroBoletoDirecto(int registroBoletoDirecto) {
-        this.registroBoletoDirecto = registroBoletoDirecto;
+    public void setRegistroBoletoNumeroVuelta(int registroBoletoNumeroVuelta) {
+        this.registroBoletoNumeroVuelta = registroBoletoNumeroVuelta;
     }
 
-    public int getRegistroBoletoPlanVina() {
-        return registroBoletoPlanVina;
+    public int getRegistroBoletoValor() {
+        return registroBoletoValor;
     }
 
-    public void setRegistroBoletoPlanVina(int registroBoletoPlanVina) {
-        this.registroBoletoPlanVina = registroBoletoPlanVina;
+    public void setRegistroBoletoValor(int registroBoletoValor) {
+        this.registroBoletoValor = registroBoletoValor;
     }
 
-    public int getRegistroBoletoLocal() {
-        return registroBoletoLocal;
+    public int getRegistroBoletoInicio() {
+        return registroBoletoInicio;
     }
 
-    public void setRegistroBoletoLocal(int registroBoletoLocal) {
-        this.registroBoletoLocal = registroBoletoLocal;
+    public void setRegistroBoletoInicio(int registroBoletoInicio) {
+        this.registroBoletoInicio = registroBoletoInicio;
     }
 
-    public int getRegistroBoletoEscolarDirecto() {
-        return registroBoletoEscolarDirecto;
+    public int getRegistroBoletoTermino() {
+        return registroBoletoTermino;
     }
 
-    public void setRegistroBoletoEscolarDirecto(int registroBoletoEscolarDirecto) {
-        this.registroBoletoEscolarDirecto = registroBoletoEscolarDirecto;
+    public void setRegistroBoletoTermino(int registroBoletoTermino) {
+        this.registroBoletoTermino = registroBoletoTermino;
     }
 
-    public int getRegistroBoletoEscolarLocal() {
-        return registroBoletoEscolarLocal;
+    public int getRegistroBoletoCantidad() {
+        return registroBoletoCantidad;
     }
 
-    public void setRegistroBoletoEscolarLocal(int registroBoletoEscolarLocal) {
-        this.registroBoletoEscolarLocal = registroBoletoEscolarLocal;
+    public void setRegistroBoletoCantidad(int registroBoletoCantidad) {
+        this.registroBoletoCantidad = registroBoletoCantidad;
     }
 
     public int getRegistroBoletoTotal() {
@@ -139,6 +145,22 @@ public class RegistroBoleto implements Serializable {
 
     public void setRegistroBoletoTotal(int registroBoletoTotal) {
         this.registroBoletoTotal = registroBoletoTotal;
+    }
+
+    public Boolean getRegistroBoletoEsNuevo() {
+        return registroBoletoEsNuevo;
+    }
+
+    public void setRegistroBoletoEsNuevo(Boolean registroBoletoEsNuevo) {
+        this.registroBoletoEsNuevo = registroBoletoEsNuevo;
+    }
+
+    public Boleto getRegistroBoletoIdBoleto() {
+        return registroBoletoIdBoleto;
+    }
+
+    public void setRegistroBoletoIdBoleto(Boleto registroBoletoIdBoleto) {
+        this.registroBoletoIdBoleto = registroBoletoIdBoleto;
     }
 
     public Guia getRegistroBoletoIdGuia() {
