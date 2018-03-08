@@ -59,6 +59,7 @@ public class FindBusSolyMarFocusLost extends FocusAdapter {
                 RegistroBoletoTableModel model = null;
                 
                 if (_guia != null) {
+                    System.err.println("LA GUIA NO ES NULA");
                     model = new RegistroBoletoTableModel(_guia.getRegistroBoletoList());
                     this.controller.setModel(model);
                     this.controller.getView().getEstadoBoletoTextField().setText("");

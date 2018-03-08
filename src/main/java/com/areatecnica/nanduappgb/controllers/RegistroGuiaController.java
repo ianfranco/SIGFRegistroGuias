@@ -107,7 +107,7 @@ public class RegistroGuiaController {
                 if (flag) {
                     setUpBoletos();
                 } else {
-
+                    System.err.println("SIGUIENTE");
                 }
             }
         });

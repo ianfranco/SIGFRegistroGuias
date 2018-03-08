@@ -39,30 +39,39 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
     private void init() {
         this.list = new ArrayList<>();
-
-        Map<Integer, EstructuraRegistroBoleto> map = new HashMap<Integer, EstructuraRegistroBoleto>();
+        System.err.println("TAMAÑO DE REGISTRO DE BOLETOS:" + this.registroBoletoItems.size());
+        Map<Integer, EstructuraRegistroBoleto> map = new HashMap<>();
+        
         for (RegistroBoleto r : this.registroBoletoItems) {
             EstructuraRegistroBoleto e = new EstructuraRegistroBoleto();
 
             if (map.containsKey(r.getRegistroBoletoNumeroVuelta())) {
-                map.get(r.getRegistroBoletoNumeroVuelta()).setRegistroBoleto(r);
+                map.get(r.getRegistroBoletoNumeroVuelta()).addRegistroBoleto(r);
             } else {
                 e.setNumero(r.getRegistroBoletoNumeroVuelta());
-                e.setRegistroBoleto(r);
+                e.addRegistroBoleto(r);
                 map.put(r.getRegistroBoletoNumeroVuelta(), e);
             }
         }
         //Falta ordenar boletos
 
-        Map<Integer, EstructuraRegistroBoleto> treeMap = new TreeMap<Integer, EstructuraRegistroBoleto>();
+        Map<Integer, EstructuraRegistroBoleto> treeMap = new TreeMap<Integer, EstructuraRegistroBoleto>(map);
 
-        /*EstructuraRegistroBoleto erb = treeMap.get(0);
-        
+        EstructuraRegistroBoleto erb = map.get(0);
+
         EstructuraRegistroBoleto serie = new EstructuraRegistroBoleto();
-        
+
         serie.setDirecto(erb.getSerieDirecto());
-        serie.setPlanVina(0);*/
-        treeMap.forEach((k, v) -> list.add(v));
+        serie.setPlanVina(erb.getSeriePlanVina());
+        serie.setLocal(erb.getSerieLocal());
+        serie.setSerieEscolarDirecto(erb.getSerieEscolarDirecto());
+        serie.setSerieEscolarLocal(erb.getSerieEscolarLocal());
+
+        list.add(serie);
+
+        map.forEach((k, v) -> list.add(v));
+        System.err.println("TAMAÑO DEL ARBOL:" + map.size());
+        System.err.println("TAMAÑO DE LISTA DE ESTRUCTURAS BOLETOS:" + this.list.size());
     }
 
     @Override
@@ -83,40 +92,21 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-        if (rowIndex > 0) {
-            switch (columnIndex) {
-                case 0:
-                    return "Serie";
-                case 1:
-                    return list.get(rowIndex).getServicio();
-                case 2:
-                    return list.get(rowIndex).getSerieDirecto();
-                case 3:
-                    return list.get(rowIndex).getSeriePlanVina();
-                case 4:
-                    return list.get(rowIndex).getSerieLocal();
-                case 5:
-                    return list.get(rowIndex).getSerieEscolarDirecto();
-                case 6:
-                    return list.get(rowIndex).getSerieEscolarLocal();
-            }
-        } else {
-            switch (columnIndex) {
-                case 0:
-                    return list.get(rowIndex).getNumero();
-                case 1:
-                    return list.get(rowIndex).getServicio();
-                case 2:
-                    return list.get(rowIndex).getDirecto();
-                case 3:
-                    return list.get(rowIndex).getPlanVina();
-                case 4:
-                    return list.get(rowIndex).getLocal();
-                case 5:
-                    return list.get(rowIndex).getEscolarDirecto();
-                case 6:
-                    return list.get(rowIndex).getEscolarLocal();
-            }
+        switch (columnIndex) {
+            case 0:
+                return (rowIndex == 0) ? "Serie" : list.get(rowIndex).getNumero();
+            case 1:
+                return list.get(rowIndex).getServicio();
+            case 2:
+                return list.get(rowIndex).getSerieDirecto();
+            case 3:
+                return list.get(rowIndex).getSeriePlanVina();
+            case 4:
+                return list.get(rowIndex).getSerieLocal();
+            case 5:
+                return list.get(rowIndex).getSerieEscolarDirecto();
+            case 6:
+                return list.get(rowIndex).getSerieEscolarLocal();
         }
 
         return null;

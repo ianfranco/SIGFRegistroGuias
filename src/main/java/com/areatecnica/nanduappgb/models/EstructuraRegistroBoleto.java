@@ -7,6 +7,8 @@ package com.areatecnica.nanduappgb.models;
 
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
 import com.areatecnica.nanduappgb.entities.Servicio;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -23,10 +25,10 @@ public class EstructuraRegistroBoleto {
     private int local;
     private int serieLocal;
     private int escolarDirecto;
-    private int serieEscolarDirecto; 
+    private int serieEscolarDirecto;
     private int escolarLocal;
     private int serieEscolarLocal;
-    private RegistroBoleto registro;
+    private List<RegistroBoleto> registro;
 
     public EstructuraRegistroBoleto() {
     }
@@ -137,27 +139,68 @@ public class EstructuraRegistroBoleto {
         this.serieEscolarLocal = serieEscolarLocal;
     }
 
-    public void setRegistroBoleto(RegistroBoleto registro) {
+    public void addRegistroBoleto(RegistroBoleto registro) {
+        if (this.registro == null) {
+            this.registro = new ArrayList<>();
+        }
+        this.registro.add(registro);
+
         switch (registro.getRegistroBoletoIdBoleto().getBoletoOrden()) {
             case 1:
                 this.setSerieDirecto(registro.getRegistroBoletoSerie());
                 this.setDirecto(registro.getRegistroBoletoInicio());
+                System.err.println("Directo:" + directo);
             case 2:
                 this.setSeriePlanVina(registro.getRegistroBoletoSerie());
                 this.setPlanVina(registro.getRegistroBoletoInicio());
+                System.err.println("Plan:" + planVina);
             case 3:
                 this.setSerieLocal(registro.getRegistroBoletoSerie());
                 this.setLocal(registro.getRegistroBoletoInicio());
+                System.err.println("Local:" + local);
             case 4:
                 this.setSerieEscolarDirecto(registro.getRegistroBoletoSerie());
                 this.setEscolarDirecto(registro.getRegistroBoletoInicio());
+                System.err.println("Esc.1:" + escolarDirecto);
             case 5:
                 this.setSerieEscolarLocal(registro.getRegistroBoletoSerie());
                 this.setEscolarLocal(registro.getRegistroBoletoInicio());
+                System.err.println("Esc.2:" + escolarLocal);
         }
     }
 
-    public RegistroBoleto getRegistro() {
+    public void setRegistroBoleto() {
+
+        for (RegistroBoleto r : registro) {
+            switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
+                case 1:
+                    this.setSerieDirecto(r.getRegistroBoletoSerie());
+                    this.setDirecto(r.getRegistroBoletoInicio());
+                case 2:
+                    this.setSeriePlanVina(r.getRegistroBoletoSerie());
+                    this.setPlanVina(r.getRegistroBoletoInicio());
+                case 3:
+                    this.setSerieLocal(r.getRegistroBoletoSerie());
+                    this.setLocal(r.getRegistroBoletoInicio());
+                case 4:
+                    this.setSerieEscolarDirecto(r.getRegistroBoletoSerie());
+                    this.setEscolarDirecto(r.getRegistroBoletoInicio());
+                case 5:
+                    this.setSerieEscolarLocal(r.getRegistroBoletoSerie());
+                    this.setEscolarLocal(r.getRegistroBoletoInicio());
+            }
+        }
+
+        System.err.println("IMPRESION DE BOLETOS:");
+        System.err.println("Directo:" + directo);
+        System.err.println("Plan:" + planVina);
+        System.err.println("Local:" + local);
+        System.err.println("Esc.1:" + escolarDirecto);
+        System.err.println("Esc.2:" + escolarLocal);
+
+    }
+
+    public List<RegistroBoleto> getRegistro() {
         return registro;
     }
 
