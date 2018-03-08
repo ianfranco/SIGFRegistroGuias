@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -25,6 +24,7 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     private List<EstructuraRegistroBoleto> list;
     private final static String[] columnNames = {"#", "Servicio", "Directo", "Plan Viña", "Local", "Esc.Directo", "Esc. Local"};
     private Boolean flag;
+    private int numeroVuelta;
 
     public RegistroBoletoTableModel(List<RegistroBoleto> registroBoletoItems) {
         this.registroBoletoItems = registroBoletoItems;
@@ -54,9 +54,8 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
             }
         }
         //Falta ordenar boletos
-
-        Map<Integer, EstructuraRegistroBoleto> treeMap = new TreeMap<Integer, EstructuraRegistroBoleto>(map);
-
+        this.numeroVuelta = map.size();
+        
         EstructuraRegistroBoleto erb = map.get(0);
 
         EstructuraRegistroBoleto serie = new EstructuraRegistroBoleto();
@@ -98,15 +97,15 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
             case 1:
                 return list.get(rowIndex).getServicio();
             case 2:
-                return list.get(rowIndex).getSerieDirecto();
+                return list.get(rowIndex).getDirecto();
             case 3:
-                return list.get(rowIndex).getSeriePlanVina();
+                return list.get(rowIndex).getPlanVina();
             case 4:
-                return list.get(rowIndex).getSerieLocal();
+                return list.get(rowIndex).getLocal();
             case 5:
-                return list.get(rowIndex).getSerieEscolarDirecto();
+                return list.get(rowIndex).getEscolarDirecto();
             case 6:
-                return list.get(rowIndex).getSerieEscolarLocal();
+                return list.get(rowIndex).getEscolarLocal();
         }
 
         return null;
@@ -141,6 +140,10 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
             return String.class;
         }
         return Integer.class;
+    }
+
+    public int getNumeroVuelta() {
+        return numeroVuelta;
     }
 
 }

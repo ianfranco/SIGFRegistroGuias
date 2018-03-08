@@ -20,7 +20,6 @@ import com.areatecnica.nanduappgb.models.RegistroBoletoTableModel;
 import com.areatecnica.nanduappgb.utils.NextObject;
 import com.areatecnica.nanduappgb.utils.TextSelectionFocusAdapter;
 import com.areatecnica.nanduappgb.views.RegistroVueltaView;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -60,7 +59,7 @@ public class RegistroGuiaController {
         this.guia = new Guia();
         this.guia.setGuiaFecha(new Date());
         this.guia.setGuiaTotalIngreso(0);
-        
+
         this.proceso = new ProcesoGeneralNandu();
         this.tarifaSolyMar = new TarifaGrupoServicioSolyMar();
 
@@ -180,9 +179,7 @@ public class RegistroGuiaController {
 
             if (mapServicios.containsKey(_servicio)) {
                 this.servicio = mapServicios.get(_servicio);
-                //this.view.getServicioTextField().setBackground(Color.WHITE);
-            } else {
-                //this.view.getServicioTextField().setBackground(Color.RED);
+
             }
 
             String _directo = (this.view.getDirectoTextField().getText());

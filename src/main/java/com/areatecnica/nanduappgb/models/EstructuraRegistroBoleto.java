@@ -143,6 +143,7 @@ public class EstructuraRegistroBoleto {
         if (this.registro == null) {
             this.registro = new ArrayList<>();
         }
+        
         this.registro.add(registro);
 
         switch (registro.getRegistroBoletoIdBoleto().getBoletoOrden()) {
@@ -190,14 +191,6 @@ public class EstructuraRegistroBoleto {
                     this.setEscolarLocal(r.getRegistroBoletoInicio());
             }
         }
-
-        System.err.println("IMPRESION DE BOLETOS:");
-        System.err.println("Directo:" + directo);
-        System.err.println("Plan:" + planVina);
-        System.err.println("Local:" + local);
-        System.err.println("Esc.1:" + escolarDirecto);
-        System.err.println("Esc.2:" + escolarLocal);
-
     }
 
     public List<RegistroBoleto> getRegistro() {

@@ -45,7 +45,7 @@ public class FindBusSolyMarFocusLost extends FocusAdapter {
         try {
 
             String _busNumero = this.controller.getView().getBusTextField().getText();
-            System.err.println("N° Bus:" + _busNumero);
+            
             Bus _bus = this.dao.findByNumeroBusProceso(Integer.valueOf(_busNumero), this.controller.getProceso().getProceso());
 
             if (_bus != null) {
@@ -65,7 +65,7 @@ public class FindBusSolyMarFocusLost extends FocusAdapter {
                     this.controller.getView().getEstadoBoletoTextField().setText("");
                     this.controller.setFlag(Boolean.FALSE);
                 } else {
-                    model = new RegistroBoletoTableModel(this.controller.getTarifas(), true);
+                    model = new RegistroBoletoTableModel(null, true);
                     this.controller.getView().getEstadoBoletoTextField().setText("Atención: Deben registrar los boletos");
                     this.controller.setModel(model);
                     this.controller.setFlag(Boolean.TRUE);
