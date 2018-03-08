@@ -6,6 +6,7 @@
 package com.areatecnica.nanduappgb.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +18,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -48,6 +52,9 @@ public class RegistroBoleto implements Serializable {
     @Column(name = "registro_boleto_numero_vuelta")
     private int registroBoletoNumeroVuelta;
     @Basic(optional = false)
+    @Column(name = "registro_boleto_serie")
+    private int registroBoletoSerie;
+    @Basic(optional = false)
     @Column(name = "registro_boleto_valor")
     private int registroBoletoValor;
     @Basic(optional = false)
@@ -64,6 +71,13 @@ public class RegistroBoleto implements Serializable {
     private int registroBoletoTotal;
     @Column(name = "registro_boleto_es_nuevo")
     private Boolean registroBoletoEsNuevo;
+    @Column(name = "registro_boleto_observacion")
+    private String registroBoletoObservacion;
+    @Column(name = "registro_boleto_fecha_ingreso")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date registroBoletoFechaIngreso;
+    @XmlTransient
+    private int diferencia;
     @JoinColumn(name = "registro_boleto_id_boleto", referencedColumnName = "boleto_id")
     @ManyToOne(optional = false)
     private Boleto registroBoletoIdBoleto;
@@ -81,9 +95,10 @@ public class RegistroBoleto implements Serializable {
         this.registroBoletoId = registroBoletoId;
     }
 
-    public RegistroBoleto(Integer registroBoletoId, int registroBoletoNumeroVuelta, int registroBoletoValor, int registroBoletoInicio, int registroBoletoTermino, int registroBoletoCantidad, int registroBoletoTotal) {
+    public RegistroBoleto(Integer registroBoletoId, int registroBoletoNumeroVuelta, int registroBoletoSerie, int registroBoletoValor, int registroBoletoInicio, int registroBoletoTermino, int registroBoletoCantidad, int registroBoletoTotal) {
         this.registroBoletoId = registroBoletoId;
         this.registroBoletoNumeroVuelta = registroBoletoNumeroVuelta;
+        this.registroBoletoSerie = registroBoletoSerie;
         this.registroBoletoValor = registroBoletoValor;
         this.registroBoletoInicio = registroBoletoInicio;
         this.registroBoletoTermino = registroBoletoTermino;
@@ -107,6 +122,14 @@ public class RegistroBoleto implements Serializable {
         this.registroBoletoNumeroVuelta = registroBoletoNumeroVuelta;
     }
 
+    public int getRegistroBoletoSerie() {
+        return registroBoletoSerie;
+    }
+
+    public void setRegistroBoletoSerie(int registroBoletoSerie) {
+        this.registroBoletoSerie = registroBoletoSerie;
+    }
+    
     public int getRegistroBoletoValor() {
         return registroBoletoValor;
     }
@@ -154,6 +177,22 @@ public class RegistroBoleto implements Serializable {
     public void setRegistroBoletoEsNuevo(Boolean registroBoletoEsNuevo) {
         this.registroBoletoEsNuevo = registroBoletoEsNuevo;
     }
+    
+    public String getRegistroBoletoObservacion() {
+        return registroBoletoObservacion;
+    }
+
+    public void setRegistroBoletoObservacion(String registroBoletoObservacion) {
+        this.registroBoletoObservacion = registroBoletoObservacion;
+    }
+
+    public Date getRegistroBoletoFechaIngreso() {
+        return registroBoletoFechaIngreso;
+    }
+
+    public void setRegistroBoletoFechaIngreso(Date registroBoletoFechaIngreso) {
+        this.registroBoletoFechaIngreso = registroBoletoFechaIngreso;
+    }
 
     public Boleto getRegistroBoletoIdBoleto() {
         return registroBoletoIdBoleto;
@@ -179,6 +218,14 @@ public class RegistroBoleto implements Serializable {
         this.registroBoletoIdServicio = registroBoletoIdServicio;
     }
 
+    public int getDiferencia() {
+        return diferencia;
+    }
+
+    public void setDiferencia(int diferencia) {
+        this.diferencia = diferencia;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

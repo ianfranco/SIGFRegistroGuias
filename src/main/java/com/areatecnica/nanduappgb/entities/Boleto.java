@@ -51,6 +51,9 @@ public class Boleto implements Serializable {
     @Column(name = "boleto_nombre")
     private String boletoNombre;
     @Basic(optional = false)
+    @Column(name = "boleto_orden")
+    private int boletoOrden;
+    @Basic(optional = false)
     @Column(name = "boleto_activo")
     private boolean boletoActivo;
     @Basic(optional = false)
@@ -72,9 +75,10 @@ public class Boleto implements Serializable {
         this.boletoId = boletoId;
     }
 
-    public Boleto(Integer boletoId, String boletoNombre, boolean boletoActivo, Date boletoFechaIngreso) {
+    public Boleto(Integer boletoId, String boletoNombre, int boletoOrden, boolean boletoActivo, Date boletoFechaIngreso) {
         this.boletoId = boletoId;
         this.boletoNombre = boletoNombre;
+        this.boletoOrden = boletoOrden;
         this.boletoActivo = boletoActivo;
         this.boletoFechaIngreso = boletoFechaIngreso;
     }
@@ -93,6 +97,14 @@ public class Boleto implements Serializable {
 
     public void setBoletoNombre(String boletoNombre) {
         this.boletoNombre = boletoNombre;
+    }
+
+    public int getBoletoOrden() {
+        return boletoOrden;
+    }
+
+    public void setBoletoOrden(int boletoOrden) {
+        this.boletoOrden = boletoOrden;
     }
 
     public boolean getBoletoActivo() {
@@ -161,5 +173,5 @@ public class Boleto implements Serializable {
     public String toString() {
         return "com.areatecnica.nanduappgb.entities.Boleto[ boletoId=" + boletoId + " ]";
     }
-    
+
 }

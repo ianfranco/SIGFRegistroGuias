@@ -19,6 +19,7 @@ import com.areatecnica.nanduappgb.utils.NextObject;
 import com.areatecnica.nanduappgb.utils.TextSelectionFocusAdapter;
 import com.areatecnica.nanduappgb.views.RegistroGuiaView;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,6 +64,7 @@ public class RegistroGuiaController {
         this.view.getConductorTextField().addKeyListener(new NextObject(this.view.getBusTextField(), this.view.getTable(), null, null));
         this.view.getConductorTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getConductorTextField()));
         this.view.getConductorTextField().addFocusListener(new FindConductorFocusLost(this));
+        
     }
 
     public RegistroGuiaView getView() {
@@ -99,6 +101,8 @@ public class RegistroGuiaController {
             r.setRegistroBoletoIdGuia(this.guia);
             r.setRegistroBoletoIdServicio(this.servicio);
             r.setRegistroBoletoEsNuevo(Boolean.TRUE);
+            r.setRegistroBoletoFechaIngreso(new Date());
+            r.setRegistroBoletoObservacion("Nuevo Boleto");
             
             items.add(r);
         }
