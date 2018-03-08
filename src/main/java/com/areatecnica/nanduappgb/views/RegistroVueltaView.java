@@ -105,7 +105,7 @@ public class RegistroVueltaView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nº Vuelta", "Servicio", "Directo", "Plan Viña", "Local", "Escolar Directo", "Escolar Local", "Total"
+
             }
         ));
         table.setRowHeight(25);

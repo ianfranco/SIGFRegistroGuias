@@ -130,7 +130,7 @@ public class MainView extends javax.swing.JFrame {
 
     private void registroBoletoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroBoletoMenuItemActionPerformed
         if (MainView.registroGuiaView == null) {
-            MainView.registroGuiaView = new RegistroGuiaView();
+            MainView.registroGuiaView = new RegistroVueltaView();
             RegistroGuiaController controller = new RegistroGuiaController(registroGuiaView);
             setNewTab(registroGuiaView, "Registro Guía / Boleto");
         }else{
@@ -202,5 +202,5 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem tarifasMenuItem;
     // End of variables declaration//GEN-END:variables
     private TarifaGrupoServicioView tarifaGrupoServicioView;
-    private static RegistroGuiaView registroGuiaView;
+    private static RegistroVueltaView registroGuiaView;
 }

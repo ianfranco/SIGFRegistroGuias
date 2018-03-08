@@ -37,8 +37,10 @@ public class GenericDAOImpl<T> implements IGenericDAO<T> {
 
     @Override
     public T create(T t) {
+        this.entityManager.getTransaction().begin();
         System.err.println("DAO:CREATE");
         this.entityManager.persist(t);
+        this.entityManager.getTransaction().commit();
         return t;
     }
 
@@ -49,16 +51,20 @@ public class GenericDAOImpl<T> implements IGenericDAO<T> {
 
     @Override
     public T update(T t) {
+        this.entityManager.getTransaction().begin();
         System.err.println("DAO:UPDATE");
         T merge = this.entityManager.merge(t);
+        this.entityManager.getTransaction().commit();
         return merge;
     }
 
     @Override
     public void delete(T t) {
+        this.entityManager.getTransaction().begin();
         System.err.println("DAO:DELETE");
         t = this.entityManager.merge(t);
         this.entityManager.remove(t);
+        this.entityManager.getTransaction().commit();
     }
 
     @Override

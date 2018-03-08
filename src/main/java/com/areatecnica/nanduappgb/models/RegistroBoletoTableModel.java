@@ -7,11 +7,11 @@ package com.areatecnica.nanduappgb.models;
 
 import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
-import com.areatecnica.nanduappgb.entities.Servicio;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -30,7 +30,7 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
         this.registroBoletoItems = registroBoletoItems;
         init();
     }
-    
+
     public RegistroBoletoTableModel(List<RegistroBoleto> registroBoletoItems, Boolean flag) {
         this.registroBoletoItems = registroBoletoItems;
         this.flag = flag;
@@ -53,7 +53,16 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
             }
         }
         //Falta ordenar boletos
-        map.forEach((k, v) -> list.add(v));
+
+        Map<Integer, EstructuraRegistroBoleto> treeMap = new TreeMap<Integer, EstructuraRegistroBoleto>();
+
+        /*EstructuraRegistroBoleto erb = treeMap.get(0);
+        
+        EstructuraRegistroBoleto serie = new EstructuraRegistroBoleto();
+        
+        serie.setDirecto(erb.getSerieDirecto());
+        serie.setPlanVina(0);*/
+        treeMap.forEach((k, v) -> list.add(v));
     }
 
     @Override
@@ -74,27 +83,46 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-        switch (columnIndex) {
-            case 0:
-                return list.get(rowIndex).numero;
-            case 1:
-                return list.get(rowIndex).servicio;
-            case 2:
-                return list.get(rowIndex).directo;
-            case 3:
-                return list.get(rowIndex).planVina;
-            case 4:
-                return list.get(rowIndex).local;
-            case 5:
-                return list.get(rowIndex).escolarDirecto;
-            case 6:
-                return list.get(rowIndex).escolarLocal;
+        if (rowIndex > 0) {
+            switch (columnIndex) {
+                case 0:
+                    return "Serie";
+                case 1:
+                    return list.get(rowIndex).getServicio();
+                case 2:
+                    return list.get(rowIndex).getSerieDirecto();
+                case 3:
+                    return list.get(rowIndex).getSeriePlanVina();
+                case 4:
+                    return list.get(rowIndex).getSerieLocal();
+                case 5:
+                    return list.get(rowIndex).getSerieEscolarDirecto();
+                case 6:
+                    return list.get(rowIndex).getSerieEscolarLocal();
+            }
+        } else {
+            switch (columnIndex) {
+                case 0:
+                    return list.get(rowIndex).getNumero();
+                case 1:
+                    return list.get(rowIndex).getServicio();
+                case 2:
+                    return list.get(rowIndex).getDirecto();
+                case 3:
+                    return list.get(rowIndex).getPlanVina();
+                case 4:
+                    return list.get(rowIndex).getLocal();
+                case 5:
+                    return list.get(rowIndex).getEscolarDirecto();
+                case 6:
+                    return list.get(rowIndex).getEscolarLocal();
+            }
         }
 
         return null;
     }
-    
-    public void addFirstRow(List<RegistroBoleto> items){
+
+    public void addFirstRow(List<RegistroBoleto> items) {
         Map<Integer, EstructuraRegistroBoleto> map = new HashMap<Integer, EstructuraRegistroBoleto>();
         for (RegistroBoleto r : items) {
             EstructuraRegistroBoleto serie = new EstructuraRegistroBoleto();
@@ -102,116 +130,27 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
             serie.setServicio(r.getRegistroBoletoIdServicio());
             inicio.setServicio(r.getRegistroBoletoIdServicio());
-            
+
             serie.setNumero(0);
             inicio.setNumero(1);
-            
+
             serie.setDirecto(r.getRegistroBoletoSerie());
         }
         //Falta ordenar boletos
         map.forEach((k, v) -> list.add(v));
     }
 
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        return Integer.class;
+    public void addRow(EstructuraRegistroBoleto erb) {
+        this.list.add(erb);
+        fireTableChanged(null);
     }
 
-    public class EstructuraRegistroBoleto {
-
-        private int numero;
-        private Servicio servicio;
-        private int directo;
-        private int planVina;
-        private int local;
-        private int escolarDirecto;
-        private int escolarLocal;
-        private RegistroBoleto registro;
-
-        public EstructuraRegistroBoleto() {
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        if (columnIndex == 0) {
+            return String.class;
         }
-
-        public EstructuraRegistroBoleto(int numero, Servicio servicio, int directo, int planVina, int local, int escolarDirecto, int escolarLocal) {
-            this.numero = numero;
-            this.servicio = servicio;
-            this.directo = directo;
-            this.planVina = planVina;
-            this.local = local;
-            this.escolarDirecto = escolarDirecto;
-            this.escolarLocal = escolarLocal;
-        }
-
-        public int getNumero() {
-            return numero;
-        }
-
-        public void setNumero(int numero) {
-            this.numero = numero;
-        }
-
-        public Servicio getServicio() {
-            return servicio;
-        }
-
-        public void setServicio(Servicio servicio) {
-            this.servicio = servicio;
-        }
-
-        public int getDirecto() {
-            return directo;
-        }
-
-        public void setDirecto(int directo) {
-            this.directo = directo;
-        }
-
-        public int getPlanVina() {
-            return planVina;
-        }
-
-        public void setPlanVina(int planVina) {
-            this.planVina = planVina;
-        }
-
-        public int getLocal() {
-            return local;
-        }
-
-        public void setLocal(int local) {
-            this.local = local;
-        }
-
-        public int getEscolarDirecto() {
-            return escolarDirecto;
-        }
-
-        public void setEscolarDirecto(int escolarDirecto) {
-            this.escolarDirecto = escolarDirecto;
-        }
-
-        public int getEscolarLocal() {
-            return escolarLocal;
-        }
-
-        public void setEscolarLocal(int escolarLocal) {
-            this.escolarLocal = escolarLocal;
-        }
-
-        public void setRegistroBoleto(RegistroBoleto registro) {
-            switch (registro.getRegistroBoletoIdBoleto().getBoletoOrden()) {
-                case 1:
-                    this.setDirecto(registro.getRegistroBoletoInicio());
-                case 2:
-                    this.setPlanVina(registro.getRegistroBoletoInicio());
-                case 3:
-                    this.setLocal(registro.getRegistroBoletoInicio());
-                case 4:
-                    this.setEscolarDirecto(registro.getRegistroBoletoInicio());
-                case 5:
-                    this.setEscolarLocal(registro.getRegistroBoletoInicio());
-            }
-        }
-
+        return Integer.class;
     }
 
 }

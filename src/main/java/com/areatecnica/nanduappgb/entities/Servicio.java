@@ -225,7 +225,7 @@ public class Servicio implements Serializable {
 
     @Override
     public String toString() {
-        return "com.areatecnica.nanduappgb.entities.Servicio[ servicioId=" + servicioId + " ]";
+        return String.valueOf(servicioNumeroServicio);
     }
     
 }
