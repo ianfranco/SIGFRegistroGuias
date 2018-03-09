@@ -18,6 +18,7 @@ import com.areatecnica.nanduappgb.entities.TarifaGrupoServicio;
 import com.areatecnica.nanduappgb.models.EstructuraRegistroBoleto;
 import com.areatecnica.nanduappgb.models.RegistroBoletoTableModel;
 import com.areatecnica.nanduappgb.utils.NextObject;
+import com.areatecnica.nanduappgb.utils.NumberLimiter;
 import com.areatecnica.nanduappgb.utils.TextSelectionFocusAdapter;
 import com.areatecnica.nanduappgb.views.RegistroVueltaView;
 import java.awt.event.ActionEvent;
@@ -87,16 +88,28 @@ public class RegistroGuiaController {
         this.view.getConductorTextField().addFocusListener(new FindConductorFocusLost(this));
 
         this.view.getServicioTextField().addKeyListener(new NextObject(this.view.getConductorTextField(), this.view.getDirectoTextField(), this.view.getDirectoTextField(), this.view.getConductorTextField()));
+        this.view.getServicioTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getServicioTextField()));
+        this.view.getServicioTextField().setDocument(new NumberLimiter());
 
         this.view.getDirectoTextField().addKeyListener(new NextObject(this.view.getServicioTextField(), this.view.getPlanVinaTextField(), this.view.getPlanVinaTextField(), this.view.getServicioTextField()));
+        this.view.getDirectoTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getDirectoTextField()));
+        this.view.getDirectoTextField().setDocument(new NumberLimiter());
 
         this.view.getPlanVinaTextField().addKeyListener(new NextObject(this.view.getDirectoTextField(), this.view.getLocalTextField(), this.view.getLocalTextField(), this.view.getDirectoTextField()));
+        this.view.getPlanVinaTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getPlanVinaTextField()));
+        this.view.getPlanVinaTextField().setDocument(new NumberLimiter());
 
         this.view.getLocalTextField().addKeyListener(new NextObject(this.view.getPlanVinaTextField(), this.view.getEscolarDirectoTextField(), this.view.getEscolarDirectoTextField(), this.view.getPlanVinaTextField()));
+        this.view.getLocalTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getLocalTextField()));
+        this.view.getLocalTextField().setDocument(new NumberLimiter());
 
         this.view.getEscolarDirectoTextField().addKeyListener(new NextObject(this.view.getLocalTextField(), this.view.getEscolarLocalTextField(), this.view.getEscolarLocalTextField(), this.view.getLocalTextField()));
+        this.view.getEscolarDirectoTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getEscolarDirectoTextField()));
+        this.view.getEscolarDirectoTextField().setDocument(new NumberLimiter());
 
         this.view.getEscolarLocalTextField().addKeyListener(new NextObject(this.view.getEscolarDirectoTextField(), this.view.getAddButton(), this.view.getAddButton(), this.view.getEscolarDirectoTextField()));
+        this.view.getEscolarLocalTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getEscolarLocalTextField()));
+        this.view.getEscolarLocalTextField().setDocument(new NumberLimiter());
 
         this.view.getAddButton().addKeyListener(new NextObject(this.view.getEscolarLocalTextField(), null, null, this.view.getEscolarLocalTextField()));
 
@@ -106,7 +119,7 @@ public class RegistroGuiaController {
                 if (flag) {
                     setUpBoletos();
                 } else {
-                    System.err.println("SIGUIENTE");
+                    addRow();
                 }
             }
         });
@@ -137,6 +150,29 @@ public class RegistroGuiaController {
     public void setModel(RegistroBoletoTableModel model) {
         getView().getTable().setModel(model);
         this.model = model;
+
+        if (this.model.getRowCount() > 1) {
+            for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
+                switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
+                    case 1:
+                        this.view.getDirectoTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
+                        break;
+                    case 2:
+                        this.view.getPlanVinaTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
+                        break;
+                    case 3:
+                        this.view.getLocalTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
+                        break;
+                    case 4:
+                        this.view.getEscolarDirectoTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
+                        break;
+                    case 5:
+                        this.view.getEscolarLocalTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
+                        break;
+                }
+            }
+        }
+
     }
 
     public void setFlag(Boolean flag) {
@@ -244,6 +280,35 @@ public class RegistroGuiaController {
         } catch (NumberFormatException numberFormatException) {
         }
 
+    }
+
+    private void addRow() {
+        EstructuraRegistroBoleto serie = new EstructuraRegistroBoleto();
+
+        String _servicio = (this.view.getServicioTextField().getText());
+
+        if (mapServicios.containsKey(_servicio)) {
+            this.servicio = mapServicios.get(_servicio);
+
+        }
+
+        String _directo = (this.view.getDirectoTextField().getText());
+        String _planVina = (this.view.getPlanVinaTextField().getText());
+        String _local = (this.view.getLocalTextField().getText());
+        String _escolarDirecto = (this.view.getEscolarDirectoTextField().getText());
+        String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
+
+        serie.setServicio(servicio);
+        serie.setDirecto(Integer.parseInt(_directo));
+        serie.setPlanVina(Integer.parseInt(_planVina));
+        serie.setLocal(Integer.parseInt(_local));
+        serie.setEscolarDirecto(Integer.parseInt(_escolarDirecto));
+        serie.setEscolarLocal(Integer.parseInt(_escolarLocal));
+
+        this.model.addRow(serie);
+
+        this.guia.getRegistroBoletoList().addAll(serie.getRegistro());
+        clearTextField();
     }
 
     private void clearTextField() {

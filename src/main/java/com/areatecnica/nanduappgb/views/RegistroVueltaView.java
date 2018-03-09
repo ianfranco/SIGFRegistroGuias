@@ -99,7 +99,7 @@ public class RegistroVueltaView extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Boletos:"));
 
-        table.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        table.setFont(new java.awt.Font("Helvetica", 3, 18)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

@@ -5,7 +5,6 @@
  */
 package com.areatecnica.nanduappgb.models;
 
-import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,9 +18,9 @@ import javax.swing.table.AbstractTableModel;
  */
 public class RegistroBoletoTableModel extends AbstractTableModel {
 
-    private Guia guia;
     private List<RegistroBoleto> registroBoletoItems;
     private List<EstructuraRegistroBoleto> list;
+    private EstructuraRegistroBoleto ultimoRegistro;
     private final static String[] columnNames = {"#", "Servicio", "Directo", "Plan Viña", "Local", "Esc.Directo", "Esc. Local"};
     private Boolean flag;
     private int numeroVuelta;
@@ -31,9 +30,7 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
         init();
     }
 
-    public RegistroBoletoTableModel(List<RegistroBoleto> registroBoletoItems, Boolean flag) {
-        this.registroBoletoItems = registroBoletoItems;
-        this.flag = flag;
+    public RegistroBoletoTableModel() {
         this.list = new ArrayList<>();
     }
 
@@ -41,33 +38,59 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
         this.list = new ArrayList<>();
         System.err.println("TAMAÑO DE REGISTRO DE BOLETOS:" + this.registroBoletoItems.size());
         Map<Integer, EstructuraRegistroBoleto> map = new HashMap<>();
-        
+
         for (RegistroBoleto r : this.registroBoletoItems) {
+
+            System.err.println("Boleto: " + r.getRegistroBoletoIdBoleto().getBoletoNombre() + " Serie: " + r.getRegistroBoletoSerie() + " Inicio: " + r.getRegistroBoletoInicio());
+
             EstructuraRegistroBoleto e = new EstructuraRegistroBoleto();
 
             if (map.containsKey(r.getRegistroBoletoNumeroVuelta())) {
                 map.get(r.getRegistroBoletoNumeroVuelta()).addRegistroBoleto(r);
             } else {
                 e.setNumero(r.getRegistroBoletoNumeroVuelta());
+                e.setServicio(r.getRegistroBoletoIdServicio());
                 e.addRegistroBoleto(r);
                 map.put(r.getRegistroBoletoNumeroVuelta(), e);
             }
         }
         //Falta ordenar boletos
         this.numeroVuelta = map.size();
-        
+
         EstructuraRegistroBoleto erb = map.get(0);
-
         EstructuraRegistroBoleto serie = new EstructuraRegistroBoleto();
-
-        serie.setDirecto(erb.getSerieDirecto());
-        serie.setPlanVina(erb.getSeriePlanVina());
-        serie.setLocal(erb.getSerieLocal());
-        serie.setSerieEscolarDirecto(erb.getSerieEscolarDirecto());
-        serie.setSerieEscolarLocal(erb.getSerieEscolarLocal());
+        for (RegistroBoleto r : erb.getRegistro()) {
+            switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
+                case 1:
+                    serie.setDirecto(r.getRegistroBoletoSerie());
+                    break;
+                case 2:
+                    serie.setPlanVina(r.getRegistroBoletoSerie());
+                    break;
+                case 3:
+                    serie.setLocal(r.getRegistroBoletoSerie());
+                    break;
+                case 4:
+                    serie.setEscolarDirecto(r.getRegistroBoletoSerie());
+                    break;
+                case 5:
+                    serie.setEscolarLocal(r.getRegistroBoletoSerie());
+                    break;
+            }
+        }
 
         list.add(serie);
 
+//aqui está el problema        
+//        EstructuraRegistroBoleto serie = new EstructuraRegistroBoleto();
+//
+//        serie.setDirecto(erb.getSerieDirecto());
+//        serie.setPlanVina(erb.getSeriePlanVina());
+//        serie.setLocal(erb.getSerieLocal());
+//        serie.setSerieEscolarDirecto(erb.getSerieEscolarDirecto());
+//        serie.setSerieEscolarLocal(erb.getSerieEscolarLocal());
+//
+//        list.add(serie);
         map.forEach((k, v) -> list.add(v));
         System.err.println("TAMAÑO DEL ARBOL:" + map.size());
         System.err.println("TAMAÑO DE LISTA DE ESTRUCTURAS BOLETOS:" + this.list.size());
@@ -86,6 +109,14 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     @Override
     public String getColumnName(int column) {
         return columnNames[column];
+    }
+
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        if (columnIndex == 0) {
+            return String.class;
+        }
+        return Integer.class;
     }
 
     @Override
@@ -130,20 +161,18 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     }
 
     public void addRow(EstructuraRegistroBoleto erb) {
+        erb.setNumero(numeroVuelta);
+        this.numeroVuelta++;
         this.list.add(erb);
         fireTableChanged(null);
     }
 
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        if (columnIndex == 0) {
-            return String.class;
-        }
-        return Integer.class;
-    }
-
     public int getNumeroVuelta() {
         return numeroVuelta;
+    }
+
+    public EstructuraRegistroBoleto getUltimoRegistro() {
+        return list.get(list.size() - 1);
     }
 
 }

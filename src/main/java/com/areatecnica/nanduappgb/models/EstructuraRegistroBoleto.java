@@ -151,22 +151,27 @@ public class EstructuraRegistroBoleto {
                 this.setSerieDirecto(registro.getRegistroBoletoSerie());
                 this.setDirecto(registro.getRegistroBoletoInicio());
                 System.err.println("Directo:" + directo);
+                break;
             case 2:
                 this.setSeriePlanVina(registro.getRegistroBoletoSerie());
                 this.setPlanVina(registro.getRegistroBoletoInicio());
                 System.err.println("Plan:" + planVina);
+                break;
             case 3:
                 this.setSerieLocal(registro.getRegistroBoletoSerie());
                 this.setLocal(registro.getRegistroBoletoInicio());
                 System.err.println("Local:" + local);
+                break;
             case 4:
                 this.setSerieEscolarDirecto(registro.getRegistroBoletoSerie());
                 this.setEscolarDirecto(registro.getRegistroBoletoInicio());
                 System.err.println("Esc.1:" + escolarDirecto);
+                break;
             case 5:
                 this.setSerieEscolarLocal(registro.getRegistroBoletoSerie());
                 this.setEscolarLocal(registro.getRegistroBoletoInicio());
                 System.err.println("Esc.2:" + escolarLocal);
+                break;
         }
     }
 

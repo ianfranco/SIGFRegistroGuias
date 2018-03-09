@@ -57,7 +57,7 @@ public class FindFolioFocusLost extends FocusAdapter {
                 }else{
                     this.controller.getGuia().setGuiaFolio(folio);
                     this.controller.getView().getObservacionTextField().setText("Nueva Guía");
-                    model = new RegistroBoletoTableModel(null, true);
+                    model = new RegistroBoletoTableModel();
                     this.controller.getView().getEstadoBoletoTextField().setText("Atención: Deben registrar los boletos");
                     this.controller.setModel(model);
                     this.controller.setFlag(Boolean.TRUE);

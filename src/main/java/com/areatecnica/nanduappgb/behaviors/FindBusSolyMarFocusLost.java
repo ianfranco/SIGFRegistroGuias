@@ -65,7 +65,7 @@ public class FindBusSolyMarFocusLost extends FocusAdapter {
                     this.controller.getView().getEstadoBoletoTextField().setText("");
                     this.controller.setFlag(Boolean.FALSE);
                 } else {
-                    model = new RegistroBoletoTableModel(null, true);
+                    model = new RegistroBoletoTableModel();
                     this.controller.getView().getEstadoBoletoTextField().setText("Atención: Deben registrar los boletos");
                     this.controller.setModel(model);
                     this.controller.setFlag(Boolean.TRUE);

@@ -34,7 +34,7 @@ public class RegistroGuiaSaveAction extends RegistroGuiaAbstractAction {
 
     private void save() {
         if (this.getController().getGuia() != null) {
-            this.dao.create(this.getController().getGuia());
+            this.dao.update(this.getController().getGuia());
         }
     }
 
