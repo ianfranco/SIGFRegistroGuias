@@ -5,6 +5,7 @@
  */
 package com.areatecnica.nanduappgb.models;
 
+import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,14 +20,14 @@ import javax.swing.table.AbstractTableModel;
 public class RegistroBoletoTableModel extends AbstractTableModel {
 
     private List<RegistroBoleto> registroBoletoItems;
-    private List<EstructuraRegistroBoleto> list;
-    private EstructuraRegistroBoleto ultimoRegistro;
+    private List<EstructuraRegistroBoletoÑandu> list;
+    private EstructuraRegistroBoletoÑandu ultimoRegistro;
     private final static String[] columnNames = {"#", "Servicio", "Directo", "Plan Viña", "Local", "Esc.Directo", "Esc. Local"};
     private Boolean flag;
     private int numeroVuelta;
 
-    public RegistroBoletoTableModel(List<RegistroBoleto> registroBoletoItems) {
-        this.registroBoletoItems = registroBoletoItems;
+    public RegistroBoletoTableModel(Guia guia) {
+        this.registroBoletoItems = guia.getRegistroBoletoList();
         init();
     }
 
@@ -37,13 +38,11 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     private void init() {
         this.list = new ArrayList<>();
         System.err.println("TAMAÑO DE REGISTRO DE BOLETOS:" + this.registroBoletoItems.size());
-        Map<Integer, EstructuraRegistroBoleto> map = new HashMap<>();
+        Map<Integer, EstructuraRegistroBoletoÑandu> map = new HashMap<>();
 
         for (RegistroBoleto r : this.registroBoletoItems) {
 
-            System.err.println("Boleto: " + r.getRegistroBoletoIdBoleto().getBoletoNombre() + " Serie: " + r.getRegistroBoletoSerie() + " Inicio: " + r.getRegistroBoletoInicio());
-
-            EstructuraRegistroBoleto e = new EstructuraRegistroBoleto();
+            EstructuraRegistroBoletoÑandu e = new EstructuraRegistroBoletoÑandu();
 
             if (map.containsKey(r.getRegistroBoletoNumeroVuelta())) {
                 map.get(r.getRegistroBoletoNumeroVuelta()).addRegistroBoleto(r);
@@ -56,33 +55,33 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
         }
         //Falta ordenar boletos
         this.numeroVuelta = map.size();
-
-        EstructuraRegistroBoleto erb = map.get(0);
-        EstructuraRegistroBoleto serie = new EstructuraRegistroBoleto();
-        for (RegistroBoleto r : erb.getRegistro()) {
-            switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
-                case 1:
-                    serie.setDirecto(r.getRegistroBoletoSerie());
-                    break;
-                case 2:
-                    serie.setPlanVina(r.getRegistroBoletoSerie());
-                    break;
-                case 3:
-                    serie.setLocal(r.getRegistroBoletoSerie());
-                    break;
-                case 4:
-                    serie.setEscolarDirecto(r.getRegistroBoletoSerie());
-                    break;
-                case 5:
-                    serie.setEscolarLocal(r.getRegistroBoletoSerie());
-                    break;
-            }
-        }
-
-        list.add(serie);
+        //Seteo de la serie
+//        EstructuraRegistroBoletoÑandu erb = map.get(0);
+//        EstructuraRegistroBoletoÑandu serie = new EstructuraRegistroBoletoÑandu();
+//        for (RegistroBoleto r : erb.getRegistro()) {
+//            switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
+//                case 1:
+//                    serie.setDirecto(r.getRegistroBoletoSerie());
+//                    break;
+//                case 2:
+//                    serie.setPlanVina(r.getRegistroBoletoSerie());
+//                    break;
+//                case 3:
+//                    serie.setLocal(r.getRegistroBoletoSerie());
+//                    break;
+//                case 4:
+//                    serie.setEscolarDirecto(r.getRegistroBoletoSerie());
+//                    break;
+//                case 5:
+//                    serie.setEscolarLocal(r.getRegistroBoletoSerie());
+//                    break;
+//            }
+//        }
+//
+//        list.add(serie);
 
 //aqui está el problema        
-//        EstructuraRegistroBoleto serie = new EstructuraRegistroBoleto();
+//        EstructuraRegistroBoletoÑandu serie = new EstructuraRegistroBoletoÑandu();
 //
 //        serie.setDirecto(erb.getSerieDirecto());
 //        serie.setPlanVina(erb.getSeriePlanVina());
@@ -92,8 +91,8 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 //
 //        list.add(serie);
         map.forEach((k, v) -> list.add(v));
-        System.err.println("TAMAÑO DEL ARBOL:" + map.size());
-        System.err.println("TAMAÑO DE LISTA DE ESTRUCTURAS BOLETOS:" + this.list.size());
+        
+        list.add(0, list.get(0));
     }
 
     @Override
@@ -128,39 +127,39 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
             case 1:
                 return list.get(rowIndex).getServicio();
             case 2:
-                return list.get(rowIndex).getDirecto();
+                return (rowIndex == 0)? list.get(rowIndex).getDirecto().getRegistroBoletoSerie():list.get(rowIndex).getDirecto().getRegistroBoletoInicio();
             case 3:
-                return list.get(rowIndex).getPlanVina();
+                return (rowIndex == 0)? list.get(rowIndex).getPlanVina().getRegistroBoletoSerie():list.get(rowIndex).getPlanVina().getRegistroBoletoInicio();
             case 4:
-                return list.get(rowIndex).getLocal();
+                return (rowIndex == 0)? list.get(rowIndex).getLocal().getRegistroBoletoSerie():list.get(rowIndex).getLocal().getRegistroBoletoInicio();
             case 5:
-                return list.get(rowIndex).getEscolarDirecto();
+                return (rowIndex == 0)? list.get(rowIndex).getEscolarDirecto().getRegistroBoletoSerie():list.get(rowIndex).getEscolarDirecto().getRegistroBoletoInicio();
             case 6:
-                return list.get(rowIndex).getEscolarLocal();
+                return (rowIndex == 0)? list.get(rowIndex).getEscolarLocal().getRegistroBoletoSerie():list.get(rowIndex).getEscolarLocal().getRegistroBoletoInicio();
         }
 
         return null;
     }
 
-    public void addFirstRow(List<RegistroBoleto> items) {
-        Map<Integer, EstructuraRegistroBoleto> map = new HashMap<Integer, EstructuraRegistroBoleto>();
-        for (RegistroBoleto r : items) {
-            EstructuraRegistroBoleto serie = new EstructuraRegistroBoleto();
-            EstructuraRegistroBoleto inicio = new EstructuraRegistroBoleto();
+//    public void addFirstRow(List<RegistroBoleto> items) {
+//        Map<Integer, EstructuraRegistroBoletoÑandu> map = new HashMap<Integer, EstructuraRegistroBoletoÑandu>();
+//        for (RegistroBoleto r : items) {
+//            EstructuraRegistroBoletoÑandu serie = new EstructuraRegistroBoletoÑandu();
+//            EstructuraRegistroBoletoÑandu inicio = new EstructuraRegistroBoletoÑandu();
+//
+//            serie.setServicio(r.getRegistroBoletoIdServicio());
+//            inicio.setServicio(r.getRegistroBoletoIdServicio());
+//
+//            serie.setNumero(0);
+//            inicio.setNumero(1);
+//
+//            serie.setDirecto(r.getRegistroBoletoSerie());
+//        }
+//        Falta ordenar boletos
+//        map.forEach((k, v) -> list.add(v));
+//    }
 
-            serie.setServicio(r.getRegistroBoletoIdServicio());
-            inicio.setServicio(r.getRegistroBoletoIdServicio());
-
-            serie.setNumero(0);
-            inicio.setNumero(1);
-
-            serie.setDirecto(r.getRegistroBoletoSerie());
-        }
-        //Falta ordenar boletos
-        map.forEach((k, v) -> list.add(v));
-    }
-
-    public void addRow(EstructuraRegistroBoleto erb) {
+    public void addRow(EstructuraRegistroBoletoÑandu erb) {
         erb.setNumero(numeroVuelta);
         this.numeroVuelta++;
         this.list.add(erb);
@@ -171,7 +170,7 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
         return numeroVuelta;
     }
 
-    public EstructuraRegistroBoleto getUltimoRegistro() {
+    public EstructuraRegistroBoletoÑandu getUltimoRegistro() {
         return list.get(list.size() - 1);
     }
 

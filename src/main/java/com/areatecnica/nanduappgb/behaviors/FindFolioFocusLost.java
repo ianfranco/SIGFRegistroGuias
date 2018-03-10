@@ -44,7 +44,7 @@ public class FindFolioFocusLost extends FocusAdapter {
                 if (_guia != null) {
                     this.controller.setGuia(_guia);
                     
-                    model = new RegistroBoletoTableModel(_guia.getRegistroBoletoList());
+                    model = new RegistroBoletoTableModel(_guia);
                     this.controller.getView().getObservacionTextField().setText("Registro Vuelta Nº "+model.getNumeroVuelta());
                     this.controller.setModel(model);
                     this.controller.getView().getEstadoBoletoTextField().setText("");
@@ -54,11 +54,12 @@ public class FindFolioFocusLost extends FocusAdapter {
                     this.controller.getView().getConductorTextField().setText(String.valueOf(_guia.getGuiaIdTrabajador().getTrabajadorCodigo()));
                     this.controller.getView().getNombreConductorTextField().setText(_guia.getGuiaIdTrabajador().toString());
                     this.controller.getView().getServicioTextField().requestFocus();
+                    this.controller.getView().getEstadoBoletoTextField().setBackground(Color.WHITE);
                 }else{
                     this.controller.getGuia().setGuiaFolio(folio);
                     this.controller.getView().getObservacionTextField().setText("Nueva Guía");
                     model = new RegistroBoletoTableModel();
-                    this.controller.getView().getEstadoBoletoTextField().setText("Atención: Deben registrar los boletos");
+                    
                     this.controller.setModel(model);
                     this.controller.setFlag(Boolean.TRUE);
                 }

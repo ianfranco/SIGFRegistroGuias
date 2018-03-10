@@ -274,7 +274,7 @@ public class RegistroVueltaView extends javax.swing.JPanel {
         jLabel12.setText("Observación :");
 
         observacionTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        observacionTextField.setText("Sin observación");
+        observacionTextField.setText(" ");
 
         jLabel13.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

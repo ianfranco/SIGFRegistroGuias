@@ -5,6 +5,7 @@
  */
 package com.areatecnica.nanduappgb.models;
 
+import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
 import com.areatecnica.nanduappgb.entities.Servicio;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 public class EstructuraRegistroBoleto {
 
+    
     private int numero;
     private Servicio servicio;
     private int directo;
@@ -175,9 +177,11 @@ public class EstructuraRegistroBoleto {
         }
     }
 
-    public void setRegistroBoleto() {
+    public void setRegistroBoleto(Guia guia) {
 
         for (RegistroBoleto r : registro) {
+            
+            r.setRegistroBoletoIdGuia(guia);
             switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
                 case 1:
                     this.setSerieDirecto(r.getRegistroBoletoSerie());
