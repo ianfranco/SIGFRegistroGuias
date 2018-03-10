@@ -21,9 +21,7 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
     private List<RegistroBoleto> registroBoletoItems;
     private List<EstructuraRegistroBoletoÑandu> list;
-    private EstructuraRegistroBoletoÑandu ultimoRegistro;
     private final static String[] columnNames = {"#", "Servicio", "Directo", "Plan Viña", "Local", "Esc.Directo", "Esc. Local"};
-    private Boolean flag;
     private int numeroVuelta;
 
     public RegistroBoletoTableModel(Guia guia) {
@@ -53,45 +51,11 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
                 map.put(r.getRegistroBoletoNumeroVuelta(), e);
             }
         }
-        //Falta ordenar boletos
-        this.numeroVuelta = map.size();
-        //Seteo de la serie
-//        EstructuraRegistroBoletoÑandu erb = map.get(0);
-//        EstructuraRegistroBoletoÑandu serie = new EstructuraRegistroBoletoÑandu();
-//        for (RegistroBoleto r : erb.getRegistro()) {
-//            switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
-//                case 1:
-//                    serie.setDirecto(r.getRegistroBoletoSerie());
-//                    break;
-//                case 2:
-//                    serie.setPlanVina(r.getRegistroBoletoSerie());
-//                    break;
-//                case 3:
-//                    serie.setLocal(r.getRegistroBoletoSerie());
-//                    break;
-//                case 4:
-//                    serie.setEscolarDirecto(r.getRegistroBoletoSerie());
-//                    break;
-//                case 5:
-//                    serie.setEscolarLocal(r.getRegistroBoletoSerie());
-//                    break;
-//            }
-//        }
-//
-//        list.add(serie);
-
-//aqui está el problema        
-//        EstructuraRegistroBoletoÑandu serie = new EstructuraRegistroBoletoÑandu();
-//
-//        serie.setDirecto(erb.getSerieDirecto());
-//        serie.setPlanVina(erb.getSeriePlanVina());
-//        serie.setLocal(erb.getSerieLocal());
-//        serie.setSerieEscolarDirecto(erb.getSerieEscolarDirecto());
-//        serie.setSerieEscolarLocal(erb.getSerieEscolarLocal());
-//
-//        list.add(serie);
-        map.forEach((k, v) -> list.add(v));
         
+        this.numeroVuelta = map.size();
+
+        map.forEach((k, v) -> list.add(v));
+
         list.add(0, list.get(0));
     }
 
@@ -125,39 +89,21 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
             case 0:
                 return (rowIndex == 0) ? "Serie" : list.get(rowIndex).getNumero();
             case 1:
-                return list.get(rowIndex).getServicio();
+                return (rowIndex == 0) ? "" :list.get(rowIndex).getServicio();
             case 2:
-                return (rowIndex == 0)? list.get(rowIndex).getDirecto().getRegistroBoletoSerie():list.get(rowIndex).getDirecto().getRegistroBoletoInicio();
+                return (rowIndex == 0) ? list.get(rowIndex).getDirecto().getRegistroBoletoSerie() : list.get(rowIndex).getDirecto().getRegistroBoletoInicio();
             case 3:
-                return (rowIndex == 0)? list.get(rowIndex).getPlanVina().getRegistroBoletoSerie():list.get(rowIndex).getPlanVina().getRegistroBoletoInicio();
+                return (rowIndex == 0) ? list.get(rowIndex).getPlanVina().getRegistroBoletoSerie() : list.get(rowIndex).getPlanVina().getRegistroBoletoInicio();
             case 4:
-                return (rowIndex == 0)? list.get(rowIndex).getLocal().getRegistroBoletoSerie():list.get(rowIndex).getLocal().getRegistroBoletoInicio();
+                return (rowIndex == 0) ? list.get(rowIndex).getLocal().getRegistroBoletoSerie() : list.get(rowIndex).getLocal().getRegistroBoletoInicio();
             case 5:
-                return (rowIndex == 0)? list.get(rowIndex).getEscolarDirecto().getRegistroBoletoSerie():list.get(rowIndex).getEscolarDirecto().getRegistroBoletoInicio();
+                return (rowIndex == 0) ? list.get(rowIndex).getEscolarDirecto().getRegistroBoletoSerie() : list.get(rowIndex).getEscolarDirecto().getRegistroBoletoInicio();
             case 6:
-                return (rowIndex == 0)? list.get(rowIndex).getEscolarLocal().getRegistroBoletoSerie():list.get(rowIndex).getEscolarLocal().getRegistroBoletoInicio();
+                return (rowIndex == 0) ? list.get(rowIndex).getEscolarLocal().getRegistroBoletoSerie() : list.get(rowIndex).getEscolarLocal().getRegistroBoletoInicio();
         }
 
         return null;
     }
-
-//    public void addFirstRow(List<RegistroBoleto> items) {
-//        Map<Integer, EstructuraRegistroBoletoÑandu> map = new HashMap<Integer, EstructuraRegistroBoletoÑandu>();
-//        for (RegistroBoleto r : items) {
-//            EstructuraRegistroBoletoÑandu serie = new EstructuraRegistroBoletoÑandu();
-//            EstructuraRegistroBoletoÑandu inicio = new EstructuraRegistroBoletoÑandu();
-//
-//            serie.setServicio(r.getRegistroBoletoIdServicio());
-//            inicio.setServicio(r.getRegistroBoletoIdServicio());
-//
-//            serie.setNumero(0);
-//            inicio.setNumero(1);
-//
-//            serie.setDirecto(r.getRegistroBoletoSerie());
-//        }
-//        Falta ordenar boletos
-//        map.forEach((k, v) -> list.add(v));
-//    }
 
     public void addRow(EstructuraRegistroBoletoÑandu erb) {
         erb.setNumero(numeroVuelta);
@@ -170,8 +116,12 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
         return numeroVuelta;
     }
 
+    public EstructuraRegistroBoletoÑandu getPrimerRegistro() {
+        return (this.list.isEmpty()) ? null : list.get(0);
+    }
+    
     public EstructuraRegistroBoletoÑandu getUltimoRegistro() {
-        return list.get(list.size() - 1);
+        return (this.list.isEmpty()) ? null : list.get(list.size() - 1);
     }
 
 }

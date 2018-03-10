@@ -22,8 +22,11 @@ import com.areatecnica.nanduappgb.utils.NextObject;
 import com.areatecnica.nanduappgb.utils.NumberLimiter;
 import com.areatecnica.nanduappgb.utils.TextSelectionFocusAdapter;
 import com.areatecnica.nanduappgb.views.RegistroVueltaView;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,11 +43,9 @@ public class RegistroGuiaController {
     private ProcesoGeneralNandu proceso;
     private Guia guia;
     private Servicio servicio;
-    private RegistroBoleto registroBoleto;
     private Map<Integer, RegistroBoleto> map;
     /*Optimización*/
     private Map<String, Servicio> mapServicios;
-    private EstructuraRegistroBoleto erb;
     private RegistroBoletoTableModel model;
     private TarifaGrupoServicioSolyMar tarifaSolyMar;
     private Boolean flag;
@@ -64,7 +65,7 @@ public class RegistroGuiaController {
 
         this.proceso = new ProcesoGeneralNandu();
         this.tarifaSolyMar = new TarifaGrupoServicioSolyMar();
-
+        this.model = new RegistroBoletoTableModel();
         //Rasca 
         this.servicio = this.tarifaSolyMar.getGrupo().getGrupoServicio().getServicioList().get(0);
         this.mapServicios = new HashMap<String, Servicio>();
@@ -95,22 +96,112 @@ public class RegistroGuiaController {
         this.view.getDirectoTextField().addKeyListener(new NextObject(this.view.getServicioTextField(), this.view.getPlanVinaTextField(), this.view.getPlanVinaTextField(), this.view.getServicioTextField()));
         this.view.getDirectoTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getDirectoTextField()));
         this.view.getDirectoTextField().setDocument(new NumberLimiter());
+        this.view.getDirectoTextField().addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                try {
+                    String _value = view.getDirectoTextField().getText();
+                    int inicio = Integer.parseInt(_value);
+
+                    if (!flag) {
+                        if (inicio < model.getUltimoRegistro().getDirecto().getRegistroBoletoInicio()) {
+                            view.getDirectoTextField().setText(String.valueOf(model.getUltimoRegistro().getDirecto().getRegistroBoletoInicio()));
+                        }
+                    }
+                    view.getDirectoTextField().setBackground(Color.white);
+                } catch (NumberFormatException ex) {
+                    view.getDirectoTextField().setBackground(Color.red);
+                }
+            }
+        });
 
         this.view.getPlanVinaTextField().addKeyListener(new NextObject(this.view.getDirectoTextField(), this.view.getLocalTextField(), this.view.getLocalTextField(), this.view.getDirectoTextField()));
         this.view.getPlanVinaTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getPlanVinaTextField()));
         this.view.getPlanVinaTextField().setDocument(new NumberLimiter());
+        this.view.getPlanVinaTextField().addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                try {
+                    String _value = view.getPlanVinaTextField().getText();
+                    int inicio = Integer.parseInt(_value);
+
+                    if (!flag) {
+                        if (inicio < model.getUltimoRegistro().getPlanVina().getRegistroBoletoInicio()) {
+                            view.getPlanVinaTextField().setText(String.valueOf(model.getUltimoRegistro().getPlanVina().getRegistroBoletoInicio()));
+                        }
+                    }
+                    view.getPlanVinaTextField().setBackground(Color.white);
+                } catch (NumberFormatException ex) {
+                    view.getPlanVinaTextField().setBackground(Color.red);
+                }
+            }
+        });
 
         this.view.getLocalTextField().addKeyListener(new NextObject(this.view.getPlanVinaTextField(), this.view.getEscolarDirectoTextField(), this.view.getEscolarDirectoTextField(), this.view.getPlanVinaTextField()));
         this.view.getLocalTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getLocalTextField()));
         this.view.getLocalTextField().setDocument(new NumberLimiter());
+        this.view.getLocalTextField().addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                try {
+                    String _value = view.getLocalTextField().getText();
+                    int inicio = Integer.parseInt(_value);
+
+                    if (!flag) {
+                        if (inicio < model.getUltimoRegistro().getLocal().getRegistroBoletoInicio()) {
+                            view.getLocalTextField().setText(String.valueOf(model.getUltimoRegistro().getLocal().getRegistroBoletoInicio()));
+                        }
+                    }
+                    view.getLocalTextField().setBackground(Color.white);
+                } catch (NumberFormatException ex) {
+                    view.getLocalTextField().setBackground(Color.red);
+                }
+            }
+        });
 
         this.view.getEscolarDirectoTextField().addKeyListener(new NextObject(this.view.getLocalTextField(), this.view.getEscolarLocalTextField(), this.view.getEscolarLocalTextField(), this.view.getLocalTextField()));
         this.view.getEscolarDirectoTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getEscolarDirectoTextField()));
         this.view.getEscolarDirectoTextField().setDocument(new NumberLimiter());
+        this.view.getEscolarDirectoTextField().addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                try {
+                    String _value = view.getEscolarDirectoTextField().getText();
+                    int inicio = Integer.parseInt(_value);
+
+                    if (!flag) {
+                        if (inicio < model.getUltimoRegistro().getEscolarDirecto().getRegistroBoletoInicio()) {
+                            view.getEscolarDirectoTextField().setText(String.valueOf(model.getUltimoRegistro().getEscolarDirecto().getRegistroBoletoInicio()));
+                        }
+                    }
+                    view.getEscolarDirectoTextField().setBackground(Color.white);
+                } catch (NumberFormatException ex) {
+                    view.getEscolarDirectoTextField().setBackground(Color.red);
+                }
+            }
+        });
 
         this.view.getEscolarLocalTextField().addKeyListener(new NextObject(this.view.getEscolarDirectoTextField(), this.view.getAddButton(), this.view.getAddButton(), this.view.getEscolarDirectoTextField()));
         this.view.getEscolarLocalTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getEscolarLocalTextField()));
         this.view.getEscolarLocalTextField().setDocument(new NumberLimiter());
+        this.view.getEscolarLocalTextField().addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                try {
+                    String _value = view.getEscolarLocalTextField().getText();
+                    int inicio = Integer.parseInt(_value);
+
+                    if (!flag) {
+                        if (inicio < model.getUltimoRegistro().getEscolarLocal().getRegistroBoletoInicio()) {
+                            view.getEscolarLocalTextField().setText(String.valueOf(model.getUltimoRegistro().getEscolarLocal().getRegistroBoletoInicio()));
+                        }
+                    }
+                    view.getEscolarLocalTextField().setBackground(Color.white);
+                } catch (NumberFormatException ex) {
+                    view.getEscolarLocalTextField().setBackground(Color.red);
+                }
+            }
+        });
 
         this.view.getAddButton().addKeyListener(new NextObject(this.view.getEscolarLocalTextField(), null, null, this.view.getEscolarLocalTextField()));
 
@@ -155,6 +246,11 @@ public class RegistroGuiaController {
         this.model = model;
 
         if (this.model.getRowCount() > 1) {
+            if (this.guia.getRegistroBoletoList() == null) {
+                List<RegistroBoleto> list = new ArrayList<>();
+                list.addAll(this.model.getPrimerRegistro().getRegistro());
+                this.guia.setRegistroBoletoList(list);
+            }
             for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
                 switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
                     case 1:
@@ -255,10 +351,12 @@ public class RegistroGuiaController {
             });
 
             this.guia.setRegistroBoletoList(serie.getRegistro());
-
+            this.model.addRow(serie);//Serie
+            this.model.addRow(serie);//Inicio
             this.clearTextField();
 
         } catch (NumberFormatException numberFormatException) {
+
         }
 
     }
@@ -281,33 +379,60 @@ public class RegistroGuiaController {
         String _escolarDirecto = (this.view.getEscolarDirectoTextField().getText());
         String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
 
-        map.forEach((k, v) -> {
-            v.setRegistroBoletoIdGuia(this.guia);
-            switch (k) {
+        for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
+            RegistroBoleto nuevoRegistro = new RegistroBoleto();
+            nuevoRegistro.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
+            nuevoRegistro.setRegistroBoletoIdGuia(this.guia);
+            nuevoRegistro.setRegistroBoletoIdServicio(this.servicio);
+            nuevoRegistro.setRegistroBoletoSerie(r.getRegistroBoletoSerie());
+            nuevoRegistro.setRegistroBoletoNumeroVuelta(this.model.getNumeroVuelta());
+            nuevoRegistro.setRegistroBoletoValor(r.getRegistroBoletoValor());
+            nuevoRegistro.setRegistroBoletoEsNuevo(false);
+            nuevoRegistro.setRegistroBoletoObservacion("");
+            nuevoRegistro.setRegistroBoletoFechaIngreso(new Date());
+            switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
                 case 1:
-                    v.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
+                    nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
+                    r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                    r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino()-r.getRegistroBoletoInicio());
+                    r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
                     break;
                 case 2:
-                    v.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
+                    nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
+                    r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                    r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino()-r.getRegistroBoletoInicio());
+                    r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
                     break;
                 case 3:
-                    v.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
+                    nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
+                    r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                    r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino()-r.getRegistroBoletoInicio());
+                    r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
                     break;
                 case 4:
-                    v.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
+                    nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
+                    r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                    r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino()-r.getRegistroBoletoInicio());
+                    r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
                     break;
                 case 5:
-                    v.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
+                    nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
+                    r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                    r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino()-r.getRegistroBoletoInicio());
+                    r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
                     break;
             }
-            serie.addRegistroBoleto(v);
-        });
-
-        
+            serie.addRegistroBoleto(nuevoRegistro);
+        }
 
         this.model.addRow(serie);
 
-        this.guia.getRegistroBoletoList().addAll(serie.getRegistro());
+        if (this.guia.getRegistroBoletoList() == null) {
+            this.guia.setRegistroBoletoList(new ArrayList<>(serie.getRegistro()));
+        } else {
+            this.guia.getRegistroBoletoList().addAll(serie.getRegistro());
+        }
+
         clearTextField();
     }
 
@@ -324,6 +449,7 @@ public class RegistroGuiaController {
         this.view.getObservacionTextField().setText("");
         this.view.getEstadoBoletoTextField().setText("");
         clearTextField();
+        this.view.getFolioTextField().requestFocus();
     }
 
     public void clearTextField() {

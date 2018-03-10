@@ -1,6 +1,5 @@
 package com.areatecnica.nanduappgb.dao.impl;
 
-
 import com.areatecnica.nanduappgb.dao.IGenericDAO;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
 /**
  *
  * @author Omer Faruk KURT e-mail:kurtomerfaruk@gmail.com

@@ -34,15 +34,22 @@ public class FindConductorFocusLost extends FocusAdapter {
 
     public void find() {
         try {
-
+            this.controller.getView().getConductorTextField().setBackground(Color.WHITE);
             String _codigo = this.controller.getView().getConductorTextField().getText();
 
             Trabajador _trabajador = this.dao.findByTrabajadorCodigo(Integer.valueOf(_codigo));
 
             if (_trabajador != null) {
+//                if (this.controller.getGuia().getGuiaId() == null) {
                 this.controller.getView().getConductorTextField().setBackground(Color.WHITE);
                 this.controller.getGuia().setGuiaIdTrabajador(_trabajador);
                 this.controller.getView().getNombreConductorTextField().setText(_trabajador.toString());
+//                } else {
+//                    if (_trabajador.getTrabajadorId() != this.controller.getGuia().getGuiaIdTrabajador().getTrabajadorId()) {
+//                        int option = JOptionPane.showConfirmDialog(null, "¿Iniciar segundo turno?", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+//                        
+//                    }
+//                }
             } else {
                 this.controller.getView().getConductorTextField().setBackground(Color.RED);
                 this.controller.getView().getNombreConductorTextField().setText("No existe el N° Ingresado");

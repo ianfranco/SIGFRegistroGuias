@@ -5,7 +5,6 @@
  */
 package com.areatecnica.nanduappgb.models;
 
-import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
 import com.areatecnica.nanduappgb.entities.Servicio;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class EstructuraRegistroBoletoÑandu {
         this.servicio = servicio;
         this.directo = directo;
         this.planVina = planVina;
-        this.local = local;
+        this.local = local; 
         this.escolarLocal = escolarLocal;
         this.escolarDirecto = escolarDirecto;
         this.registro = registro;

@@ -42,50 +42,55 @@ public class FindBusSolyMarFocusLost extends FocusAdapter {
     }
 
     public void find() {
-        try {
+        if (this.controller.getGuia().getGuiaId() == null) {
+            try {
 
-            String _busNumero = this.controller.getView().getBusTextField().getText();
-            
-            Bus _bus = this.dao.findByNumeroBusProceso(Integer.valueOf(_busNumero), this.controller.getProceso().getProceso());
+                String _busNumero = this.controller.getView().getBusTextField().getText();
 
-            if (_bus != null) {
-                this.controller.getView().getBusTextField().setBackground(Color.WHITE);
-                this.controller.getGuia().setGuiaIdBus(_bus);
-                this.controller.getView().getPpuTextField().setText(_bus.getBusPatente());
-                this.controller.getView().getFlotaTextField().setText(_bus.getBusIdFlota().getFlotaNombre());
+                Bus _bus = this.dao.findByNumeroBusProceso(Integer.valueOf(_busNumero), this.controller.getProceso().getProceso());
 
-                Guia _guia = this.guiaDao.findLastGuiaByBusFecha(_bus, fecha);
-                
-                RegistroBoletoTableModel model = null;
-                
-                if (_guia != null) {
-                    System.err.println("LA GUIA NO ES NULA");
-                    model = new RegistroBoletoTableModel(_guia);
-                    this.controller.setModel(model);
-                    this.controller.getView().getEstadoBoletoTextField().setText("");
-                    this.controller.getView().getEstadoBoletoTextField().setBackground(Color.WHITE);
-                    this.controller.setFlag(Boolean.FALSE);
+                if (_bus != null) {
+                    this.controller.getView().getBusTextField().setBackground(Color.WHITE);
+                    this.controller.getGuia().setGuiaIdBus(_bus);
+                    this.controller.getView().getPpuTextField().setText(_bus.getBusPatente());
+                    this.controller.getView().getFlotaTextField().setText(_bus.getBusIdFlota().getFlotaNombre());
+
+                    Guia _guia = this.guiaDao.findLastGuiaByBusFecha(_bus, fecha);
+
+                    RegistroBoletoTableModel model = null;
+
+                    if (_guia != null) {
+                        System.err.println("LA GUIA NO ES NULA");
+                        model = new RegistroBoletoTableModel(_guia);
+                        this.controller.setModel(model);
+                        this.controller.getView().getEstadoBoletoTextField().setText("");
+                        this.controller.getView().getEstadoBoletoTextField().setBackground(Color.WHITE);
+                        this.controller.setFlag(Boolean.FALSE);
+                    } else {
+                        model = new RegistroBoletoTableModel();
+                        this.controller.getView().getEstadoBoletoTextField().setBackground(Color.red);
+                        this.controller.getView().getEstadoBoletoTextField().setText("ATENCIÓN -> DEBE INGRESAR SERIE DE BOLETOS COMPLETA");
+                        this.controller.setModel(model);
+                        this.controller.setFlag(Boolean.TRUE);
+                    }
+
                 } else {
-                    model = new RegistroBoletoTableModel();
-                    this.controller.getView().getEstadoBoletoTextField().setBackground(Color.red);
-                    this.controller.getView().getEstadoBoletoTextField().setText("ATENCIÓN -> DEBE INGRESAR SERIE DE BOLETOS COMPLETA");
-                    this.controller.setModel(model);
-                    this.controller.setFlag(Boolean.TRUE);
+                    this.controller.getView().getBusTextField().setBackground(Color.RED);
+                    this.controller.getView().getPpuTextField().setText("No existe el N° Ingresado");
+                    this.controller.getView().getFlotaTextField().setText("");
+
                 }
 
-            } else {
+            } catch (NullPointerException ee) {
                 this.controller.getView().getBusTextField().setBackground(Color.RED);
-                this.controller.getView().getPpuTextField().setText("No existe el N° Ingresado");
-                this.controller.getView().getFlotaTextField().setText("");
-
+                ee.printStackTrace();
+            } catch (NumberFormatException ex) {
+                this.controller.getView().getBusTextField().setBackground(Color.GREEN);
+                this.controller.getView().getSaveButton().setEnabled(Boolean.FALSE);
             }
-
-        } catch (NullPointerException ee) {
-            this.controller.getView().getBusTextField().setBackground(Color.RED);
-            ee.printStackTrace();
-        } catch (NumberFormatException ex) {
-            this.controller.getView().getBusTextField().setBackground(Color.GREEN);
-            this.controller.getView().getSaveButton().setEnabled(Boolean.FALSE);
+        } else {
+            this.controller.getView().getBusTextField().setBackground(Color.WHITE);
+            this.controller.getView().getSaveButton().setEnabled(Boolean.TRUE);
         }
     }
 
