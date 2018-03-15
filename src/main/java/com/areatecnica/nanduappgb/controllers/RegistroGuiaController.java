@@ -17,12 +17,12 @@ import com.areatecnica.nanduappgb.entities.Servicio;
 import com.areatecnica.nanduappgb.entities.TarifaGrupoServicio;
 import com.areatecnica.nanduappgb.models.EstructuraRegistroBoletoÑandu;
 import com.areatecnica.nanduappgb.models.RegistroBoletoTableModel;
+import com.areatecnica.nanduappgb.models.RegistroGuiaTableModel;
 import com.areatecnica.nanduappgb.models.ServicioComboBoxModel;
 import com.areatecnica.nanduappgb.utils.NextObject;
 import com.areatecnica.nanduappgb.utils.NumberLimiter;
 import com.areatecnica.nanduappgb.utils.TextSelectionFocusAdapter;
 import com.areatecnica.nanduappgb.views.RegistroGuiaView;
-import com.areatecnica.nanduappgb.views.RegistroVueltaView;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,7 +39,7 @@ import javax.swing.JOptionPane;
  *
  * @author ianfrancoconcha
  */
-public class RegistroGuiaController extends RegistroController{
+public class RegistroGuiaController extends RegistroController {
 
     private RegistroGuiaView view;
     private ProcesoGeneralNandu proceso;
@@ -49,7 +49,7 @@ public class RegistroGuiaController extends RegistroController{
     private Map<Integer, RegistroBoleto> map;
     /*Optimización*/
     private Map<String, Servicio> mapServicios;
-    private RegistroBoletoTableModel model;
+    private RegistroGuiaTableModel model;
     private TarifaGrupoServicioSolyMar tarifaSolyMar;
     private Boolean flag;
 
@@ -68,7 +68,7 @@ public class RegistroGuiaController extends RegistroController{
 
         this.proceso = new ProcesoGeneralNandu();
         this.tarifaSolyMar = new TarifaGrupoServicioSolyMar();
-        this.model = new RegistroBoletoTableModel();
+        this.model = new RegistroGuiaTableModel();
         this.servicioModel = new ServicioComboBoxModel();
         //Rasca 
         this.servicio = this.servicioModel.getElementAt(0);
@@ -245,11 +245,11 @@ public class RegistroGuiaController extends RegistroController{
         return proceso;
     }
 
-    public RegistroBoletoTableModel getModel() {
+    public RegistroGuiaTableModel getModel() {
         return model;
     }
 
-    public void setModel(RegistroBoletoTableModel model) {
+    public void setModel(RegistroGuiaTableModel model) {
         getView().getTable().setModel(model);
         this.model = model;
 
@@ -463,7 +463,7 @@ public class RegistroGuiaController extends RegistroController{
 
     public void reset() {
         this.guia = new Guia();
-        this.model = new RegistroBoletoTableModel();
+        this.model = new RegistroGuiaTableModel();
         this.view.getTable().setModel(model);
         this.view.getFolioTextField().setText("");
         this.view.getBusTextField().setText("");

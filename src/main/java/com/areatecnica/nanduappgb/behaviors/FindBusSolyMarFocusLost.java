@@ -12,7 +12,7 @@ import com.areatecnica.nanduappgb.dao.impl.BusDaoImpl;
 import com.areatecnica.nanduappgb.dao.impl.GuiaDaoImpl;
 import com.areatecnica.nanduappgb.entities.Bus;
 import com.areatecnica.nanduappgb.entities.Guia;
-import com.areatecnica.nanduappgb.models.RegistroBoletoTableModel;
+import com.areatecnica.nanduappgb.models.RegistroGuiaTableModel;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -57,17 +57,17 @@ public class FindBusSolyMarFocusLost extends FocusAdapter {
 
                     Guia _guia = this.guiaDao.findLastGuiaByBusFecha(_bus, fecha);
 
-                    RegistroBoletoTableModel model = null;
+                    RegistroGuiaTableModel model = null;
 
                     if (_guia != null) {
                         System.err.println("LA GUIA NO ES NULA");
-                        model = new RegistroBoletoTableModel(_guia);
+                        model = new RegistroGuiaTableModel(_guia);
                         this.controller.setModel(model);
                         this.controller.getView().getEstadoBoletoTextField().setText("");
                         this.controller.getView().getEstadoBoletoTextField().setBackground(Color.WHITE);
                         this.controller.setFlag(Boolean.FALSE);
                     } else {
-                        model = new RegistroBoletoTableModel();
+                        model = new RegistroGuiaTableModel();
                         this.controller.getView().getEstadoBoletoTextField().setBackground(Color.red);
                         this.controller.getView().getEstadoBoletoTextField().setText("ATENCIÓN -> DEBE INGRESAR SERIE DE BOLETOS COMPLETA");
                         this.controller.setModel(model);

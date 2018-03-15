@@ -7,8 +7,10 @@ package com.areatecnica.nanduappgb.models;
 
 import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -17,21 +19,61 @@ import javax.swing.table.AbstractTableModel;
  */
 public class RegistroGuiaTableModel extends AbstractTableModel {
 
-    private Guia guia;
     private List<RegistroBoleto> registroBoletoItems;
-    private static final String[] columnNames = {"Nº", "Boleto", "Serie", "Inicio", "Nº de Boletos x Vender", "Observación", "Desde"};
-    private final Boolean flag;
-    private final static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mm");
+    private List<EstructuraRegistroBoletoÑandu> list;
+    private final static String[] columnNames = {"#", "Servicio", "Directo", "Plan Viña", "Local", "Esc.Directo", "Esc. Local"};
+    private int numeroVuelta;
 
-    public RegistroGuiaTableModel(Guia guia, Boolean flag) {
-        this.guia = guia;
-        this.registroBoletoItems = this.guia.getRegistroBoletoList();
-        this.flag = flag;
+    public RegistroGuiaTableModel(Guia guia) {
+        this.registroBoletoItems = guia.getRegistroBoletoList();
+        init();
     }
 
-    public RegistroGuiaTableModel(List<RegistroBoleto> registroBoletoItems, Boolean flag) {
-        this.registroBoletoItems = registroBoletoItems;
-        this.flag = flag;
+    public RegistroGuiaTableModel() {
+        this.list = new ArrayList<>();
+    }
+
+    private void init() {
+        this.list = new ArrayList<>();
+        System.err.println("TAMAÑO DE REGISTRO DE BOLETOS:" + this.registroBoletoItems.size());
+        Map<Integer, EstructuraRegistroBoletoÑandu> map = new HashMap<>();
+
+        for (RegistroBoleto r : this.registroBoletoItems) {
+
+            EstructuraRegistroBoletoÑandu e = new EstructuraRegistroBoletoÑandu();
+
+            if (map.containsKey(r.getRegistroBoletoNumeroVuelta())) {
+                map.get(r.getRegistroBoletoNumeroVuelta()).addRegistroBoleto(r);
+            } else {
+                e.setNumero(r.getRegistroBoletoNumeroVuelta());
+                e.setServicio(r.getRegistroBoletoIdServicio());
+                e.addRegistroBoleto(r);
+                map.put(r.getRegistroBoletoNumeroVuelta(), e);
+            }
+        }
+
+        this.numeroVuelta = map.size();
+
+        map.forEach((k, v) -> list.add(v));
+
+        EstructuraRegistroBoletoÑandu a = list.get(list.size() - 1);
+
+        list = null;
+        list = new ArrayList<>();
+
+        list.add(a);
+        list.add(a);
+
+    }
+
+    @Override
+    public int getRowCount() {
+        return list.size();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return columnNames.length;
     }
 
     @Override
@@ -41,33 +83,10 @@ public class RegistroGuiaTableModel extends AbstractTableModel {
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        switch (columnIndex) {
-            case 0:
-            case 2:
-            case 3:
-            case 4:
-                return Integer.class;
-            case 5:
-            case 1:
-            case 6:
-                return String.class;
+        if (columnIndex == 0) {
+            return String.class;
         }
-        return null;
-    }
-
-    @Override
-    public int getRowCount() {
-        return this.registroBoletoItems.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex == 2 || columnIndex == 3;
+        return Integer.class;
     }
 
     @Override
@@ -75,54 +94,45 @@ public class RegistroGuiaTableModel extends AbstractTableModel {
 
         switch (columnIndex) {
             case 0:
-                return rowIndex + 1;
+                return (rowIndex == 0) ? "Serie" : (rowIndex == 1) ? "Ùltimo Registro" : "Inicio";
             case 1:
-                return registroBoletoItems.get(rowIndex).getRegistroBoletoIdBoleto().getBoletoNombre();
+                return (rowIndex == 0) ? "" : list.get(rowIndex).getServicio();
             case 2:
-                return registroBoletoItems.get(rowIndex).getRegistroBoletoInicio();
+                return (rowIndex == 0) ? list.get(rowIndex).getDirecto().getRegistroBoletoSerie() : list.get(rowIndex).getDirecto().getRegistroBoletoInicio();
             case 3:
-                return registroBoletoItems.get(rowIndex).getRegistroBoletoTermino();
+                return (rowIndex == 0) ? list.get(rowIndex).getPlanVina().getRegistroBoletoSerie() : list.get(rowIndex).getPlanVina().getRegistroBoletoInicio();
             case 4:
-                return registroBoletoItems.get(rowIndex).getDiferencia();
+                return (rowIndex == 0) ? list.get(rowIndex).getLocal().getRegistroBoletoSerie() : list.get(rowIndex).getLocal().getRegistroBoletoInicio();
             case 5:
-                return registroBoletoItems.get(rowIndex).getRegistroBoletoObservacion();
+                return (rowIndex == 0) ? list.get(rowIndex).getEscolarDirecto().getRegistroBoletoSerie() : list.get(rowIndex).getEscolarDirecto().getRegistroBoletoInicio();
             case 6:
-                return sdf.format(registroBoletoItems.get(rowIndex).getRegistroBoletoFechaIngreso());
+                return (rowIndex == 0) ? list.get(rowIndex).getEscolarLocal().getRegistroBoletoSerie() : list.get(rowIndex).getEscolarLocal().getRegistroBoletoInicio();
         }
 
         return null;
     }
 
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+    public void addRow(EstructuraRegistroBoletoÑandu erb) {
+        erb.setNumero(numeroVuelta);
+        this.numeroVuelta++;
 
-        int _value = (Integer) aValue;
+        System.err.println("DIRECTO:" + erb.getDirecto().getRegistroBoletoSerie() + " :" + erb.getDirecto().getRegistroBoletoInicio());
 
-        switch (columnIndex) {
-            case 2:
+        this.list.add(erb);
 
-                this.registroBoletoItems.get(rowIndex).setRegistroBoletoInicio(_value);
-
-                break;
-            case 3:
-                if (_value<1001 && _value>=this.registroBoletoItems.get(rowIndex).getRegistroBoletoInicio()) {
-                    this.registroBoletoItems.get(rowIndex).setRegistroBoletoTermino(_value);
-                    this.registroBoletoItems.get(rowIndex).setDiferencia(1000 - this.registroBoletoItems.get(rowIndex).getRegistroBoletoTermino());
-                }
-                break;
-
-        }
         fireTableChanged(null);
     }
 
-    public void addRow(RegistroBoleto registroBoleto, int index) {
-        this.registroBoletoItems.add(index, registroBoleto);
-        fireTableChanged(null);
+    public int getNumeroVuelta() {
+        return numeroVuelta;
     }
 
-    public void deleteRow(RegistroBoleto registroBoleto) {
-        this.registroBoletoItems.remove(registroBoleto);
-        fireTableChanged(null);
+    public EstructuraRegistroBoletoÑandu getPrimerRegistro() {
+        return (this.list.isEmpty()) ? null : list.get(0);
+    }
+
+    public EstructuraRegistroBoletoÑandu getUltimoRegistro() {
+        return (this.list.isEmpty()) ? null : list.get(list.size() - 1);
     }
 
 }

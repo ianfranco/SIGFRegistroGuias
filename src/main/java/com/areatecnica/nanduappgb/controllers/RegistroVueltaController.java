@@ -204,13 +204,8 @@ public class RegistroVueltaController extends RegistroController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (guia != null) {
-                    if (flag) {
-                        System.err.println("ESTO");
-                        setUpBoletos();
-                    } else {
-                        System.err.println("LO OTRO");
-                        addRow();
-                    }
+                    System.err.println("LO OTRO");
+                    addRow();
                 }
             }
         });
@@ -304,72 +299,71 @@ public class RegistroVueltaController extends RegistroController {
         return items;
     }
 
-    public void setUpBoletos() {
-        EstructuraRegistroBoletoÑandu serie = new EstructuraRegistroBoletoÑandu();
-
-        int _auxServicio = this.view.getServicioTextField().getSelectedIndex();
-
-        if (_auxServicio > -1) {
-            this.servicio = this.servicioModel.getElementAt(_auxServicio);
-            try {
-
-                String _directo = (this.view.getDirectoTextField().getText());
-                String _planVina = (this.view.getPlanVinaTextField().getText());
-                String _local = (this.view.getLocalTextField().getText());
-                String _escolarDirecto = (this.view.getEscolarDirectoTextField().getText());
-                String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
-
-                serie.setNumero(1111);
-                serie.setServicio(this.servicio);
-
-                map.forEach((k, v) -> {
-                    v.setRegistroBoletoIdGuia(this.guia);
-                    switch (k) {
-                        case 1:
-                            v.setRegistroBoletoSerie(Integer.parseInt(_directo) / 1000);
-                            v.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
-                            break;
-                        case 2:
-                            v.setRegistroBoletoSerie(Integer.parseInt(_planVina) / 1000);
-                            v.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
-                            break;
-                        case 3:
-                            v.setRegistroBoletoSerie(Integer.parseInt(_local) / 1000);
-                            v.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
-                            break;
-                        case 4:
-                            v.setRegistroBoletoSerie(Integer.parseInt(_escolarDirecto) / 1000);
-                            v.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
-                            break;
-                        case 5:
-                            v.setRegistroBoletoSerie(Integer.parseInt(_escolarLocal) / 1000);
-                            v.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
-                            break;
-                    }
-                    serie.addRegistroBoleto(v);
-                });
-
-                this.guia.setRegistroBoletoList(serie.getRegistro());
-                this.model.addRow(serie);//Serie
-                this.model.addRow(serie);//Inicio
-                this.clearTextField();
-
-                int option = JOptionPane.showConfirmDialog(null, "¿Registrar Vuelta?", "Confirmación", JOptionPane.YES_NO_OPTION);
-
-                if (option == JOptionPane.YES_OPTION) {
-                    RegistroGuiaSaveAction action = new RegistroGuiaSaveAction(this);
-                    action.save();
-                    reset();
-                }
-
-            } catch (NumberFormatException numberFormatException) {
-
-            }
-
-        }
-
-    }
-
+//    public void setUpBoletos() {
+//        EstructuraRegistroBoletoÑandu serie = new EstructuraRegistroBoletoÑandu();
+//
+//        int _auxServicio = this.view.getServicioTextField().getSelectedIndex();
+//
+//        if (_auxServicio > -1) {
+//            this.servicio = this.servicioModel.getElementAt(_auxServicio);
+//            try {
+//
+//                String _directo = (this.view.getDirectoTextField().getText());
+//                String _planVina = (this.view.getPlanVinaTextField().getText());
+//                String _local = (this.view.getLocalTextField().getText());
+//                String _escolarDirecto = (this.view.getEscolarDirectoTextField().getText());
+//                String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
+//
+//                serie.setNumero(1111);
+//                serie.setServicio(this.servicio);
+//
+//                map.forEach((k, v) -> {
+//                    v.setRegistroBoletoIdGuia(this.guia);
+//                    switch (k) {
+//                        case 1:
+//                            v.setRegistroBoletoSerie(Integer.parseInt(_directo) / 1000);
+//                            v.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
+//                            break;
+//                        case 2:
+//                            v.setRegistroBoletoSerie(Integer.parseInt(_planVina) / 1000);
+//                            v.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
+//                            break;
+//                        case 3:
+//                            v.setRegistroBoletoSerie(Integer.parseInt(_local) / 1000);
+//                            v.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
+//                            break;
+//                        case 4:
+//                            v.setRegistroBoletoSerie(Integer.parseInt(_escolarDirecto) / 1000);
+//                            v.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
+//                            break;
+//                        case 5:
+//                            v.setRegistroBoletoSerie(Integer.parseInt(_escolarLocal) / 1000);
+//                            v.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
+//                            break;
+//                    }
+//                    serie.addRegistroBoleto(v);
+//                });
+//
+//                this.guia.setRegistroBoletoList(serie.getRegistro());
+//                this.model.addRow(serie);//Serie
+//                this.model.addRow(serie);//Inicio
+//                this.clearTextField();
+//
+//                int option = JOptionPane.showConfirmDialog(null, "¿Registrar Vuelta?", "Confirmación", JOptionPane.YES_NO_OPTION);
+//
+//                if (option == JOptionPane.YES_OPTION) {
+//                    RegistroGuiaSaveAction action = new RegistroGuiaSaveAction(this);
+//                    action.save();
+//                    reset();
+//                }
+//
+//            } catch (NumberFormatException numberFormatException) {
+//
+//            }
+//
+//        }
+//
+//    }
     private void addRow() {
         EstructuraRegistroBoletoÑandu serie = new EstructuraRegistroBoletoÑandu();
 

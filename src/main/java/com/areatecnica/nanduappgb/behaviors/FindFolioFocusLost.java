@@ -10,7 +10,7 @@ import com.areatecnica.nanduappgb.controllers.RegistroVueltaController;
 import com.areatecnica.nanduappgb.dao.IGuiaDao;
 import com.areatecnica.nanduappgb.dao.impl.GuiaDaoImpl;
 import com.areatecnica.nanduappgb.entities.Guia;
-import com.areatecnica.nanduappgb.models.RegistroBoletoTableModel;
+import com.areatecnica.nanduappgb.models.RegistroGuiaTableModel;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -44,7 +44,7 @@ public class FindFolioFocusLost extends FocusAdapter {
                 this.folio = Integer.parseInt(_folio);
 
                 this.controller.getView().getFolioTextField().setBackground(Color.WHITE);
-                RegistroBoletoTableModel model = null;
+                RegistroGuiaTableModel model = null;
                 Guia _guia = this.dao.findByFolio(folio);
 
                 if (_guia != null) {
@@ -101,7 +101,7 @@ public class FindFolioFocusLost extends FocusAdapter {
                     this.controller.getView().getSaveButton().setEnabled(Boolean.TRUE);
                     this.controller.getView().getAddButton().setEnabled(Boolean.TRUE);
 
-                    model = new RegistroBoletoTableModel();
+                    model = new RegistroGuiaTableModel();
 
                     this.controller.setModel(model);
                     this.controller.setFlag(Boolean.TRUE);
