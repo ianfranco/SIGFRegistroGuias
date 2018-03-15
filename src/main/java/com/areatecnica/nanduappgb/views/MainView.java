@@ -134,13 +134,11 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_tarifasMenuItemActionPerformed
 
     private void registroBoletoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroBoletoMenuItemActionPerformed
-        if (MainView.registroGuiaView == null) {
-            MainView.registroGuiaView = new RegistroVueltaView();
-            RegistroGuiaController controller = new RegistroGuiaController(registroGuiaView);
-            setNewTab(registroGuiaView, "Registro Guía / Boleto");
-        }else{
-            this.getTabbedPane().setSelectedComponent(MainView.registroGuiaView);
-        }
+
+        MainView.registroGuiaView = new RegistroVueltaView();
+        RegistroGuiaController controller = new RegistroGuiaController(registroGuiaView);
+        setNewTab(registroGuiaView, "Registro Guía / Boleto");
+
     }//GEN-LAST:event_registroBoletoMenuItemActionPerformed
 
     private void setNewTab(JPanel panel, String title) {

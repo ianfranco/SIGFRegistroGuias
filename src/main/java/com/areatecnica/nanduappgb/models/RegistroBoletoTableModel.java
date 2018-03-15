@@ -112,6 +112,11 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     public void addRow(EstructuraRegistroBoletoÑandu erb) {
         erb.setNumero(numeroVuelta);
         this.numeroVuelta++;
+
+        System.err.println("DIRECTO:" + erb.getDirecto().getRegistroBoletoSerie() + " :" + erb.getDirecto().getRegistroBoletoInicio());
+
+        this.list.remove(this.list.size() - 1); //Aqui estaba el problema, solucionado
+
         this.list.add(erb);
 
         this.list.add(getTotales());

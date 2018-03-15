@@ -32,6 +32,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -210,10 +211,14 @@ public class RegistroGuiaController {
         this.view.getAddButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (flag) {
-                    setUpBoletos();
-                } else {
-                    addRow();
+                if (guia != null) {
+                    if (flag) {
+                        System.err.println("ESTO");
+                        setUpBoletos();
+                    } else {
+                        System.err.println("LO OTRO");
+                        addRow();
+                    }
                 }
             }
         });
@@ -321,7 +326,7 @@ public class RegistroGuiaController {
                 String _escolarDirecto = (this.view.getEscolarDirectoTextField().getText());
                 String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
 
-                serie.setNumero(0);
+                serie.setNumero(1111);
                 serie.setServicio(this.servicio);
 
                 map.forEach((k, v) -> {
@@ -435,6 +440,14 @@ public class RegistroGuiaController {
             }
 
             clearTextField();
+
+            int option = JOptionPane.showConfirmDialog(null, "¿Registrar Vuelta?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+            if (option == JOptionPane.YES_OPTION) {
+                RegistroGuiaSaveAction action = new RegistroGuiaSaveAction(this);
+                action.save();
+                reset();
+            }
         }
 
     }
