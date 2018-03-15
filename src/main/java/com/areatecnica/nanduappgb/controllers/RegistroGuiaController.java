@@ -394,8 +394,10 @@ public class RegistroGuiaController extends RegistroController {
             String _escolarDirecto = (this.view.getEscolarDirectoTextField().getText());
             String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
 
+            RegistroBoleto nuevoRegistro = null;
+            
             for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
-                RegistroBoleto nuevoRegistro = new RegistroBoleto();
+                nuevoRegistro = new RegistroBoleto();
                 nuevoRegistro.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
                 nuevoRegistro.setRegistroBoletoIdGuia(this.guia);
                 nuevoRegistro.setRegistroBoletoIdServicio(this.servicio);
@@ -437,8 +439,10 @@ public class RegistroGuiaController extends RegistroController {
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         break;
                 }
-                serie.addRegistroBoleto(nuevoRegistro);
+                
             }
+            
+            serie.addRegistroBoleto(nuevoRegistro);
 
             this.model.addRow(serie);
 
