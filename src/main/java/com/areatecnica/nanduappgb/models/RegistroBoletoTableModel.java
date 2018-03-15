@@ -115,8 +115,11 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
         System.err.println("DIRECTO:" + erb.getDirecto().getRegistroBoletoSerie() + " :" + erb.getDirecto().getRegistroBoletoInicio());
 
-        this.list.remove(this.list.size() - 1); //Aqui estaba el problema, solucionado
+        if(this.list.size()>2){
+            this.list.remove(this.list.size() - 1); //Aqui estaba el problema, solucionado
 
+        }
+        
         this.list.add(erb);
 
         this.list.add(getTotales());

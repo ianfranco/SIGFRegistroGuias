@@ -6,6 +6,7 @@
 package com.areatecnica.nanduappgb.views;
 
 import com.areatecnica.nanduappgb.controllers.RegistroGuiaController;
+import com.areatecnica.nanduappgb.controllers.RegistroVueltaController;
 import com.areatecnica.nanduappgb.utils.ButtonTabComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -38,9 +39,10 @@ public class MainView extends javax.swing.JFrame {
         fileMenu = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
+        creacionGuiaMenuItem = new javax.swing.JMenuItem();
         registroBoletoMenuItem = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        buscarGuiaMenuItem = new javax.swing.JMenuItem();
+        buscarBoletoMenuItem = new javax.swing.JMenuItem();
         advancedMenu = new javax.swing.JMenu();
         tarifasMenuItem = new javax.swing.JMenuItem();
         infoMenu = new javax.swing.JMenu();
@@ -67,8 +69,16 @@ public class MainView extends javax.swing.JFrame {
         editMenu.setMnemonic('e');
         editMenu.setText("Acciones");
 
-        registroBoletoMenuItem.setMnemonic('t');
-        registroBoletoMenuItem.setText("Registro de Guías");
+        creacionGuiaMenuItem.setMnemonic('t');
+        creacionGuiaMenuItem.setText("Creación de Guías");
+        creacionGuiaMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creacionGuiaMenuItemActionPerformed(evt);
+            }
+        });
+        editMenu.add(creacionGuiaMenuItem);
+
+        registroBoletoMenuItem.setText("Registro de Boletos");
         registroBoletoMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registroBoletoMenuItemActionPerformed(evt);
@@ -76,11 +86,11 @@ public class MainView extends javax.swing.JFrame {
         });
         editMenu.add(registroBoletoMenuItem);
 
-        jMenuItem1.setText("Buscar guía");
-        editMenu.add(jMenuItem1);
+        buscarGuiaMenuItem.setText("Buscar guía");
+        editMenu.add(buscarGuiaMenuItem);
 
-        jMenuItem2.setText("Buscar boleto");
-        editMenu.add(jMenuItem2);
+        buscarBoletoMenuItem.setText("Buscar boleto");
+        editMenu.add(buscarBoletoMenuItem);
 
         advancedMenu.setText("Avanzado");
 
@@ -133,12 +143,18 @@ public class MainView extends javax.swing.JFrame {
         setNewTab(tarifaGrupoServicioView, "Tarifas");
     }//GEN-LAST:event_tarifasMenuItemActionPerformed
 
-    private void registroBoletoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroBoletoMenuItemActionPerformed
+    private void creacionGuiaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creacionGuiaMenuItemActionPerformed
 
-        MainView.registroGuiaView = new RegistroVueltaView();
+        MainView.registroGuiaView = new RegistroGuiaView();
         RegistroGuiaController controller = new RegistroGuiaController(registroGuiaView);
-        setNewTab(registroGuiaView, "Registro Guía / Boleto");
+        setNewTab(registroGuiaView, "Creación de Guía");
 
+    }//GEN-LAST:event_creacionGuiaMenuItemActionPerformed
+
+    private void registroBoletoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroBoletoMenuItemActionPerformed
+        MainView.registroVueltaView = new RegistroVueltaView();
+        RegistroVueltaController controller = new RegistroVueltaController(registroVueltaView);
+        setNewTab(registroVueltaView, "Registro Vueltas / Boleto");
     }//GEN-LAST:event_registroBoletoMenuItemActionPerformed
 
     private void setNewTab(JPanel panel, String title) {
@@ -191,18 +207,20 @@ public class MainView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenu advancedMenu;
+    private javax.swing.JMenuItem buscarBoletoMenuItem;
+    private javax.swing.JMenuItem buscarGuiaMenuItem;
+    private javax.swing.JMenuItem creacionGuiaMenuItem;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu infoMenu;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem registroBoletoMenuItem;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JMenuItem tarifasMenuItem;
     // End of variables declaration//GEN-END:variables
     private TarifaGrupoServicioView tarifaGrupoServicioView;
-    private static RegistroVueltaView registroGuiaView;
+    private static RegistroVueltaView registroVueltaView;
+    private static RegistroGuiaView registroGuiaView;
 }

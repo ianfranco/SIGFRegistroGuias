@@ -5,9 +5,7 @@
  */
 package com.areatecnica.nanduappgb.controllers;
 
-import com.areatecnica.nanduappgb.behaviors.FindBusSolyMarFocusLost;
-import com.areatecnica.nanduappgb.behaviors.FindConductorFocusLost;
-import com.areatecnica.nanduappgb.behaviors.FindFolioFocusLost;
+import com.areatecnica.nanduappgb.behaviors.FindFolioVueltaFocusLost;
 import com.areatecnica.nanduappgb.behaviors.RegistroGuiaSaveAction;
 import com.areatecnica.nanduappgb.dao.impl.ProcesoGeneralNandu;
 import com.areatecnica.nanduappgb.dao.impl.TarifaGrupoServicioSolyMar;
@@ -21,7 +19,6 @@ import com.areatecnica.nanduappgb.models.ServicioComboBoxModel;
 import com.areatecnica.nanduappgb.utils.NextObject;
 import com.areatecnica.nanduappgb.utils.NumberLimiter;
 import com.areatecnica.nanduappgb.utils.TextSelectionFocusAdapter;
-import com.areatecnica.nanduappgb.views.RegistroGuiaView;
 import com.areatecnica.nanduappgb.views.RegistroVueltaView;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -39,9 +36,9 @@ import javax.swing.JOptionPane;
  *
  * @author ianfrancoconcha
  */
-public class RegistroGuiaController extends RegistroController{
+public class RegistroVueltaController extends RegistroController {
 
-    private RegistroGuiaView view;
+    private RegistroVueltaView view;
     private ProcesoGeneralNandu proceso;
     private Guia guia;
     private Servicio servicio;
@@ -53,10 +50,10 @@ public class RegistroGuiaController extends RegistroController{
     private TarifaGrupoServicioSolyMar tarifaSolyMar;
     private Boolean flag;
 
-    public RegistroGuiaController() {
+    public RegistroVueltaController() {
     }
 
-    public RegistroGuiaController(RegistroGuiaView view) {
+    public RegistroVueltaController(RegistroVueltaView view) {
         this.view = view;
         init();
     }
@@ -83,17 +80,11 @@ public class RegistroGuiaController extends RegistroController{
         this.map = new HashMap<Integer, RegistroBoleto>();
         getTarifas();
 
-        this.view.getFolioTextField().addFocusListener(new FindFolioFocusLost(this));
+        this.view.getFolioTextField().addFocusListener(new FindFolioVueltaFocusLost(this));
         this.view.getFolioTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getFolioTextField()));
         this.view.getFolioTextField().addKeyListener(new NextObject(null, this.view.getBusTextField(), null, null));
 
-        this.view.getBusTextField().addFocusListener(new FindBusSolyMarFocusLost(this));
-        this.view.getBusTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getBusTextField()));
-        this.view.getBusTextField().addKeyListener(new NextObject(this.view.getFolioTextField(), this.view.getConductorTextField(), null, null));
-
         this.view.getConductorTextField().addKeyListener(new NextObject(this.view.getBusTextField(), this.view.getServicioTextField(), null, null));
-        this.view.getConductorTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getConductorTextField()));
-        this.view.getConductorTextField().addFocusListener(new FindConductorFocusLost(this));
 
         this.view.getServicioTextField().addKeyListener(new NextObject(this.view.getConductorTextField(), this.view.getDirectoTextField(), this.view.getDirectoTextField(), this.view.getConductorTextField(), true));
 
@@ -229,10 +220,11 @@ public class RegistroGuiaController extends RegistroController{
         this.view.getFolioTextField().requestFocus();
     }
 
-    public RegistroGuiaView getView() {
+    public RegistroVueltaView getView() {
         return view;
     }
 
+    @Override
     public Guia getGuia() {
         return guia;
     }

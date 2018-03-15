@@ -5,7 +5,7 @@
  */
 package com.areatecnica.nanduappgb.behaviors;
 
-import com.areatecnica.nanduappgb.controllers.RegistroGuiaController;
+import com.areatecnica.nanduappgb.controllers.RegistroController;
 import com.areatecnica.nanduappgb.dao.IGuiaDao;
 import com.areatecnica.nanduappgb.dao.impl.GuiaDaoImpl;
 import java.awt.event.ActionEvent;
@@ -18,10 +18,11 @@ public class RegistroGuiaSaveAction extends RegistroGuiaAbstractAction {
 
     private IGuiaDao dao;
 
-    public RegistroGuiaSaveAction(RegistroGuiaController controller) {
+    public RegistroGuiaSaveAction(RegistroController controller) {
         super(controller);
         init();
     }
+    
 
     private void init() {
         this.dao = new GuiaDaoImpl();

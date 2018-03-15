@@ -5,7 +5,7 @@
  */
 package com.areatecnica.nanduappgb.behaviors;
 
-import com.areatecnica.nanduappgb.controllers.RegistroGuiaController;
+import com.areatecnica.nanduappgb.controllers.RegistroController;
 import javax.swing.AbstractAction;
 
 /**
@@ -14,13 +14,13 @@ import javax.swing.AbstractAction;
  */
 public abstract class RegistroGuiaAbstractAction extends AbstractAction{
     
-    private RegistroGuiaController controller;
+    private RegistroController controller;
 
-    public RegistroGuiaAbstractAction(RegistroGuiaController controller) {
+    public RegistroGuiaAbstractAction(RegistroController controller) {
         this.controller = controller;
     }
 
-    public RegistroGuiaController getController() {
+    public RegistroController getController() {
         return controller;
     }
     

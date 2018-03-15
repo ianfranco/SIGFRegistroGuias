@@ -27,21 +27,29 @@
             <Property name="text" type="java.lang.String" value="Acciones"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="registroBoletoMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="creacionGuiaMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="116"/>
-                <Property name="text" type="java.lang.String" value="Registro de Gu&#xed;as"/>
+                <Property name="text" type="java.lang.String" value="Creaci&#xf3;n de Gu&#xed;as"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="creacionGuiaMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="registroBoletoMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Registro de Boletos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registroBoletoMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="buscarGuiaMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buscar gu&#xed;a"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="buscarBoletoMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buscar boleto"/>
               </Properties>

@@ -6,6 +6,7 @@
 package com.areatecnica.nanduappgb.views;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -38,6 +39,19 @@ public class RegistroGuiaView extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        directoTextField = new javax.swing.JTextField();
+        planVinaTextField = new javax.swing.JTextField();
+        localTextField = new javax.swing.JTextField();
+        escolarDirectoTextField = new javax.swing.JTextField();
+        escolarLocalTextField = new javax.swing.JTextField();
+        addButton = new javax.swing.JButton();
+        servicioComboBox = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -59,7 +73,7 @@ public class RegistroGuiaView extends javax.swing.JPanel {
         saveButton = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel1.setText("Registro de Guías ");
+        jLabel1.setText("Creación de Guías");
 
         jLabel2.setText("Ñandu Tur S.A.");
 
@@ -86,7 +100,7 @@ public class RegistroGuiaView extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Boletos:"));
 
-        table.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        table.setFont(new java.awt.Font("Helvetica", 3, 18)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -95,9 +109,44 @@ public class RegistroGuiaView extends javax.swing.JPanel {
 
             }
         ));
-        table.setCellSelectionEnabled(true);
-        table.setRowHeight(30);
+        table.setRowHeight(25);
         jScrollPane1.setViewportView(table);
+
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel6.setText("Servicio");
+
+        jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel7.setText("Directo");
+
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel8.setText("Local Viña");
+
+        jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel9.setText("Local ");
+
+        jLabel10.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel10.setText("Esc. Directo");
+
+        jLabel11.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel11.setText("Esc. Local");
+
+        directoTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+
+        planVinaTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+
+        localTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+
+        escolarDirectoTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        escolarDirectoTextField.setToolTipText("");
+
+        escolarLocalTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+
+        addButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        addButton.setText("Agregar");
+
+        servicioComboBox.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -105,14 +154,61 @@ public class RegistroGuiaView extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 841, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(servicioComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(directoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(planVinaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(localTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(escolarDirectoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(escolarLocalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addButton)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(directoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(planVinaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(localTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(escolarDirectoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(escolarLocalTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addButton)
+                    .addComponent(servicioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -179,7 +275,7 @@ public class RegistroGuiaView extends javax.swing.JPanel {
         jLabel12.setText("Observación :");
 
         observacionTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        observacionTextField.setText("Sin observación");
+        observacionTextField.setText(" ");
 
         jLabel13.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -229,7 +325,7 @@ public class RegistroGuiaView extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(flotaTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
+                        .addComponent(flotaTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
                     .addComponent(nombreConductorTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(estadoBoletoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -296,6 +392,14 @@ public class RegistroGuiaView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public JButton getAddButton() {
+        return addButton;
+    }
+
+    public void setAddButton(JButton addButton) {
+        this.addButton = addButton;
+    }
+
     public JTextField getBusTextField() {
         return busTextField;
     }
@@ -312,12 +416,44 @@ public class RegistroGuiaView extends javax.swing.JPanel {
         this.conductorTextField = conductorTextField;
     }
 
+    public JTextField getDirectoTextField() {
+        return directoTextField;
+    }
+
+    public void setDirectoTextField(JTextField directoTextField) {
+        this.directoTextField = directoTextField;
+    }
+
+    public JTextField getEscolarDirectoTextField() {
+        return escolarDirectoTextField;
+    }
+
+    public void setEscolarDirectoTextField(JTextField escolarDirectoTextField) {
+        this.escolarDirectoTextField = escolarDirectoTextField;
+    }
+
+    public JTextField getEscolarLocalTextField() {
+        return escolarLocalTextField;
+    }
+
+    public void setEscolarLocalTextField(JTextField escolarLocalTextField) {
+        this.escolarLocalTextField = escolarLocalTextField;
+    }
+
     public JTextField getFolioTextField() {
         return folioTextField;
     }
 
     public void setFolioTextField(JTextField folioTextField) {
         this.folioTextField = folioTextField;
+    }
+
+    public JTextField getLocalTextField() {
+        return localTextField;
+    }
+
+    public void setLocalTextField(JTextField localTextField) {
+        this.localTextField = localTextField;
     }
 
     public JLabel getObservacionTextField() {
@@ -328,12 +464,28 @@ public class RegistroGuiaView extends javax.swing.JPanel {
         this.observacionTextField = observacionTextField;
     }
 
+    public JTextField getPlanVinaTextField() {
+        return planVinaTextField;
+    }
+
+    public void setPlanVinaTextField(JTextField planVinaTextField) {
+        this.planVinaTextField = planVinaTextField;
+    }
+
     public JButton getSaveButton() {
         return saveButton;
     }
 
     public void setSaveButton(JButton saveButton) {
         this.saveButton = saveButton;
+    }
+
+    public JComboBox getServicioTextField() {
+        return servicioComboBox;
+    }
+
+    public void setServicioTextField(JComboBox servicioComboBox) {
+        this.servicioComboBox = servicioComboBox;
     }
 
     public JTable getTable() {
@@ -377,12 +529,18 @@ public class RegistroGuiaView extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
     private javax.swing.JTextField busTextField;
     private javax.swing.JTextField conductorTextField;
+    private javax.swing.JTextField directoTextField;
+    private javax.swing.JTextField escolarDirectoTextField;
+    private javax.swing.JTextField escolarLocalTextField;
     private javax.swing.JLabel estadoBoletoTextField;
     private javax.swing.JLabel flotaTextField;
     private javax.swing.JTextField folioTextField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -392,15 +550,22 @@ public class RegistroGuiaView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField localTextField;
     private javax.swing.JLabel nombreConductorTextField;
     private javax.swing.JLabel observacionTextField;
+    private javax.swing.JTextField planVinaTextField;
     private javax.swing.JLabel ppuTextField;
     private javax.swing.JButton saveButton;
+    private javax.swing.JComboBox<String> servicioComboBox;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
