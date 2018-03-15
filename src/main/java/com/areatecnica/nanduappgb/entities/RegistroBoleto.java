@@ -95,6 +95,14 @@ public class RegistroBoleto implements Serializable {
         this.registroBoletoId = registroBoletoId;
     }
 
+    public RegistroBoleto(int registroBoletoTermino, int registroBoletoInicio, int registroBoletoValor) {
+        this.registroBoletoTermino = registroBoletoTermino;
+        this.registroBoletoInicio = registroBoletoInicio;
+        this.registroBoletoValor = registroBoletoValor;
+        this.registroBoletoCantidad = this.registroBoletoTermino - this.registroBoletoInicio;
+        this.registroBoletoTotal = this.registroBoletoCantidad * this.registroBoletoValor;
+    }
+
     public RegistroBoleto(Integer registroBoletoId, int registroBoletoNumeroVuelta, int registroBoletoSerie, int registroBoletoValor, int registroBoletoInicio, int registroBoletoTermino, int registroBoletoCantidad, int registroBoletoTotal) {
         this.registroBoletoId = registroBoletoId;
         this.registroBoletoNumeroVuelta = registroBoletoNumeroVuelta;
@@ -129,7 +137,7 @@ public class RegistroBoleto implements Serializable {
     public void setRegistroBoletoSerie(int registroBoletoSerie) {
         this.registroBoletoSerie = registroBoletoSerie;
     }
-    
+
     public int getRegistroBoletoValor() {
         return registroBoletoValor;
     }
@@ -177,7 +185,7 @@ public class RegistroBoleto implements Serializable {
     public void setRegistroBoletoEsNuevo(Boolean registroBoletoEsNuevo) {
         this.registroBoletoEsNuevo = registroBoletoEsNuevo;
     }
-    
+
     public String getRegistroBoletoObservacion() {
         return registroBoletoObservacion;
     }
@@ -225,7 +233,7 @@ public class RegistroBoleto implements Serializable {
     public void setDiferencia(int diferencia) {
         this.diferencia = diferencia;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -250,5 +258,5 @@ public class RegistroBoleto implements Serializable {
     public String toString() {
         return "com.areatecnica.nanduappgb.entities.RegistroBoleto[ registroBoletoId=" + registroBoletoId + " ]";
     }
-    
+
 }

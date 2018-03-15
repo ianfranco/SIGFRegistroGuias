@@ -53,8 +53,13 @@ public class FindFolioFocusLost extends FocusAdapter {
                     this.controller.getView().getPpuTextField().setText(_guia.getGuiaIdBus().getBusPatente());
                     this.controller.getView().getConductorTextField().setText(String.valueOf(_guia.getGuiaIdTrabajador().getTrabajadorCodigo()));
                     this.controller.getView().getNombreConductorTextField().setText(_guia.getGuiaIdTrabajador().toString());
-                    this.controller.getView().getServicioTextField().requestFocus();
+                    
                     this.controller.getView().getEstadoBoletoTextField().setBackground(Color.WHITE);
+                    
+                    this.controller.getView().getBusTextField().setEnabled(Boolean.FALSE);
+                    this.controller.getView().getConductorTextField().setEnabled(Boolean.FALSE);
+                    this.controller.getView().getServicioTextField().requestFocus();
+                    
                 }else{
                     this.controller.getGuia().setGuiaFolio(folio);
                     this.controller.getView().getObservacionTextField().setText("Nueva Guía");

@@ -51,12 +51,16 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
                 map.put(r.getRegistroBoletoNumeroVuelta(), e);
             }
         }
-        
+
         this.numeroVuelta = map.size();
 
         map.forEach((k, v) -> list.add(v));
 
         list.add(0, list.get(0));
+
+        if (getRowCount() > 1) {
+            list.add(getTotales());
+        }
     }
 
     @Override
@@ -87,19 +91,19 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
         switch (columnIndex) {
             case 0:
-                return (rowIndex == 0) ? "Serie" : list.get(rowIndex).getNumero();
+                return (rowIndex == 0) ? "Serie" : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getNumero() : "Totales";
             case 1:
-                return (rowIndex == 0) ? "" :list.get(rowIndex).getServicio();
+                return (rowIndex == 0) ? "" : list.get(rowIndex).getServicio();
             case 2:
-                return (rowIndex == 0) ? list.get(rowIndex).getDirecto().getRegistroBoletoSerie() : list.get(rowIndex).getDirecto().getRegistroBoletoInicio();
+                return (rowIndex == 0) ? list.get(rowIndex).getDirecto().getRegistroBoletoSerie() : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getDirecto().getRegistroBoletoInicio() : list.get(rowIndex).getDirecto().getRegistroBoletoTotal();
             case 3:
-                return (rowIndex == 0) ? list.get(rowIndex).getPlanVina().getRegistroBoletoSerie() : list.get(rowIndex).getPlanVina().getRegistroBoletoInicio();
+                return (rowIndex == 0) ? list.get(rowIndex).getPlanVina().getRegistroBoletoSerie() : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getPlanVina().getRegistroBoletoInicio() : list.get(rowIndex).getPlanVina().getRegistroBoletoTotal();
             case 4:
-                return (rowIndex == 0) ? list.get(rowIndex).getLocal().getRegistroBoletoSerie() : list.get(rowIndex).getLocal().getRegistroBoletoInicio();
+                return (rowIndex == 0) ? list.get(rowIndex).getLocal().getRegistroBoletoSerie() : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getLocal().getRegistroBoletoInicio() : list.get(rowIndex).getLocal().getRegistroBoletoTotal();
             case 5:
-                return (rowIndex == 0) ? list.get(rowIndex).getEscolarDirecto().getRegistroBoletoSerie() : list.get(rowIndex).getEscolarDirecto().getRegistroBoletoInicio();
+                return (rowIndex == 0) ? list.get(rowIndex).getEscolarDirecto().getRegistroBoletoSerie() : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getEscolarDirecto().getRegistroBoletoInicio() : list.get(rowIndex).getEscolarDirecto().getRegistroBoletoTotal();
             case 6:
-                return (rowIndex == 0) ? list.get(rowIndex).getEscolarLocal().getRegistroBoletoSerie() : list.get(rowIndex).getEscolarLocal().getRegistroBoletoInicio();
+                return (rowIndex == 0) ? list.get(rowIndex).getEscolarLocal().getRegistroBoletoSerie() : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getEscolarLocal().getRegistroBoletoInicio() : list.get(rowIndex).getEscolarLocal().getRegistroBoletoTotal();
         }
 
         return null;
@@ -109,6 +113,9 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
         erb.setNumero(numeroVuelta);
         this.numeroVuelta++;
         this.list.add(erb);
+
+        this.list.add(getTotales());
+
         fireTableChanged(null);
     }
 
@@ -119,9 +126,27 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     public EstructuraRegistroBoletoÑandu getPrimerRegistro() {
         return (this.list.isEmpty()) ? null : list.get(0);
     }
-    
+
     public EstructuraRegistroBoletoÑandu getUltimoRegistro() {
         return (this.list.isEmpty()) ? null : list.get(list.size() - 1);
+    }
+
+    public EstructuraRegistroBoletoÑandu getTotales() {
+        EstructuraRegistroBoletoÑandu totales = new EstructuraRegistroBoletoÑandu();
+
+        EstructuraRegistroBoletoÑandu inicio = getPrimerRegistro();
+
+        EstructuraRegistroBoletoÑandu ultimo = getUltimoRegistro();
+
+        totales.setRegistro(ultimo.getRegistro());
+
+        totales.setDirecto(new RegistroBoleto(ultimo.getDirecto().getRegistroBoletoInicio(), inicio.getDirecto().getRegistroBoletoInicio(), ultimo.getDirecto().getRegistroBoletoValor()));
+        totales.setPlanVina(new RegistroBoleto(ultimo.getPlanVina().getRegistroBoletoInicio(), inicio.getPlanVina().getRegistroBoletoInicio(), ultimo.getPlanVina().getRegistroBoletoValor()));
+        totales.setLocal(new RegistroBoleto(ultimo.getLocal().getRegistroBoletoInicio(), inicio.getLocal().getRegistroBoletoInicio(), ultimo.getLocal().getRegistroBoletoValor()));
+        totales.setEscolarDirecto(new RegistroBoleto(ultimo.getEscolarDirecto().getRegistroBoletoInicio(), inicio.getEscolarDirecto().getRegistroBoletoInicio(), ultimo.getEscolarDirecto().getRegistroBoletoValor()));
+        totales.setEscolarLocal(new RegistroBoleto(ultimo.getEscolarLocal().getRegistroBoletoInicio(), inicio.getEscolarLocal().getRegistroBoletoInicio(), ultimo.getEscolarLocal().getRegistroBoletoValor()));
+
+        return totales;
     }
 
 }

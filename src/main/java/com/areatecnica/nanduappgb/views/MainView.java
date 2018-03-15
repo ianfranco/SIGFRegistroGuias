@@ -6,6 +6,7 @@
 package com.areatecnica.nanduappgb.views;
 
 import com.areatecnica.nanduappgb.controllers.RegistroGuiaController;
+import com.areatecnica.nanduappgb.utils.ButtonTabComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -38,13 +39,16 @@ public class MainView extends javax.swing.JFrame {
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         registroBoletoMenuItem = new javax.swing.JMenuItem();
-        registroVueltaMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         advancedMenu = new javax.swing.JMenu();
         tarifasMenuItem = new javax.swing.JMenuItem();
+        infoMenu = new javax.swing.JMenu();
         helpMenu = new javax.swing.JMenu();
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Registro de Guías / Boletos");
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("Archivo");
@@ -72,13 +76,11 @@ public class MainView extends javax.swing.JFrame {
         });
         editMenu.add(registroBoletoMenuItem);
 
-        registroVueltaMenuItem.setText("Registro de Vueltas");
-        registroVueltaMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registroVueltaMenuItemActionPerformed(evt);
-            }
-        });
-        editMenu.add(registroVueltaMenuItem);
+        jMenuItem1.setText("Buscar guía");
+        editMenu.add(jMenuItem1);
+
+        jMenuItem2.setText("Buscar boleto");
+        editMenu.add(jMenuItem2);
 
         advancedMenu.setText("Avanzado");
 
@@ -93,6 +95,9 @@ public class MainView extends javax.swing.JFrame {
         editMenu.add(advancedMenu);
 
         menuBar.add(editMenu);
+
+        infoMenu.setText("Información");
+        menuBar.add(infoMenu);
 
         helpMenu.setMnemonic('h');
         helpMenu.setText("Ayuda");
@@ -138,13 +143,10 @@ public class MainView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_registroBoletoMenuItemActionPerformed
 
-    private void registroVueltaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroVueltaMenuItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_registroVueltaMenuItemActionPerformed
-
     private void setNewTab(JPanel panel, String title) {
         this.tabbedPane.add(title, panel);
         this.tabbedPane.setSelectedComponent(panel);
+        this.tabbedPane.setTabComponentAt(this.tabbedPane.getSelectedIndex(), new ButtonTabComponent(this.tabbedPane));
     }
 
     public JTabbedPane getTabbedPane() {
@@ -195,9 +197,11 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenu infoMenu;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem registroBoletoMenuItem;
-    private javax.swing.JMenuItem registroVueltaMenuItem;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JMenuItem tarifasMenuItem;
     // End of variables declaration//GEN-END:variables

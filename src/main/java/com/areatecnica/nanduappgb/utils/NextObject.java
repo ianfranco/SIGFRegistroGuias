@@ -19,6 +19,7 @@ public class NextObject extends KeyAdapter {
     private final JComponent down;
     private final JComponent right;
     private final JComponent left;
+    private boolean flag = false;
 
     public NextObject(JComponent up, JComponent down, JComponent right, JComponent left) {
         this.up = up;
@@ -27,9 +28,22 @@ public class NextObject extends KeyAdapter {
         this.left = left;
     }
 
+    public NextObject(JComponent up, JComponent down, JComponent right, JComponent left, boolean flag) {
+        this.up = up;
+        this.down = down;
+        this.right = right;
+        this.left = left;
+        this.flag = flag;
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
-        move(e, up, down, right, left);
+        if (flag) {
+            moveCombo(e, up, down, right, left);
+        } else {
+            move(e, up, down, right, left);
+        }
+
     }
 
     private void move(KeyEvent e, JComponent up, JComponent down, JComponent right, JComponent left) {
@@ -59,4 +73,27 @@ public class NextObject extends KeyAdapter {
 
         }
     }
+
+    private void moveCombo(KeyEvent e, JComponent up, JComponent down, JComponent right, JComponent left) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+            case KeyEvent.VK_TAB:
+                if (down != null) {
+                    down.requestFocus();
+                }
+                break;
+            case KeyEvent.VK_RIGHT:
+                if (right != null) {
+                    right.requestFocus();
+                }
+                break;
+            case KeyEvent.VK_LEFT:
+                if (left != null) {
+                    left.requestFocus();
+                }
+                break;
+
+        }
+    }
+
 }

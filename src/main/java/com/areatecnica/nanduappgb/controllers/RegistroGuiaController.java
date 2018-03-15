@@ -15,9 +15,9 @@ import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
 import com.areatecnica.nanduappgb.entities.Servicio;
 import com.areatecnica.nanduappgb.entities.TarifaGrupoServicio;
-import com.areatecnica.nanduappgb.models.EstructuraRegistroBoleto;
 import com.areatecnica.nanduappgb.models.EstructuraRegistroBoletoÑandu;
 import com.areatecnica.nanduappgb.models.RegistroBoletoTableModel;
+import com.areatecnica.nanduappgb.models.ServicioComboBoxModel;
 import com.areatecnica.nanduappgb.utils.NextObject;
 import com.areatecnica.nanduappgb.utils.NumberLimiter;
 import com.areatecnica.nanduappgb.utils.TextSelectionFocusAdapter;
@@ -43,6 +43,7 @@ public class RegistroGuiaController {
     private ProcesoGeneralNandu proceso;
     private Guia guia;
     private Servicio servicio;
+    private ServicioComboBoxModel servicioModel;
     private Map<Integer, RegistroBoleto> map;
     /*Optimización*/
     private Map<String, Servicio> mapServicios;
@@ -66,8 +67,11 @@ public class RegistroGuiaController {
         this.proceso = new ProcesoGeneralNandu();
         this.tarifaSolyMar = new TarifaGrupoServicioSolyMar();
         this.model = new RegistroBoletoTableModel();
+        this.servicioModel = new ServicioComboBoxModel();
         //Rasca 
-        this.servicio = this.tarifaSolyMar.getGrupo().getGrupoServicio().getServicioList().get(0);
+        this.servicio = this.servicioModel.getElementAt(0);
+        this.view.getServicioTextField().setModel(servicioModel);
+
         this.mapServicios = new HashMap<String, Servicio>();
 
         for (Servicio s : this.tarifaSolyMar.getGrupo().getGrupoServicio().getServicioList()) {
@@ -89,9 +93,7 @@ public class RegistroGuiaController {
         this.view.getConductorTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getConductorTextField()));
         this.view.getConductorTextField().addFocusListener(new FindConductorFocusLost(this));
 
-        this.view.getServicioTextField().addKeyListener(new NextObject(this.view.getConductorTextField(), this.view.getDirectoTextField(), this.view.getDirectoTextField(), this.view.getConductorTextField()));
-        this.view.getServicioTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getServicioTextField()));
-        this.view.getServicioTextField().setDocument(new NumberLimiter());
+        this.view.getServicioTextField().addKeyListener(new NextObject(this.view.getConductorTextField(), this.view.getDirectoTextField(), this.view.getDirectoTextField(), this.view.getConductorTextField(), true));
 
         this.view.getDirectoTextField().addKeyListener(new NextObject(this.view.getServicioTextField(), this.view.getPlanVinaTextField(), this.view.getPlanVinaTextField(), this.view.getServicioTextField()));
         this.view.getDirectoTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getDirectoTextField()));
@@ -307,55 +309,56 @@ public class RegistroGuiaController {
     public void setUpBoletos() {
         EstructuraRegistroBoletoÑandu serie = new EstructuraRegistroBoletoÑandu();
 
-        try {
-            String _servicio = (this.view.getServicioTextField().getText());
+        int _auxServicio = this.view.getServicioTextField().getSelectedIndex();
 
-            if (mapServicios.containsKey(_servicio)) {
-                this.servicio = mapServicios.get(_servicio);
+        if (_auxServicio > -1) {
+            this.servicio = this.servicioModel.getElementAt(_auxServicio);
+            try {
+
+                String _directo = (this.view.getDirectoTextField().getText());
+                String _planVina = (this.view.getPlanVinaTextField().getText());
+                String _local = (this.view.getLocalTextField().getText());
+                String _escolarDirecto = (this.view.getEscolarDirectoTextField().getText());
+                String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
+
+                serie.setNumero(0);
+                serie.setServicio(this.servicio);
+
+                map.forEach((k, v) -> {
+                    v.setRegistroBoletoIdGuia(this.guia);
+                    switch (k) {
+                        case 1:
+                            v.setRegistroBoletoSerie(Integer.parseInt(_directo) / 1000);
+                            v.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
+                            break;
+                        case 2:
+                            v.setRegistroBoletoSerie(Integer.parseInt(_planVina) / 1000);
+                            v.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
+                            break;
+                        case 3:
+                            v.setRegistroBoletoSerie(Integer.parseInt(_local) / 1000);
+                            v.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
+                            break;
+                        case 4:
+                            v.setRegistroBoletoSerie(Integer.parseInt(_escolarDirecto) / 1000);
+                            v.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
+                            break;
+                        case 5:
+                            v.setRegistroBoletoSerie(Integer.parseInt(_escolarLocal) / 1000);
+                            v.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
+                            break;
+                    }
+                    serie.addRegistroBoleto(v);
+                });
+
+                this.guia.setRegistroBoletoList(serie.getRegistro());
+                this.model.addRow(serie);//Serie
+                this.model.addRow(serie);//Inicio
+                this.clearTextField();
+
+            } catch (NumberFormatException numberFormatException) {
+
             }
-
-            String _directo = (this.view.getDirectoTextField().getText());
-            String _planVina = (this.view.getPlanVinaTextField().getText());
-            String _local = (this.view.getLocalTextField().getText());
-            String _escolarDirecto = (this.view.getEscolarDirectoTextField().getText());
-            String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
-
-            serie.setNumero(0);
-            serie.setServicio(this.servicio);
-
-            map.forEach((k, v) -> {
-                v.setRegistroBoletoIdGuia(this.guia);
-                switch (k) {
-                    case 1:
-                        v.setRegistroBoletoSerie(Integer.parseInt(_directo) / 1000);
-                        v.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
-                        break;
-                    case 2:
-                        v.setRegistroBoletoSerie(Integer.parseInt(_planVina) / 1000);
-                        v.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
-                        break;
-                    case 3:
-                        v.setRegistroBoletoSerie(Integer.parseInt(_local) / 1000);
-                        v.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
-                        break;
-                    case 4:
-                        v.setRegistroBoletoSerie(Integer.parseInt(_escolarDirecto) / 1000);
-                        v.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
-                        break;
-                    case 5:
-                        v.setRegistroBoletoSerie(Integer.parseInt(_escolarLocal) / 1000);
-                        v.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
-                        break;
-                }
-                serie.addRegistroBoleto(v);
-            });
-
-            this.guia.setRegistroBoletoList(serie.getRegistro());
-            this.model.addRow(serie);//Serie
-            this.model.addRow(serie);//Inicio
-            this.clearTextField();
-
-        } catch (NumberFormatException numberFormatException) {
 
         }
 
@@ -364,76 +367,76 @@ public class RegistroGuiaController {
     private void addRow() {
         EstructuraRegistroBoletoÑandu serie = new EstructuraRegistroBoletoÑandu();
 
-        String _servicio = (this.view.getServicioTextField().getText());
+        int _auxServicio = this.view.getServicioTextField().getSelectedIndex();
 
-        if (mapServicios.containsKey(_servicio)) {
-            this.servicio = mapServicios.get(_servicio);
+        if (_auxServicio > -1) {
+            this.servicio = this.servicioModel.getElementAt(_auxServicio);
 
-        }
+            serie.setServicio(servicio);
 
-        serie.setServicio(servicio);
+            String _directo = (this.view.getDirectoTextField().getText());
+            String _planVina = (this.view.getPlanVinaTextField().getText());
+            String _local = (this.view.getLocalTextField().getText());
+            String _escolarDirecto = (this.view.getEscolarDirectoTextField().getText());
+            String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
 
-        String _directo = (this.view.getDirectoTextField().getText());
-        String _planVina = (this.view.getPlanVinaTextField().getText());
-        String _local = (this.view.getLocalTextField().getText());
-        String _escolarDirecto = (this.view.getEscolarDirectoTextField().getText());
-        String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
-
-        for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
-            RegistroBoleto nuevoRegistro = new RegistroBoleto();
-            nuevoRegistro.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
-            nuevoRegistro.setRegistroBoletoIdGuia(this.guia);
-            nuevoRegistro.setRegistroBoletoIdServicio(this.servicio);
-            nuevoRegistro.setRegistroBoletoSerie(r.getRegistroBoletoSerie());
-            nuevoRegistro.setRegistroBoletoNumeroVuelta(this.model.getNumeroVuelta());
-            nuevoRegistro.setRegistroBoletoValor(r.getRegistroBoletoValor());
-            nuevoRegistro.setRegistroBoletoEsNuevo(false);
-            nuevoRegistro.setRegistroBoletoObservacion("");
-            nuevoRegistro.setRegistroBoletoFechaIngreso(new Date());
-            switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
-                case 1:
-                    nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
-                    r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                    r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino()-r.getRegistroBoletoInicio());
-                    r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
-                    break;
-                case 2:
-                    nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
-                    r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                    r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino()-r.getRegistroBoletoInicio());
-                    r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
-                    break;
-                case 3:
-                    nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
-                    r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                    r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino()-r.getRegistroBoletoInicio());
-                    r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
-                    break;
-                case 4:
-                    nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
-                    r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                    r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino()-r.getRegistroBoletoInicio());
-                    r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
-                    break;
-                case 5:
-                    nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
-                    r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                    r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino()-r.getRegistroBoletoInicio());
-                    r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
-                    break;
+            for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
+                RegistroBoleto nuevoRegistro = new RegistroBoleto();
+                nuevoRegistro.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
+                nuevoRegistro.setRegistroBoletoIdGuia(this.guia);
+                nuevoRegistro.setRegistroBoletoIdServicio(this.servicio);
+                nuevoRegistro.setRegistroBoletoSerie(r.getRegistroBoletoSerie());
+                nuevoRegistro.setRegistroBoletoNumeroVuelta(this.model.getNumeroVuelta());
+                nuevoRegistro.setRegistroBoletoValor(r.getRegistroBoletoValor());
+                nuevoRegistro.setRegistroBoletoEsNuevo(false);
+                nuevoRegistro.setRegistroBoletoObservacion("");
+                nuevoRegistro.setRegistroBoletoFechaIngreso(new Date());
+                switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
+                    case 1:
+                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
+                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        break;
+                    case 2:
+                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
+                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        break;
+                    case 3:
+                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
+                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        break;
+                    case 4:
+                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
+                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        break;
+                    case 5:
+                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
+                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        break;
+                }
+                serie.addRegistroBoleto(nuevoRegistro);
             }
-            serie.addRegistroBoleto(nuevoRegistro);
+
+            this.model.addRow(serie);
+
+            if (this.guia.getRegistroBoletoList() == null) {
+                this.guia.setRegistroBoletoList(new ArrayList<>(serie.getRegistro()));
+            } else {
+                this.guia.getRegistroBoletoList().addAll(serie.getRegistro());
+            }
+
+            clearTextField();
         }
 
-        this.model.addRow(serie);
-
-        if (this.guia.getRegistroBoletoList() == null) {
-            this.guia.setRegistroBoletoList(new ArrayList<>(serie.getRegistro()));
-        } else {
-            this.guia.getRegistroBoletoList().addAll(serie.getRegistro());
-        }
-
-        clearTextField();
     }
 
     public void reset() {
@@ -458,6 +461,6 @@ public class RegistroGuiaController {
         this.view.getLocalTextField().setText("");
         this.view.getEscolarDirectoTextField().setText("");
         this.view.getEscolarLocalTextField().setText("");
-        this.view.getServicioTextField().setText("");
+        this.view.getServicioTextField().setSelectedIndex(0);
     }
 }

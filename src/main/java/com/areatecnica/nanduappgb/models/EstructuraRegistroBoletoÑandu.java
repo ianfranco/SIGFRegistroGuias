@@ -16,7 +16,6 @@ import java.util.List;
  */
 public class EstructuraRegistroBoletoÑandu {
 
-    
     private int numero;
     private Servicio servicio;
     private RegistroBoleto directo;
@@ -24,7 +23,7 @@ public class EstructuraRegistroBoletoÑandu {
     private RegistroBoleto local;
     private RegistroBoleto escolarLocal;
     private RegistroBoleto escolarDirecto;
-    
+
     private List<RegistroBoleto> registro;
 
     public EstructuraRegistroBoletoÑandu() {
@@ -35,7 +34,7 @@ public class EstructuraRegistroBoletoÑandu {
         this.servicio = servicio;
         this.directo = directo;
         this.planVina = planVina;
-        this.local = local; 
+        this.local = local;
         this.escolarLocal = escolarLocal;
         this.escolarDirecto = escolarDirecto;
         this.registro = registro;
@@ -85,7 +84,7 @@ public class EstructuraRegistroBoletoÑandu {
         return escolarLocal;
     }
 
-    public void setEscolaLocal(RegistroBoleto escolarLocal) {
+    public void setEscolarLocal(RegistroBoleto escolarLocal) {
         this.escolarLocal = escolarLocal;
     }
 
@@ -97,13 +96,11 @@ public class EstructuraRegistroBoletoÑandu {
         this.escolarDirecto = escolarDirecto;
     }
 
-    
-
     public void addRegistroBoleto(RegistroBoleto registro) {
         if (this.registro == null) {
             this.registro = new ArrayList<>();
         }
-        
+
         this.registro.add(registro);
 
         switch (registro.getRegistroBoletoIdBoleto().getBoletoOrden()) {
@@ -132,6 +129,10 @@ public class EstructuraRegistroBoletoÑandu {
 
     public List<RegistroBoleto> getRegistro() {
         return registro;
+    }
+
+    public void setRegistro(List<RegistroBoleto> registro) {
+        this.registro = registro;
     }
 
 }
