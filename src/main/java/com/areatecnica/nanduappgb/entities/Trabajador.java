@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Trabajador.findAll", query = "SELECT t FROM Trabajador t")
     , @NamedQuery(name = "Trabajador.findByTrabajadorId", query = "SELECT t FROM Trabajador t WHERE t.trabajadorId = :trabajadorId")
     , @NamedQuery(name = "Trabajador.findByTrabajadorFonasa", query = "SELECT t FROM Trabajador t WHERE t.trabajadorFonasa = :trabajadorFonasa")
+    , @NamedQuery(name = "Trabajador.findByTrabajadorIdTerminal", query = "SELECT t FROM Trabajador t WHERE t.trabajadorIdTerminal = :trabajadorIdTerminal ORDER BY t.trabajadorApellidoPaterno ASC")
     , @NamedQuery(name = "Trabajador.findByTrabajadorJubilado", query = "SELECT t FROM Trabajador t WHERE t.trabajadorJubilado = :trabajadorJubilado")
     , @NamedQuery(name = "Trabajador.findByTrabajadorIps", query = "SELECT t FROM Trabajador t WHERE t.trabajadorIps = :trabajadorIps")
     , @NamedQuery(name = "Trabajador.findByTrabajadorCodigo", query = "SELECT t FROM Trabajador t WHERE t.trabajadorCodigo = :trabajadorCodigo")
@@ -541,7 +542,7 @@ public class Trabajador implements Serializable {
 
     @Override
     public String toString() {
-        return trabajadorApellidoPaterno +" "+trabajadorApellidoMaterno+" "+trabajadorNombres.substring(0, 1);
+        return trabajadorApellidoPaterno + " " + trabajadorApellidoMaterno + " " + trabajadorNombres.substring(0, 1);
     }
-    
+
 }

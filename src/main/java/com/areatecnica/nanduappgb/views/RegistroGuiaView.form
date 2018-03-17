@@ -176,7 +176,7 @@
                       <Component id="servicioComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="105" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="98" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -339,13 +339,17 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="busTextField" max="32767" attributes="0"/>
-                          <Component id="conductorTextField" pref="120" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="busTextField" max="32767" attributes="0"/>
+                              <Component id="conductorTextField" pref="120" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="findConductorButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="folioTextField" min="-2" pref="150" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="54" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -366,6 +370,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="conductorTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="findConductorButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="44" max="32767" attributes="0"/>
               </Group>
@@ -421,6 +426,11 @@
             </Property>
           </Properties>
         </Component>
+        <Component class="javax.swing.JButton" name="findConductorButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="..."/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel4">
@@ -451,7 +461,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel15" min="-2" pref="90" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="flotaTextField" pref="154" max="32767" attributes="0"/>
+                          <Component id="flotaTextField" pref="184" max="32767" attributes="0"/>
                       </Group>
                       <Component id="nombreConductorTextField" alignment="0" max="32767" attributes="0"/>
                       <Component id="estadoBoletoTextField" alignment="0" max="32767" attributes="0"/>

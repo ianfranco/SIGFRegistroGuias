@@ -16,7 +16,6 @@ import com.areatecnica.nanduappgb.entities.RegistroBoleto;
 import com.areatecnica.nanduappgb.entities.Servicio;
 import com.areatecnica.nanduappgb.entities.TarifaGrupoServicio;
 import com.areatecnica.nanduappgb.models.EstructuraRegistroBoletoÑandu;
-import com.areatecnica.nanduappgb.models.RegistroBoletoTableModel;
 import com.areatecnica.nanduappgb.models.RegistroGuiaTableModel;
 import com.areatecnica.nanduappgb.models.ServicioComboBoxModel;
 import com.areatecnica.nanduappgb.utils.NextObject;
@@ -207,6 +206,13 @@ public class RegistroGuiaController extends RegistroController {
             }
         });
 
+        this.view.getFindConductorButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ConductorItemsController cic = new ConductorItemsController(view.getConductorTextField(), servicio.getServicioIdTerminal(), guia.getGuiaIdTrabajador());
+            }
+        });
+        
         this.view.getAddButton().addKeyListener(new NextObject(this.view.getEscolarLocalTextField(), null, null, this.view.getEscolarLocalTextField()));
 
         this.view.getAddButton().addActionListener(new ActionListener() {
@@ -233,6 +239,7 @@ public class RegistroGuiaController extends RegistroController {
         return view;
     }
 
+    @Override
     public Guia getGuia() {
         return guia;
     }
@@ -395,7 +402,7 @@ public class RegistroGuiaController extends RegistroController {
             String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
 
             RegistroBoleto nuevoRegistro = null;
-            
+
             for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
                 nuevoRegistro = new RegistroBoleto();
                 nuevoRegistro.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
@@ -439,9 +446,9 @@ public class RegistroGuiaController extends RegistroController {
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         break;
                 }
-                
+
             }
-            
+
             serie.addRegistroBoleto(nuevoRegistro);
 
             this.model.addRow(serie);
@@ -465,6 +472,7 @@ public class RegistroGuiaController extends RegistroController {
 
     }
 
+    @Override
     public void reset() {
         this.guia = new Guia();
         this.model = new RegistroGuiaTableModel();
