@@ -433,40 +433,45 @@ public class RegistroGuiaController extends RegistroController {
                 nuevoRegistro.setRegistroBoletoFechaIngreso(new Date());
                 switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
                     case 1:
+                        System.err.println("paso por directo");
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         break;
                     case 2:
+                        System.err.println("paso por plan");
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         break;
                     case 3:
+                        System.err.println("paso por local");
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         break;
                     case 4:
+                        System.err.println("paso por escolar 1");
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         break;
                     case 5:
+                        System.err.println("paso por escolar 2");
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         break;
                 }
-
+                serie.addRegistroBoleto(nuevoRegistro);
             }
 
-            serie.addRegistroBoleto(nuevoRegistro);
+            
 
             this.model.addRow(serie);
 
