@@ -27,6 +27,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -90,7 +92,7 @@ public class RegistroGuiaController extends RegistroController {
         this.view.getBusTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getBusTextField()));
         this.view.getBusTextField().addKeyListener(new NextObject(this.view.getFolioTextField(), this.view.getConductorTextField(), null, null));
 
-        this.view.getConductorTextField().addKeyListener(new NextObject(this.view.getBusTextField(), this.view.getServicioTextField(), null, null));
+        this.view.getConductorTextField().addKeyListener(new NextObject(this.view.getBusTextField(), this.view.getServicioTextField(), this.view.getFindConductorButton(), null));
         this.view.getConductorTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getConductorTextField()));
         this.view.getConductorTextField().addFocusListener(new FindConductorFocusLost(this));
 
@@ -212,21 +214,36 @@ public class RegistroGuiaController extends RegistroController {
                 ConductorItemsController cic = new ConductorItemsController(view.getConductorTextField(), servicio.getServicioIdTerminal(), guia.getGuiaIdTrabajador());
             }
         });
-        
-        this.view.getAddButton().addKeyListener(new NextObject(this.view.getEscolarLocalTextField(), null, null, this.view.getEscolarLocalTextField()));
+
+        this.view.getAddButton().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_ENTER:
+                        if (guia != null) {
+                            if (flag) {
+                                System.err.println("ESTO");
+                                setUpBoletos();
+                            } else {
+                                System.err.println("LO OTRO");
+                                addRow();
+                            }
+                        }
+                        break;
+                    case KeyEvent.VK_LEFT:
+                    case KeyEvent.VK_UP:
+                        view.getEscolarLocalTextField().requestFocus();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
         this.view.getAddButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (guia != null) {
-                    if (flag) {
-                        System.err.println("ESTO");
-                        setUpBoletos();
-                    } else {
-                        System.err.println("LO OTRO");
-                        addRow();
-                    }
-                }
+
             }
         });
 
