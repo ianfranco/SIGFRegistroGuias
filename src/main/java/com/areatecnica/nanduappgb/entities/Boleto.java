@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Boleto.findByBoletoId", query = "SELECT b FROM Boleto b WHERE b.boletoId = :boletoId")
     , @NamedQuery(name = "Boleto.findByBoletoNombre", query = "SELECT b FROM Boleto b WHERE b.boletoNombre = :boletoNombre")
     , @NamedQuery(name = "Boleto.findByBoletoActivo", query = "SELECT b FROM Boleto b WHERE b.boletoActivo = :boletoActivo")
-    , @NamedQuery(name = "Boleto.findByBoletoFechaIngreso", query = "SELECT b FROM Boleto b WHERE b.boletoFechaIngreso = :boletoFechaIngreso")})
+})
 public class Boleto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,10 +56,6 @@ public class Boleto implements Serializable {
     @Basic(optional = false)
     @Column(name = "boleto_activo")
     private boolean boletoActivo;
-    @Basic(optional = false)
-    @Column(name = "boleto_fecha_ingreso")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date boletoFechaIngreso;
     @JoinColumn(name = "boleto_id_cuenta", referencedColumnName = "cuenta_id")
     @ManyToOne(optional = false)
     private Cuenta boletoIdCuenta;
@@ -75,12 +71,11 @@ public class Boleto implements Serializable {
         this.boletoId = boletoId;
     }
 
-    public Boleto(Integer boletoId, String boletoNombre, int boletoOrden, boolean boletoActivo, Date boletoFechaIngreso) {
+    public Boleto(Integer boletoId, String boletoNombre, int boletoOrden, boolean boletoActivo) {
         this.boletoId = boletoId;
         this.boletoNombre = boletoNombre;
         this.boletoOrden = boletoOrden;
         this.boletoActivo = boletoActivo;
-        this.boletoFechaIngreso = boletoFechaIngreso;
     }
 
     public Integer getBoletoId() {
@@ -113,14 +108,6 @@ public class Boleto implements Serializable {
 
     public void setBoletoActivo(boolean boletoActivo) {
         this.boletoActivo = boletoActivo;
-    }
-
-    public Date getBoletoFechaIngreso() {
-        return boletoFechaIngreso;
-    }
-
-    public void setBoletoFechaIngreso(Date boletoFechaIngreso) {
-        this.boletoFechaIngreso = boletoFechaIngreso;
     }
 
     public Cuenta getBoletoIdCuenta() {

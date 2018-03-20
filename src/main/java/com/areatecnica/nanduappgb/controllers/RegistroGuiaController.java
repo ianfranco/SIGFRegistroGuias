@@ -324,7 +324,6 @@ public class RegistroGuiaController extends RegistroController {
             r.setRegistroBoletoIdGuia(this.guia);
             r.setRegistroBoletoIdServicio(this.servicio);
             r.setRegistroBoletoEsNuevo(Boolean.TRUE);
-            r.setRegistroBoletoFechaIngreso(new Date());
             r.setRegistroBoletoValor(t.getTarifaGrupoServicioValor());
             r.setRegistroBoletoObservacion("Nuevo Boleto");
 
@@ -430,7 +429,6 @@ public class RegistroGuiaController extends RegistroController {
                 nuevoRegistro.setRegistroBoletoValor(r.getRegistroBoletoValor());
                 nuevoRegistro.setRegistroBoletoEsNuevo(false);
                 nuevoRegistro.setRegistroBoletoObservacion("");
-                nuevoRegistro.setRegistroBoletoFechaIngreso(new Date());
                 switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
                     case 1:
                         System.err.println("paso por directo");

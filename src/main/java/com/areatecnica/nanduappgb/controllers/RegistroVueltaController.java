@@ -287,7 +287,6 @@ public class RegistroVueltaController extends RegistroController {
             r.setRegistroBoletoIdGuia(this.guia);
             r.setRegistroBoletoIdServicio(this.servicio);
             r.setRegistroBoletoEsNuevo(Boolean.TRUE);
-            r.setRegistroBoletoFechaIngreso(new Date());
             r.setRegistroBoletoValor(t.getTarifaGrupoServicioValor());
             r.setRegistroBoletoObservacion("Nuevo Boleto");
 
@@ -390,7 +389,6 @@ public class RegistroVueltaController extends RegistroController {
                 nuevoRegistro.setRegistroBoletoValor(r.getRegistroBoletoValor());
                 nuevoRegistro.setRegistroBoletoEsNuevo(false);
                 nuevoRegistro.setRegistroBoletoObservacion("");
-                nuevoRegistro.setRegistroBoletoFechaIngreso(new Date());
                 switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
                     case 1:
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);

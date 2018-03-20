@@ -38,7 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "OperadorTransporte.findByOperadorTransporteId", query = "SELECT o FROM OperadorTransporte o WHERE o.operadorTransporteId = :operadorTransporteId")
     , @NamedQuery(name = "OperadorTransporte.findByOperadorTransporteRut", query = "SELECT o FROM OperadorTransporte o WHERE o.operadorTransporteRut = :operadorTransporteRut")
     , @NamedQuery(name = "OperadorTransporte.findByOperadorTransporteNombre", query = "SELECT o FROM OperadorTransporte o WHERE o.operadorTransporteNombre = :operadorTransporteNombre")
-    , @NamedQuery(name = "OperadorTransporte.findByOperadorTransporteFechaIngreso", query = "SELECT o FROM OperadorTransporte o WHERE o.operadorTransporteFechaIngreso = :operadorTransporteFechaIngreso")
     , @NamedQuery(name = "OperadorTransporte.findByOperadorTransporteRecaudaBoleto", query = "SELECT o FROM OperadorTransporte o WHERE o.operadorTransporteRecaudaBoleto = :operadorTransporteRecaudaBoleto")
     , @NamedQuery(name = "OperadorTransporte.findByOperadorTransporteRecaudaCombustible", query = "SELECT o FROM OperadorTransporte o WHERE o.operadorTransporteRecaudaCombustible = :operadorTransporteRecaudaCombustible")
     , @NamedQuery(name = "OperadorTransporte.findByOperadorTransporteRecaudaGuias", query = "SELECT o FROM OperadorTransporte o WHERE o.operadorTransporteRecaudaGuias = :operadorTransporteRecaudaGuias")
@@ -57,10 +56,6 @@ public class OperadorTransporte implements Serializable {
     @Basic(optional = false)
     @Column(name = "operador_transporte_nombre")
     private String operadorTransporteNombre;
-    @Basic(optional = false)
-    @Column(name = "operador_transporte_fecha_ingreso")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date operadorTransporteFechaIngreso;
     @Basic(optional = false)
     @Column(name = "operador_transporte_recauda_boleto")
     private boolean operadorTransporteRecaudaBoleto;
@@ -90,7 +85,6 @@ public class OperadorTransporte implements Serializable {
         this.operadorTransporteId = operadorTransporteId;
         this.operadorTransporteRut = operadorTransporteRut;
         this.operadorTransporteNombre = operadorTransporteNombre;
-        this.operadorTransporteFechaIngreso = operadorTransporteFechaIngreso;
         this.operadorTransporteRecaudaBoleto = operadorTransporteRecaudaBoleto;
         this.operadorTransporteRecaudaCombustible = operadorTransporteRecaudaCombustible;
         this.operadorTransporteRecaudaGuias = operadorTransporteRecaudaGuias;
@@ -119,14 +113,6 @@ public class OperadorTransporte implements Serializable {
 
     public void setOperadorTransporteNombre(String operadorTransporteNombre) {
         this.operadorTransporteNombre = operadorTransporteNombre;
-    }
-
-    public Date getOperadorTransporteFechaIngreso() {
-        return operadorTransporteFechaIngreso;
-    }
-
-    public void setOperadorTransporteFechaIngreso(Date operadorTransporteFechaIngreso) {
-        this.operadorTransporteFechaIngreso = operadorTransporteFechaIngreso;
     }
 
     public boolean getOperadorTransporteRecaudaBoleto() {
@@ -202,5 +188,5 @@ public class OperadorTransporte implements Serializable {
     public String toString() {
         return "com.areatecnica.nanduappgb.entities.OperadorTransporte[ operadorTransporteId=" + operadorTransporteId + " ]";
     }
-    
+
 }

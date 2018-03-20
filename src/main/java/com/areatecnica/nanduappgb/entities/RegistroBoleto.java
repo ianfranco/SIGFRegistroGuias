@@ -73,9 +73,6 @@ public class RegistroBoleto implements Serializable {
     private Boolean registroBoletoEsNuevo;
     @Column(name = "registro_boleto_observacion")
     private String registroBoletoObservacion;
-    @Column(name = "registro_boleto_fecha_ingreso")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date registroBoletoFechaIngreso;
     @Transient
     private int diferencia;
     @JoinColumn(name = "registro_boleto_id_boleto", referencedColumnName = "boleto_id")
@@ -192,14 +189,6 @@ public class RegistroBoleto implements Serializable {
 
     public void setRegistroBoletoObservacion(String registroBoletoObservacion) {
         this.registroBoletoObservacion = registroBoletoObservacion;
-    }
-
-    public Date getRegistroBoletoFechaIngreso() {
-        return registroBoletoFechaIngreso;
-    }
-
-    public void setRegistroBoletoFechaIngreso(Date registroBoletoFechaIngreso) {
-        this.registroBoletoFechaIngreso = registroBoletoFechaIngreso;
     }
 
     public Boleto getRegistroBoletoIdBoleto() {

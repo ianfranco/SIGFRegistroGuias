@@ -57,8 +57,8 @@ public class FindFolioVueltaFocusLost extends FocusAdapter {
                     
                     this.controller.getView().getEstadoBoletoTextField().setBackground(Color.WHITE);
                     
-                    this.controller.getView().getBusTextField().setEnabled(Boolean.FALSE);
-                    this.controller.getView().getConductorTextField().setEnabled(Boolean.FALSE);
+                    this.controller.getView().getBusTextField().setEnabled(Boolean.TRUE);
+                    this.controller.getView().getConductorTextField().setEnabled(Boolean.TRUE);
                     this.controller.getView().getServicioTextField().requestFocus();
                     
                 }else{

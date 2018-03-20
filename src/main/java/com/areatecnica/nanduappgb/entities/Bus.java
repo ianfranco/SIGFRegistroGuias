@@ -50,7 +50,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Bus.findByBusTieneEgresoFlota", query = "SELECT b FROM Bus b WHERE b.busTieneEgresoFlota = :busTieneEgresoFlota")
     , @NamedQuery(name = "Bus.findByBusComparteServicio", query = "SELECT b FROM Bus b WHERE b.busComparteServicio = :busComparteServicio")
     , @NamedQuery(name = "Bus.findByBusActivo", query = "SELECT b FROM Bus b WHERE b.busActivo = :busActivo")
-    , @NamedQuery(name = "Bus.findByBusFechaIngreso", query = "SELECT b FROM Bus b WHERE b.busFechaIngreso = :busFechaIngreso")})
+})
 public class Bus implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -89,9 +89,6 @@ public class Bus implements Serializable {
     private Boolean busComparteServicio;
     @Column(name = "bus_activo")
     private Boolean busActivo;
-    @Column(name = "bus_fecha_ingreso")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date busFechaIngreso;
     @JoinColumn(name = "bus_id_empresa", referencedColumnName = "empresa_id")
     @ManyToOne(optional = false)
     private Empresa busIdEmpresa;
@@ -243,14 +240,6 @@ public class Bus implements Serializable {
 
     public void setBusActivo(Boolean busActivo) {
         this.busActivo = busActivo;
-    }
-
-    public Date getBusFechaIngreso() {
-        return busFechaIngreso;
-    }
-
-    public void setBusFechaIngreso(Date busFechaIngreso) {
-        this.busFechaIngreso = busFechaIngreso;
     }
 
     public Empresa getBusIdEmpresa() {

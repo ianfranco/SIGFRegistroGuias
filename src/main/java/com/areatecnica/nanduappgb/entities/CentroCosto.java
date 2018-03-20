@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CentroCosto.findAll", query = "SELECT c FROM CentroCosto c")
     , @NamedQuery(name = "CentroCosto.findByCentroCostoId", query = "SELECT c FROM CentroCosto c WHERE c.centroCostoId = :centroCostoId")
     , @NamedQuery(name = "CentroCosto.findByCentroCostoNombre", query = "SELECT c FROM CentroCosto c WHERE c.centroCostoNombre = :centroCostoNombre")
-    , @NamedQuery(name = "CentroCosto.findByCentroCostoFechaIngreso", query = "SELECT c FROM CentroCosto c WHERE c.centroCostoFechaIngreso = :centroCostoFechaIngreso")})
+})
 public class CentroCosto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,10 +49,6 @@ public class CentroCosto implements Serializable {
     @Basic(optional = false)
     @Column(name = "centro_costo_nombre")
     private String centroCostoNombre;
-    @Basic(optional = false)
-    @Column(name = "centro_costo_fecha_ingreso")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date centroCostoFechaIngreso;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "trabajadorIdCentroCosto")
     private List<Trabajador> trabajadorList;
     @JoinColumn(name = "centro_costo_id_cuenta", referencedColumnName = "cuenta_id")
@@ -69,7 +65,6 @@ public class CentroCosto implements Serializable {
     public CentroCosto(Integer centroCostoId, String centroCostoNombre, Date centroCostoFechaIngreso) {
         this.centroCostoId = centroCostoId;
         this.centroCostoNombre = centroCostoNombre;
-        this.centroCostoFechaIngreso = centroCostoFechaIngreso;
     }
 
     public Integer getCentroCostoId() {
@@ -86,14 +81,6 @@ public class CentroCosto implements Serializable {
 
     public void setCentroCostoNombre(String centroCostoNombre) {
         this.centroCostoNombre = centroCostoNombre;
-    }
-
-    public Date getCentroCostoFechaIngreso() {
-        return centroCostoFechaIngreso;
-    }
-
-    public void setCentroCostoFechaIngreso(Date centroCostoFechaIngreso) {
-        this.centroCostoFechaIngreso = centroCostoFechaIngreso;
     }
 
     @XmlTransient
@@ -137,5 +124,5 @@ public class CentroCosto implements Serializable {
     public String toString() {
         return "com.areatecnica.nanduappgb.entities.CentroCosto[ centroCostoId=" + centroCostoId + " ]";
     }
-    
+
 }
