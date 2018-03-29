@@ -15,6 +15,7 @@ import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
 import com.areatecnica.nanduappgb.entities.Servicio;
 import com.areatecnica.nanduappgb.entities.TarifaGrupoServicio;
+import com.areatecnica.nanduappgb.helpers.VoucherGuiaPrintAction;
 import com.areatecnica.nanduappgb.models.EstructuraRegistroBoletoÑandu;
 import com.areatecnica.nanduappgb.models.RegistroGuiaTableModel;
 import com.areatecnica.nanduappgb.models.ServicioComboBoxModel;
@@ -29,6 +30,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -53,6 +55,7 @@ public class RegistroGuiaController extends RegistroController {
     private RegistroGuiaTableModel model;
     private TarifaGrupoServicioSolyMar tarifaSolyMar;
     private Boolean flag;
+    private static final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
     public RegistroGuiaController() {
     }
@@ -111,6 +114,10 @@ public class RegistroGuiaController extends RegistroController {
                     if (!flag) {
                         if (inicio < model.getUltimoRegistro().getDirecto().getRegistroBoletoInicio()) {
                             view.getDirectoTextField().setText(String.valueOf(model.getUltimoRegistro().getDirecto().getRegistroBoletoInicio()));
+                        } else {
+                            if (inicio == 1001) {
+
+                            }
                         }
                     }
                     view.getDirectoTextField().setBackground(Color.white);
@@ -246,6 +253,8 @@ public class RegistroGuiaController extends RegistroController {
 
             }
         });
+
+        this.view.getPrintButton().addActionListener(new VoucherGuiaPrintAction(this));
 
         this.view.getSaveButton().addActionListener(new RegistroGuiaSaveAction(this));
 
@@ -468,8 +477,6 @@ public class RegistroGuiaController extends RegistroController {
                 }
                 serie.addRegistroBoleto(nuevoRegistro);
             }
-
-            
 
             this.model.addRow(serie);
 

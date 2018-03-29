@@ -8,6 +8,7 @@ package com.areatecnica.nanduappgb.behaviors;
 import com.areatecnica.nanduappgb.controllers.RegistroController;
 import com.areatecnica.nanduappgb.dao.IGuiaDao;
 import com.areatecnica.nanduappgb.dao.impl.GuiaDaoImpl;
+import com.areatecnica.nanduappgb.helpers.VoucherGuiaPrintAction;
 import java.awt.event.ActionEvent;
 
 /**
@@ -22,7 +23,6 @@ public class RegistroGuiaSaveAction extends RegistroGuiaAbstractAction {
         super(controller);
         init();
     }
-    
 
     private void init() {
         this.dao = new GuiaDaoImpl();
@@ -36,6 +36,10 @@ public class RegistroGuiaSaveAction extends RegistroGuiaAbstractAction {
     public void save() {
         if (this.getController().getGuia() != null) {
             this.dao.update(this.getController().getGuia());
+
+            VoucherGuiaPrintAction v = new VoucherGuiaPrintAction(this.getController());
+            v.print();
+
             this.getController().reset();
         }
     }
