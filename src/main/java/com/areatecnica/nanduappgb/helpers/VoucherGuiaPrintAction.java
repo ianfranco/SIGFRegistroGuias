@@ -28,7 +28,7 @@ public class VoucherGuiaPrintAction extends AbstractAction {
     private InputStream file = getClass().getResourceAsStream("/Voucher_boletos.jrxml");
 
     public VoucherGuiaPrintAction(RegistroController controller) {
-        //this.controller = (RegistroGuiaController) controller;
+        this.controller = (RegistroGuiaController) controller;
     }
 
     @Override
