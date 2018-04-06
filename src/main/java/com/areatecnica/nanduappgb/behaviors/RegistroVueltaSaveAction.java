@@ -5,22 +5,23 @@
  */
 package com.areatecnica.nanduappgb.behaviors;
 
-import com.areatecnica.nanduappgb.controllers.BoletosFactory;
-import com.areatecnica.nanduappgb.controllers.RegistroController;
+import com.areatecnica.nanduappgb.controllers.RegistroVueltaController;
 import com.areatecnica.nanduappgb.dao.IGuiaDao;
 import com.areatecnica.nanduappgb.dao.impl.GuiaDaoImpl;
 import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
 
 /**
  *
  * @author ianfrancoconcha
  */
-public class RegistroGuiaSaveAction extends RegistroGuiaAbstractAction {
+public class RegistroVueltaSaveAction extends AbstractAction{
 
     private IGuiaDao dao;
+    private RegistroVueltaController controller;
 
-    public RegistroGuiaSaveAction(RegistroController controller) {
-        super(controller);
+    public RegistroVueltaSaveAction(RegistroVueltaController controller) {
+        this.controller = controller;
         init();
     }
 
@@ -28,19 +29,18 @@ public class RegistroGuiaSaveAction extends RegistroGuiaAbstractAction {
         this.dao = new GuiaDaoImpl();
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         save();
     }
 
     public void save() {
-        if (this.getController().getGuia() != null) {
-            this.dao.update(this.getController().getGuia());
-            
-            VoucherGuiaPrintAction v = new VoucherGuiaPrintAction(this.getController());
+        if (this.controller.getGuia() != null) {
+            this.dao.update(this.controller.getGuia());
+
+            VoucherRegistroVueltaPrintAction v = new VoucherRegistroVueltaPrintAction(this.controller);
             v.print();
 
-            this.getController().reset();
+            this.controller.reset();
         }
     }
 

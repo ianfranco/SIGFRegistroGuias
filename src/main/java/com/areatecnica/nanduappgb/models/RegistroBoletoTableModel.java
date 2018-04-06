@@ -157,4 +157,11 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
         return totales;
     }
 
+    public List<EstructuraRegistroBoletoÑandu> getList() {
+        System.err.println("QUE ONDA QUE ESTÁ VACIA:"+list.size());
+        return this.list;
+    }
+    
+    
+
 }

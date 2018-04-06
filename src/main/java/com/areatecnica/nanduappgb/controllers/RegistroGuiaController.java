@@ -15,7 +15,6 @@ import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
 import com.areatecnica.nanduappgb.entities.Servicio;
 import com.areatecnica.nanduappgb.entities.TarifaGrupoServicio;
-import com.areatecnica.nanduappgb.helpers.VoucherGuiaPrintAction;
 import com.areatecnica.nanduappgb.models.EstructuraRegistroBoletoÑandu;
 import com.areatecnica.nanduappgb.models.RegistroGuiaTableModel;
 import com.areatecnica.nanduappgb.models.ServicioComboBoxModel;
@@ -30,6 +29,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,6 +57,7 @@ public class RegistroGuiaController extends RegistroController {
     private TarifaGrupoServicioSolyMar tarifaSolyMar;
     private Boolean flag;
     private static final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    private BoletosFactory factory;
 
     public RegistroGuiaController() {
     }
@@ -247,16 +249,16 @@ public class RegistroGuiaController extends RegistroController {
             }
         });
 
-        this.view.getAddButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        this.view.getPrintButton().addActionListener(new VoucherGuiaPrintAction(this));
-
         this.view.getSaveButton().addActionListener(new RegistroGuiaSaveAction(this));
+
+        this.view.getAddButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                addRow();
+                System.err.println("CLICK");
+            }
+
+        });
 
         this.view.getFolioTextField().requestFocus();
     }
@@ -278,6 +280,7 @@ public class RegistroGuiaController extends RegistroController {
         return proceso;
     }
 
+    
     public RegistroGuiaTableModel getModel() {
         return model;
     }
@@ -507,11 +510,11 @@ public class RegistroGuiaController extends RegistroController {
         this.view.getFolioTextField().setText("");
         this.view.getBusTextField().setText("");
         this.view.getConductorTextField().setText("");
-        this.view.getPpuTextField().setText("");
-        this.view.getFlotaTextField().setText("");
-        this.view.getNombreConductorTextField().setText("");
-        this.view.getObservacionTextField().setText("");
-        this.view.getEstadoBoletoTextField().setText("");
+        this.view.getPpuTextField().setText(" ");
+        this.view.getFlotaTextField().setText(" ");
+        this.view.getNombreConductorTextField().setText(" ");
+        this.view.getObservacionTextField().setText(" ");
+        this.view.getEstadoBoletoTextField().setText(" ");
         clearTextField();
         this.view.getFolioTextField().requestFocus();
     }

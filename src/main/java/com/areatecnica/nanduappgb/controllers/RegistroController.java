@@ -6,6 +6,7 @@
 package com.areatecnica.nanduappgb.controllers;
 
 import com.areatecnica.nanduappgb.entities.Guia;
+import com.areatecnica.nanduappgb.models.RegistroBoletoTableModel;
 
 /**
  *
@@ -14,7 +15,8 @@ import com.areatecnica.nanduappgb.entities.Guia;
 public abstract class RegistroController {
 
     private Guia guia;
-
+    private RegistroBoletoTableModel boletoTableModel;
+    
     public RegistroController() {
     }
 
@@ -25,7 +27,5 @@ public abstract class RegistroController {
     public void reset() {
 
     }
-    
-    
 
 }

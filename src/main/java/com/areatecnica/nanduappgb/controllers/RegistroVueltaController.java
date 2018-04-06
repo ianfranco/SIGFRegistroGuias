@@ -7,6 +7,8 @@ package com.areatecnica.nanduappgb.controllers;
 
 import com.areatecnica.nanduappgb.behaviors.FindFolioVueltaFocusLost;
 import com.areatecnica.nanduappgb.behaviors.RegistroGuiaSaveAction;
+import com.areatecnica.nanduappgb.behaviors.RegistroVueltaSaveAction;
+import com.areatecnica.nanduappgb.behaviors.VoucherRegistroVueltaPrintAction;
 import com.areatecnica.nanduappgb.dao.impl.ProcesoGeneralNandu;
 import com.areatecnica.nanduappgb.dao.impl.TarifaGrupoServicioSolyMar;
 import com.areatecnica.nanduappgb.entities.Guia;
@@ -49,6 +51,7 @@ public class RegistroVueltaController extends RegistroController {
     private RegistroBoletoTableModel model;
     private TarifaGrupoServicioSolyMar tarifaSolyMar;
     private Boolean flag;
+    private BoletosFactory factory;
 
     public RegistroVueltaController() {
     }
@@ -210,9 +213,21 @@ public class RegistroVueltaController extends RegistroController {
             }
         });
 
-        this.view.getSaveButton().addActionListener(new RegistroGuiaSaveAction(this));
+        this.view.getSaveButton().addActionListener(new RegistroVueltaSaveAction(this));
+
+        this.view.getPrintButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                printAction(e);
+            }
+        });
 
         this.view.getFolioTextField().requestFocus();
+    }
+
+    public void printAction(ActionEvent e) {
+        VoucherRegistroVueltaPrintAction print = new VoucherRegistroVueltaPrintAction(this);
+        print.actionPerformed(e);
     }
 
     public RegistroVueltaView getView() {
@@ -469,4 +484,5 @@ public class RegistroVueltaController extends RegistroController {
         this.view.getEscolarLocalTextField().setText("");
         this.view.getServicioTextField().setSelectedIndex(0);
     }
+
 }

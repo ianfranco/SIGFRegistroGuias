@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.areatecnica.nanduappgb.helpers;
+package com.areatecnica.nanduappgb.behaviors;
 
-import com.areatecnica.nanduappgb.controllers.RegistroController;
-import com.areatecnica.nanduappgb.controllers.RegistroGuiaController;
+import com.areatecnica.nanduappgb.controllers.BoletosFactory;
+import com.areatecnica.nanduappgb.controllers.RegistroVueltaController;
+import com.areatecnica.nanduappgb.helpers.ReportController;
 import java.awt.event.ActionEvent;
 import java.io.InputStream;
 import java.util.Date;
@@ -18,17 +19,20 @@ import javax.swing.AbstractAction;
  *
  * @author ianfrancoconcha
  */
-public class VoucherGuiaPrintAction extends AbstractAction {
+public class VoucherRegistroVueltaPrintAction extends AbstractAction {
 
-    private RegistroGuiaController controller;
+    private RegistroVueltaController controller;
     private Date fecha;
     private ReportController report;
     private Map map;
+    private BoletosFactory factory;
     //private static final String path = ""; 
-    private InputStream file = getClass().getResourceAsStream("/Voucher_boletos.jrxml");
+    private InputStream file = getClass().getResourceAsStream("/Voucher_boletos2.jrxml");
 
-    public VoucherGuiaPrintAction(RegistroController controller) {
-        this.controller = (RegistroGuiaController) controller;
+    public VoucherRegistroVueltaPrintAction(RegistroVueltaController controller) {
+        this.controller = controller;
+        System.err.println("MODELO LISTA:"+this.controller.getModel().getList().size());
+        this.factory = new BoletosFactory(this.controller.getModel().getList());
     }
 
     @Override
@@ -50,21 +54,23 @@ public class VoucherGuiaPrintAction extends AbstractAction {
         this.map.put("seriePlan", this.controller.getModel().getPrimerRegistro().getPlanVina().getRegistroBoletoSerie());
         this.map.put("serieLocal", this.controller.getModel().getPrimerRegistro().getLocal().getRegistroBoletoSerie());
         this.map.put("serieEscolarDirecto", this.controller.getModel().getPrimerRegistro().getEscolarDirecto().getRegistroBoletoSerie());
-        this.map.put("serieEscolarLocal", this.controller.getModel().getPrimerRegistro().getEscolarLocal().getRegistroBoletoInicio());
-        this.map.put("inicioDirecto", this.controller.getModel().getPrimerRegistro().getDirecto().getRegistroBoletoInicio());
-        this.map.put("inicioPlan", this.controller.getModel().getPrimerRegistro().getPlanVina().getRegistroBoletoInicio());
-        this.map.put("inicioLocal", this.controller.getModel().getPrimerRegistro().getLocal().getRegistroBoletoInicio());
-        this.map.put("inicioEscolarDirecto", this.controller.getModel().getPrimerRegistro().getEscolarDirecto().getRegistroBoletoInicio());
-        this.map.put("inicioEscolarLocal", this.controller.getModel().getPrimerRegistro().getEscolarLocal().getRegistroBoletoInicio());
+        this.map.put("serieEscolarLocal", this.controller.getModel().getPrimerRegistro().getEscolarLocal().getRegistroBoletoSerie());
+        this.map.put("totalDirecto", this.controller.getModel().getUltimoRegistro().getDirecto().getRegistroBoletoTotal());
+        this.map.put("totalPlan", this.controller.getModel().getUltimoRegistro().getPlanVina().getRegistroBoletoTotal());
+        this.map.put("totalLocal", this.controller.getModel().getUltimoRegistro().getLocal().getRegistroBoletoTotal());
+        this.map.put("totalEscolar1", this.controller.getModel().getUltimoRegistro().getEscolarDirecto().getRegistroBoletoTotal());
+        this.map.put("totalEscolar2", this.controller.getModel().getUltimoRegistro().getEscolarLocal().getRegistroBoletoTotal());
 
-        this.report = new ReportController(file);
+        
+        
+        this.report = new ReportController(file, factory);
         this.report.setMap(map);
 
         this.report.loadFile();
 
         this.file = null;
 
-        this.file = getClass().getResourceAsStream("/Voucher_boletos.jrxml");
+        this.file = getClass().getResourceAsStream("/Voucher_boletos2.jrxml");
     }
 
 }

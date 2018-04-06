@@ -50,7 +50,7 @@ public class FindFolioFocusLost extends FocusAdapter {
                 if (_guia != null) {
 
                     this.controller.getView().getObservacionTextField().setText("Folio ya ingresado");
-                    this.controller.getView().getObservacionTextField().setBackground(Color.red);
+                    this.controller.getView().getObservacionTextField().setForeground(Color.red);
                     this.controller.getView().getServicioTextField().setEnabled(Boolean.FALSE);
                     this.controller.getView().getBusTextField().setEnabled(Boolean.FALSE);
                     this.controller.getView().getConductorTextField().setEnabled(Boolean.FALSE);
@@ -88,7 +88,7 @@ public class FindFolioFocusLost extends FocusAdapter {
                     this.controller.getView().getConductorTextField().setText("");
                     this.controller.getGuia().setGuiaFolio(folio);
                     this.controller.getView().getObservacionTextField().setText("Nueva Guía");
-                    this.controller.getView().getObservacionTextField().setBackground(Color.BLACK);
+                    this.controller.getView().getObservacionTextField().setForeground(Color.BLACK);
 
                     this.controller.getView().getServicioTextField().setEnabled(Boolean.TRUE);
                     this.controller.getView().getBusTextField().setEnabled(Boolean.TRUE);

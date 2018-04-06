@@ -64,11 +64,11 @@ public class FindBusSolyMarFocusLost extends FocusAdapter {
                         model = new RegistroGuiaTableModel(_guia);
                         this.controller.setModel(model);
                         this.controller.getView().getEstadoBoletoTextField().setText("");
-                        this.controller.getView().getEstadoBoletoTextField().setBackground(Color.WHITE);
+                        this.controller.getView().getEstadoBoletoTextField().setForeground(Color.WHITE);
                         this.controller.setFlag(Boolean.FALSE);
                     } else {
                         model = new RegistroGuiaTableModel();
-                        this.controller.getView().getEstadoBoletoTextField().setBackground(Color.red);
+                        this.controller.getView().getEstadoBoletoTextField().setForeground(Color.red);
                         this.controller.getView().getEstadoBoletoTextField().setText("ATENCIÓN -> DEBE INGRESAR SERIE DE BOLETOS COMPLETA");
                         this.controller.setModel(model);
                         this.controller.setFlag(Boolean.TRUE);
@@ -76,7 +76,7 @@ public class FindBusSolyMarFocusLost extends FocusAdapter {
 
                 } else {
                     this.controller.getView().getBusTextField().setBackground(Color.RED);
-                    this.controller.getView().getPpuTextField().setText("No existe el N° Ingresado");
+                    this.controller.getView().getPpuTextField().setText("Error");
                     this.controller.getView().getFlotaTextField().setText("");
 
                 }

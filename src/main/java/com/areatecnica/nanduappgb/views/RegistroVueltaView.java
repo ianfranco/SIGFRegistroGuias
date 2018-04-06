@@ -71,6 +71,7 @@ public class RegistroVueltaView extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         estadoBoletoTextField = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
+        printButton = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel1.setText("Registro de Vueltas / Boletos");
@@ -114,23 +115,29 @@ public class RegistroVueltaView extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel6.setText("Servicio");
+        jLabel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel7.setText("Directo");
+        jLabel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel8.setText("Local Viña");
+        jLabel8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel9.setText("Local ");
+        jLabel9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Esc. Directo");
+        jLabel10.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel11.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("Esc. Local");
+        jLabel11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         directoTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
 
@@ -208,7 +215,7 @@ public class RegistroVueltaView extends javax.swing.JPanel {
                     .addComponent(addButton)
                     .addComponent(servicioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -217,14 +224,17 @@ public class RegistroVueltaView extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Folio :");
+        jLabel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Nº Bus :");
+        jLabel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Nº Conductor :");
+        jLabel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         folioTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
 
@@ -274,38 +284,48 @@ public class RegistroVueltaView extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("Observación :");
+        jLabel12.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         observacionTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         observacionTextField.setText(" ");
+        observacionTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel13.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel13.setText("Patente :");
+        jLabel13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         ppuTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         ppuTextField.setText(" ");
         ppuTextField.setToolTipText("");
+        ppuTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel15.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("Flota :");
+        jLabel15.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         flotaTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         flotaTextField.setText(" ");
+        flotaTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel14.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Nombre :");
+        jLabel14.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         nombreConductorTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         nombreConductorTextField.setText(" ");
+        nombreConductorTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel16.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("Estado Boletos :");
+        jLabel16.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         estadoBoletoTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         estadoBoletoTextField.setText(" ");
+        estadoBoletoTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -317,7 +337,7 @@ public class RegistroVueltaView extends javax.swing.JPanel {
                     .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(observacionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -326,7 +346,7 @@ public class RegistroVueltaView extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(flotaTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                        .addComponent(flotaTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
                     .addComponent(nombreConductorTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(estadoBoletoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -358,6 +378,9 @@ public class RegistroVueltaView extends javax.swing.JPanel {
         saveButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         saveButton.setText("Registrar");
 
+        printButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        printButton.setText("Imprimir");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -373,6 +396,8 @@ public class RegistroVueltaView extends javax.swing.JPanel {
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(printButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saveButton)))
                 .addContainerGap())
         );
@@ -388,7 +413,9 @@ public class RegistroVueltaView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(saveButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveButton)
+                    .addComponent(printButton))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -529,6 +556,11 @@ public class RegistroVueltaView extends javax.swing.JPanel {
         this.estadoBoletoTextField = estadoBoletoTextField;
     }
 
+    public JButton getPrintButton() {
+        return printButton;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JLabel busTextField;
@@ -565,6 +597,7 @@ public class RegistroVueltaView extends javax.swing.JPanel {
     private javax.swing.JLabel observacionTextField;
     private javax.swing.JTextField planVinaTextField;
     private javax.swing.JLabel ppuTextField;
+    private javax.swing.JButton printButton;
     private javax.swing.JButton saveButton;
     private javax.swing.JComboBox<String> servicioComboBox;
     private javax.swing.JTable table;

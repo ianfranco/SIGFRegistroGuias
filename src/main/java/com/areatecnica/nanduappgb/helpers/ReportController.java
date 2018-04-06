@@ -6,6 +6,7 @@
 package com.areatecnica.nanduappgb.helpers;
 
 
+import com.areatecnica.nanduappgb.controllers.BoletosFactory;
 import com.areatecnica.nanduappgb.dao.Conexion;
 import java.io.InputStream;
 import java.util.Map;
@@ -19,6 +20,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.swing.JRViewer;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -36,12 +38,18 @@ public class ReportController {
     private JTabbedPane panel;
     private Map map;
     private Boolean flag = Boolean.TRUE;
+    private BoletosFactory factory;
 
     public ReportController() {
     }
 
     public ReportController(InputStream file) {
         this.file = file;
+    }
+    
+    public ReportController(InputStream file, BoletosFactory factory) {
+        this.file = file;
+        this.factory = factory;
     }
 
     public ReportController(String path) {
@@ -87,7 +95,7 @@ public class ReportController {
         try {
             this.report = JasperCompileManager.compileReport(this.file);
 
-            this.jasperPrint = JasperFillManager.fillReport(report, map, new Conexion().getConnection());
+            this.jasperPrint = JasperFillManager.fillReport(report, map, new JRBeanCollectionDataSource(factory.load()));
 
             if (flag) {
                 if (this.panel != null) {
