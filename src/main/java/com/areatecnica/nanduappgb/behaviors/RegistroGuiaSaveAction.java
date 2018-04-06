@@ -36,9 +36,9 @@ public class RegistroGuiaSaveAction extends RegistroGuiaAbstractAction {
     public void save() {
         if (this.getController().getGuia() != null) {
             this.dao.update(this.getController().getGuia());
-            
-            VoucherGuiaPrintAction v = new VoucherGuiaPrintAction(this.getController());
-            v.print();
+//            
+//            VoucherGuiaPrintAction v = new VoucherGuiaPrintAction(this.getController());
+//            v.print();
 
             this.getController().reset();
         }

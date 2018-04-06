@@ -135,4 +135,8 @@ public class RegistroGuiaTableModel extends AbstractTableModel {
         return (this.list.isEmpty()) ? null : list.get(list.size() - 1);
     }
 
+    public List<EstructuraRegistroBoletoÑandu> getList() {
+        return list;
+    }
+
 }

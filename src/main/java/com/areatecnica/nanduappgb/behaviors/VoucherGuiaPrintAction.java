@@ -9,6 +9,7 @@ import com.areatecnica.nanduappgb.controllers.BoletosFactory;
 import com.areatecnica.nanduappgb.controllers.RegistroController;
 import com.areatecnica.nanduappgb.controllers.RegistroGuiaController;
 import com.areatecnica.nanduappgb.helpers.ReportController;
+import com.areatecnica.nanduappgb.models.EstructuraRegistroBoletoÑandu;
 import java.awt.event.ActionEvent;
 import java.io.InputStream;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class VoucherGuiaPrintAction extends AbstractAction {
 
     public VoucherGuiaPrintAction(RegistroController controller) {
         this.controller = (RegistroGuiaController) controller;
-        //BoletosFactory factory = new BoletosFactory(this.getController().getModel().getList());
+        BoletosFactory factory = new BoletosFactory(this.controller.getModel().getList());
     }
 
     @Override
@@ -54,14 +55,24 @@ public class VoucherGuiaPrintAction extends AbstractAction {
         this.map.put("seriePlan", this.controller.getModel().getPrimerRegistro().getPlanVina().getRegistroBoletoSerie());
         this.map.put("serieLocal", this.controller.getModel().getPrimerRegistro().getLocal().getRegistroBoletoSerie());
         this.map.put("serieEscolarDirecto", this.controller.getModel().getPrimerRegistro().getEscolarDirecto().getRegistroBoletoSerie());
-        this.map.put("serieEscolarLocal", this.controller.getModel().getPrimerRegistro().getEscolarLocal().getRegistroBoletoInicio());
-        this.map.put("inicioDirecto", this.controller.getModel().getPrimerRegistro().getDirecto().getRegistroBoletoInicio());
-        this.map.put("inicioPlan", this.controller.getModel().getPrimerRegistro().getPlanVina().getRegistroBoletoInicio());
-        this.map.put("inicioLocal", this.controller.getModel().getPrimerRegistro().getLocal().getRegistroBoletoInicio());
-        this.map.put("inicioEscolarDirecto", this.controller.getModel().getPrimerRegistro().getEscolarDirecto().getRegistroBoletoInicio());
-        this.map.put("inicioEscolarLocal", this.controller.getModel().getPrimerRegistro().getEscolarLocal().getRegistroBoletoInicio());
+        this.map.put("serieEscolarLocal", this.controller.getModel().getPrimerRegistro().getEscolarLocal().getRegistroBoletoSerie());
 
-        this.report = new ReportController(file);
+        if (this.controller.getModel().getUltimoRegistro() != null) {
+            this.map.put("inicioDirecto", this.controller.getModel().getUltimoRegistro().getDirecto().getRegistroBoletoInicio());
+            this.map.put("inicioPlan", this.controller.getModel().getUltimoRegistro().getPlanVina().getRegistroBoletoInicio());
+            this.map.put("inicioLocal", this.controller.getModel().getUltimoRegistro().getLocal().getRegistroBoletoInicio());
+            this.map.put("inicioEscolarDirecto", this.controller.getModel().getUltimoRegistro().getEscolarDirecto().getRegistroBoletoInicio());
+            this.map.put("inicioEscolarLocal", this.controller.getModel().getUltimoRegistro().getEscolarLocal().getRegistroBoletoInicio());
+        } else {
+            
+            this.map.put("inicioDirecto", this.controller.getModel().getPrimerRegistro().getDirecto().getRegistroBoletoInicio());
+            this.map.put("inicioPlan", this.controller.getModel().getPrimerRegistro().getPlanVina().getRegistroBoletoInicio());
+            this.map.put("inicioLocal", this.controller.getModel().getPrimerRegistro().getLocal().getRegistroBoletoInicio());
+            this.map.put("inicioEscolarDirecto", this.controller.getModel().getPrimerRegistro().getEscolarDirecto().getRegistroBoletoInicio());
+            this.map.put("inicioEscolarLocal", this.controller.getModel().getPrimerRegistro().getEscolarLocal().getRegistroBoletoInicio());
+        }
+
+        this.report = new ReportController(file, factory);
         this.report.setMap(map);
 
         this.report.loadFile();

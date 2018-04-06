@@ -22,8 +22,6 @@ public class BoletosFactory {
     }
 
     public static java.util.Collection<EstructuraRegistroBoletoÑandu> load() {
-        
-        System.err.println("TAMAÑO DE LISTA: "+items.size());
         return items;
     }
 
