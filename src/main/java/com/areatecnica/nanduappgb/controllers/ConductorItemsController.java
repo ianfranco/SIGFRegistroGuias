@@ -5,7 +5,6 @@
  */
 package com.areatecnica.nanduappgb.controllers;
 
-import com.areatecnica.nanduappgb.dao.impl.IProcesoGeneral;
 import com.areatecnica.nanduappgb.entities.Terminal;
 import com.areatecnica.nanduappgb.entities.Trabajador;
 import com.areatecnica.nanduappgb.models.TrabajadorTableModel;
