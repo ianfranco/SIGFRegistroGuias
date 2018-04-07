@@ -23,10 +23,12 @@ public class EstructuraRegistroBoletoÑandu {
     private RegistroBoleto local;
     private RegistroBoleto escolarLocal;
     private RegistroBoleto escolarDirecto;
+    private int totalVuelta;
 
     private List<RegistroBoleto> registro;
 
     public EstructuraRegistroBoletoÑandu() {
+        this.totalVuelta = 0; 
     }
 
     public EstructuraRegistroBoletoÑandu(int numero, Servicio servicio, RegistroBoleto directo, RegistroBoleto planVina, RegistroBoleto local, RegistroBoleto escolarLocal, RegistroBoleto escolarDirecto, List<RegistroBoleto> registro) {
@@ -38,6 +40,7 @@ public class EstructuraRegistroBoletoÑandu {
         this.escolarLocal = escolarLocal;
         this.escolarDirecto = escolarDirecto;
         this.registro = registro;
+        this.totalVuelta = 0;
     }
 
     public int getNumero() {
@@ -94,6 +97,14 @@ public class EstructuraRegistroBoletoÑandu {
 
     public void setEscolarDirecto(RegistroBoleto escolarDirecto) {
         this.escolarDirecto = escolarDirecto;
+    }
+
+    public int getTotalVuelta() {
+        return totalVuelta;
+    }
+
+    public void setTotalVuelta(int totalVuelta) {
+        this.totalVuelta = totalVuelta;
     }
 
     public void addRegistroBoleto(RegistroBoleto registro) {

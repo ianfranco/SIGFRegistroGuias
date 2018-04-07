@@ -407,36 +407,58 @@ public class RegistroVueltaController extends RegistroController {
                 switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
                     case 1:
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
+
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+
+                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio()-r.getRegistroBoletoTermino());
+                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
+
                         break;
                     case 2:
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        
+                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio()-r.getRegistroBoletoTermino());
+                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
                         break;
                     case 3:
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        
+                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio()-r.getRegistroBoletoTermino());
+                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
                         break;
                     case 4:
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        
+                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio()-r.getRegistroBoletoTermino());
+                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
                         break;
                     case 5:
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        
+                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio()-r.getRegistroBoletoTermino());
+                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
+
                         break;
                 }
                 serie.addRegistroBoleto(nuevoRegistro);
+                serie.setTotalVuelta(serie.getTotalVuelta() + r.getRegistroBoletoTotal());
+                
+                System.err.println("TOTAL VUELTA:"+serie.getTotalVuelta());
+
             }
 
             this.model.addRow(serie);
@@ -452,7 +474,7 @@ public class RegistroVueltaController extends RegistroController {
             int option = JOptionPane.showConfirmDialog(null, "¿Registrar Vuelta?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
             if (option == JOptionPane.YES_OPTION) {
-                RegistroGuiaSaveAction action = new RegistroGuiaSaveAction(this);
+                RegistroVueltaSaveAction action = new RegistroVueltaSaveAction(this);
                 action.save();
                 reset();
             }

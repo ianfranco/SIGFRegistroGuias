@@ -31,7 +31,6 @@ public class VoucherRegistroVueltaPrintAction extends AbstractAction {
 
     public VoucherRegistroVueltaPrintAction(RegistroVueltaController controller) {
         this.controller = controller;
-        System.err.println("MODELO LISTA:"+this.controller.getModel().getList().size());
         this.factory = new BoletosFactory(this.controller.getModel().getList());
     }
 
@@ -61,8 +60,6 @@ public class VoucherRegistroVueltaPrintAction extends AbstractAction {
         this.map.put("totalEscolar1", this.controller.getModel().getUltimoRegistro().getEscolarDirecto().getRegistroBoletoTotal());
         this.map.put("totalEscolar2", this.controller.getModel().getUltimoRegistro().getEscolarLocal().getRegistroBoletoTotal());
 
-        
-        
         this.report = new ReportController(file, factory);
         this.report.setMap(map);
 

@@ -5,7 +5,6 @@
  */
 package com.areatecnica.nanduappgb.helpers;
 
-
 import com.areatecnica.nanduappgb.controllers.BoletosFactory;
 import com.areatecnica.nanduappgb.dao.Conexion;
 import java.io.InputStream;
@@ -46,7 +45,7 @@ public class ReportController {
     public ReportController(InputStream file) {
         this.file = file;
     }
-    
+
     public ReportController(InputStream file, BoletosFactory factory) {
         this.file = file;
         this.factory = factory;
@@ -97,21 +96,11 @@ public class ReportController {
 
             this.jasperPrint = JasperFillManager.fillReport(report, map, new JRBeanCollectionDataSource(factory.load()));
 
-            if (flag) {
-                if (this.panel != null) {
-                    JRViewer jr = new JRViewer(jasperPrint);
-                    this.panel.add(jr, title);
-                    this.panel.setSelectedComponent(jr);
-                } else {
-                    JasperViewer.viewReport(jasperPrint, false);
-                }
-            } else {
-                JasperViewer.viewReport(jasperPrint, true);
-            }
+            System.err.println("llega acà en impresión");
+            JasperViewer.viewReport(jasperPrint, true);
 
         } catch (JRException ex) {
-            Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se ha encontrado la ruta del informe", "Error al generar la petición", JOptionPane.ERROR_MESSAGE);
+            System.err.println(ex.getMessage());
         }
     }
 
