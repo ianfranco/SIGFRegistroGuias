@@ -43,6 +43,7 @@ public class MainView extends javax.swing.JFrame {
         registroBoletoMenuItem = new javax.swing.JMenuItem();
         buscarGuiaMenuItem = new javax.swing.JMenuItem();
         buscarBoletoMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         advancedMenu = new javax.swing.JMenu();
         tarifasMenuItem = new javax.swing.JMenuItem();
         infoMenu = new javax.swing.JMenu();
@@ -91,6 +92,14 @@ public class MainView extends javax.swing.JFrame {
 
         buscarBoletoMenuItem.setText("Buscar boleto");
         editMenu.add(buscarBoletoMenuItem);
+
+        jMenuItem1.setText("Guías x Fecha");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        editMenu.add(jMenuItem1);
 
         advancedMenu.setText("Avanzado");
 
@@ -157,6 +166,11 @@ public class MainView extends javax.swing.JFrame {
         setNewTab(registroVueltaView, "Registro Vueltas / Boleto");
     }//GEN-LAST:event_registroBoletoMenuItemActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        guiaItems = new GuiaItemsView();
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     private void setNewTab(JPanel panel, String title) {
         this.tabbedPane.add(title, panel);
         this.tabbedPane.setSelectedComponent(panel);
@@ -215,6 +229,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu infoMenu;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem registroBoletoMenuItem;
     private javax.swing.JTabbedPane tabbedPane;
@@ -223,4 +238,5 @@ public class MainView extends javax.swing.JFrame {
     private TarifaGrupoServicioView tarifaGrupoServicioView;
     private static RegistroVueltaView registroVueltaView;
     private static RegistroGuiaView registroGuiaView;
+    private GuiaItemsView guiaItems; 
 }

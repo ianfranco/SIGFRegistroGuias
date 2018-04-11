@@ -27,6 +27,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -203,14 +207,33 @@ public class RegistroVueltaController extends RegistroController {
 
         this.view.getAddButton().addKeyListener(new NextObject(this.view.getEscolarLocalTextField(), null, null, this.view.getEscolarLocalTextField()));
 
-        this.view.getAddButton().addActionListener(new ActionListener() {
+        this.view.getAddButton().addKeyListener(new KeyAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (guia != null) {
-                    System.err.println("LO OTRO");
-                    addRow();
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_ENTER:
+                        if (guia != null) {
+                            System.err.println("LO OTRO");
+                            addRow();
+                        }
+                        break;
+                    case KeyEvent.VK_LEFT:
+                    case KeyEvent.VK_UP:
+                        view.getEscolarLocalTextField().requestFocus();
+                        break;
+                    default:
+                        break;
                 }
             }
+        });
+
+        this.view.getAddButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                addRow();
+                System.err.println("CLICK");
+            }
+
         });
 
         this.view.getSaveButton().addActionListener(new RegistroVueltaSaveAction(this));
@@ -412,8 +435,8 @@ public class RegistroVueltaController extends RegistroController {
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
 
-                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio()-r.getRegistroBoletoTermino());
-                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
+                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
 
                         break;
                     case 2:
@@ -421,43 +444,43 @@ public class RegistroVueltaController extends RegistroController {
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        
-                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio()-r.getRegistroBoletoTermino());
-                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
+
+                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         break;
                     case 3:
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        
-                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio()-r.getRegistroBoletoTermino());
-                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
+
+                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         break;
                     case 4:
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        
-                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio()-r.getRegistroBoletoTermino());
-                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
+
+                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         break;
                     case 5:
                         nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
                         r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                         r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                         r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        
-                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio()-r.getRegistroBoletoTermino());
-                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad()*r.getRegistroBoletoValor());
+
+                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
 
                         break;
                 }
                 serie.addRegistroBoleto(nuevoRegistro);
                 serie.setTotalVuelta(serie.getTotalVuelta() + r.getRegistroBoletoTotal());
-                
-                System.err.println("TOTAL VUELTA:"+serie.getTotalVuelta());
+
+                System.err.println("TOTAL VUELTA:" + serie.getTotalVuelta());
 
             }
 

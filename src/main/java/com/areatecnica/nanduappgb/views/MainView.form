@@ -54,6 +54,14 @@
                 <Property name="text" type="java.lang.String" value="Buscar boleto"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gu&#xed;as x Fecha"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
+            </MenuItem>
             <Menu class="javax.swing.JMenu" name="advancedMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Avanzado"/>
