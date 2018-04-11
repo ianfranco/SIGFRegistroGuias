@@ -97,7 +97,8 @@ public class ReportController {
             this.jasperPrint = JasperFillManager.fillReport(report, map, new JRBeanCollectionDataSource(factory.load()));
 
             System.err.println("llega acà en impresión");
-            JasperViewer.viewReport(jasperPrint, true);
+            //JasperViewer.viewReport(jasperPrint, false);
+            JasperPrintManager.printReport(jasperPrint, false);
 
         } catch (JRException ex) {
             System.err.println(ex.getMessage());
