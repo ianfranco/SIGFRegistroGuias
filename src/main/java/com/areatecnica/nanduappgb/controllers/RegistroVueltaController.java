@@ -6,7 +6,6 @@
 package com.areatecnica.nanduappgb.controllers;
 
 import com.areatecnica.nanduappgb.behaviors.FindFolioVueltaFocusLost;
-import com.areatecnica.nanduappgb.behaviors.RegistroGuiaSaveAction;
 import com.areatecnica.nanduappgb.behaviors.RegistroVueltaSaveAction;
 import com.areatecnica.nanduappgb.behaviors.VoucherRegistroVueltaPrintAction;
 import com.areatecnica.nanduappgb.dao.impl.ProcesoGeneralNandu;
@@ -22,7 +21,9 @@ import com.areatecnica.nanduappgb.utils.NextObject;
 import com.areatecnica.nanduappgb.utils.NumberLimiter;
 import com.areatecnica.nanduappgb.utils.TextSelectionFocusAdapter;
 import com.areatecnica.nanduappgb.views.RegistroVueltaView;
+
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -36,7 +37,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -429,51 +432,102 @@ public class RegistroVueltaController extends RegistroController {
                 nuevoRegistro.setRegistroBoletoObservacion("");
                 switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
                     case 1:
-                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
+                        if (_directo.length() < 4) {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
 
-                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
 
-                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        } else {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo));
+
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        }
 
                         break;
                     case 2:
-                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
-                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        if (_planVina.length() < 4) {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
 
-                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        } else {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina));
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        }
                         break;
                     case 3:
-                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
-                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        if (_local.length()<4) {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                            
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        } else {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local));
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                            
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        }
                         break;
                     case 4:
-                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
-                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        if (_escolarDirecto.length()<4) {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                            
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        } else {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto));
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                            
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        }
                         break;
                     case 5:
-                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
-                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                        nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                        nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        if (_escolarLocal.length()<4) {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                            
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        } else {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal));
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                            
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        }
 
                         break;
                 }
@@ -493,12 +547,21 @@ public class RegistroVueltaController extends RegistroController {
             }
 
             clearTextField();
+            
+            JPanel panel = new JPanel();
+            JLabel label = new JLabel();
+            
+            label.setFont(new Font("Arial", Font.BOLD, 26));
+            label.setText("Total Vuelta:"+String.valueOf(serie.getTotalVuelta()));
+            panel.add(label);
 
-            int option = JOptionPane.showConfirmDialog(null, "¿Registrar Vuelta?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            int option = JOptionPane.showConfirmDialog(null, panel, "Confirmación", JOptionPane.YES_NO_OPTION);
 
             if (option == JOptionPane.YES_OPTION) {
                 RegistroVueltaSaveAction action = new RegistroVueltaSaveAction(this);
                 action.save();
+                reset();
+            }else{
                 reset();
             }
         }
