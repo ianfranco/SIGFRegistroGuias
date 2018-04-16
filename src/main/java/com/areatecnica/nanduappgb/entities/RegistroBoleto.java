@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "RegistroBoleto.findAll", query = "SELECT r FROM RegistroBoleto r")
+    , @NamedQuery(name = "RegistroBoleto.findUltimaVuelta", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoIdGuia = :registroBoletoIdGuia AND r.registroBoletoTotal= 0")
     , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoId", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoId = :registroBoletoId")
     , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoNumeroVuelta", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoNumeroVuelta = :registroBoletoNumeroVuelta")
     , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoValor", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoValor = :registroBoletoValor")

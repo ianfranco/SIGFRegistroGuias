@@ -13,7 +13,7 @@ import com.areatecnica.nanduappgb.models.RegistroBoletoTableModel;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,7 +25,7 @@ public class FindFolioVueltaFocusLost extends FocusAdapter {
     private final IGuiaDao dao;
     private int folio;
 
-    public FindFolioVueltaFocusLost(RegistroVueltaController controller){
+    public FindFolioVueltaFocusLost(RegistroVueltaController controller) {
         this.controller = controller;
         this.dao = new GuiaDaoImpl();
     }
@@ -44,9 +44,9 @@ public class FindFolioVueltaFocusLost extends FocusAdapter {
 
                 if (_guia != null) {
                     this.controller.setGuia(_guia);
-                    
+
                     model = new RegistroBoletoTableModel(_guia);
-                    this.controller.getView().getObservacionTextField().setText("Registro Vuelta Nº "+model.getNumeroVuelta());
+                    this.controller.getView().getObservacionTextField().setText("Registro Vuelta Nº " + model.getNumeroVuelta());
                     this.controller.setModel(model);
                     this.controller.getView().getEstadoBoletoTextField().setText("");
                     this.controller.setFlag(Boolean.FALSE);
@@ -54,26 +54,36 @@ public class FindFolioVueltaFocusLost extends FocusAdapter {
                     this.controller.getView().getPpuTextField().setText(_guia.getGuiaIdBus().getBusPatente());
                     this.controller.getView().getConductorTextField().setText(String.valueOf(_guia.getGuiaIdTrabajador().getTrabajadorCodigo()));
                     this.controller.getView().getNombreConductorTextField().setText(_guia.getGuiaIdTrabajador().toString());
-                    
+                    this.controller.getView().getObservacionTextField().setForeground(Color.BLACK);
                     this.controller.getView().getEstadoBoletoTextField().setBackground(Color.WHITE);
-                    
-                    this.controller.getView().getBusTextField().setEnabled(Boolean.TRUE);
-                    this.controller.getView().getConductorTextField().setEnabled(Boolean.TRUE);
+
                     this.controller.getView().getServicioTextField().requestFocus();
-                    
-                }else{
-                    this.controller.setGuia(new Guia());
-                    this.controller.getGuia().setGuiaFecha(new Date());
+
+                    this.controller.getView().getServicioTextField().setEnabled(Boolean.TRUE);
                     this.controller.getView().getBusTextField().setEnabled(Boolean.TRUE);
                     this.controller.getView().getConductorTextField().setEnabled(Boolean.TRUE);
-                    this.controller.getView().getBusTextField().setText("");
-                    this.controller.getView().getConductorTextField().setText("");
-                    this.controller.getGuia().setGuiaFolio(folio);
-                    this.controller.getView().getObservacionTextField().setText("Nueva Guía");
-                    model = new RegistroBoletoTableModel();
-                    
-                    this.controller.setModel(model);
-                    this.controller.setFlag(Boolean.TRUE);
+                    this.controller.getView().getDirectoTextField().setEnabled(Boolean.TRUE);
+                    this.controller.getView().getPlanVinaTextField().setEnabled(Boolean.TRUE);
+                    this.controller.getView().getLocalTextField().setEnabled(Boolean.TRUE);
+                    this.controller.getView().getEscolarDirectoTextField().setEnabled(Boolean.TRUE);
+                    this.controller.getView().getEscolarLocalTextField().setEnabled(Boolean.TRUE);
+                    this.controller.getView().getSaveButton().setEnabled(Boolean.TRUE);
+                    this.controller.getView().getAddButton().setEnabled(Boolean.TRUE);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Guía Folio: " + _folio + " No se encuentra ingresado", "Error", JOptionPane.ERROR_MESSAGE);
+                    this.controller.getView().getObservacionTextField().setText("Guía Folio: " + _folio + " No se encuentra ingresado");
+                    this.controller.getView().getObservacionTextField().setForeground(Color.red);
+                    this.controller.getView().getServicioTextField().setEnabled(Boolean.FALSE);
+                    this.controller.getView().getBusTextField().setEnabled(Boolean.FALSE);
+                    this.controller.getView().getConductorTextField().setEnabled(Boolean.FALSE);
+                    this.controller.getView().getDirectoTextField().setEnabled(Boolean.FALSE);
+                    this.controller.getView().getPlanVinaTextField().setEnabled(Boolean.FALSE);
+                    this.controller.getView().getLocalTextField().setEnabled(Boolean.FALSE);
+                    this.controller.getView().getEscolarDirectoTextField().setEnabled(Boolean.FALSE);
+                    this.controller.getView().getEscolarLocalTextField().setEnabled(Boolean.FALSE);
+                    this.controller.getView().getSaveButton().setEnabled(Boolean.FALSE);
+                    this.controller.getView().getAddButton().setEnabled(Boolean.FALSE);
                 }
 
             } catch (NumberFormatException ex) {

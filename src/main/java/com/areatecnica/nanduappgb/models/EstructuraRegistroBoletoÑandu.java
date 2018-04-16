@@ -5,6 +5,7 @@
  */
 package com.areatecnica.nanduappgb.models;
 
+import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
 import com.areatecnica.nanduappgb.entities.Servicio;
 import java.util.ArrayList;
@@ -28,7 +29,18 @@ public class EstructuraRegistroBoletoÑandu {
     private List<RegistroBoleto> registro;
 
     public EstructuraRegistroBoletoÑandu() {
-        this.totalVuelta = 0; 
+        this.totalVuelta = 0;
+    }
+
+    public EstructuraRegistroBoletoÑandu(List<RegistroBoleto> _registro, Guia guia) {
+
+        _registro.forEach((r) -> {
+            RegistroBoleto nuevo = r;
+            nuevo.setRegistroBoletoIdGuia(guia);
+
+            addRegistroBoleto(nuevo);
+        });
+        this.totalVuelta = 0;
     }
 
     public EstructuraRegistroBoletoÑandu(int numero, Servicio servicio, RegistroBoleto directo, RegistroBoleto planVina, RegistroBoleto local, RegistroBoleto escolarLocal, RegistroBoleto escolarDirecto, List<RegistroBoleto> registro) {
@@ -117,29 +129,35 @@ public class EstructuraRegistroBoletoÑandu {
         switch (registro.getRegistroBoletoIdBoleto().getBoletoOrden()) {
             case 1:
                 this.directo = registro;
-                System.err.println("Directo:" + directo);
                 break;
             case 2:
                 this.planVina = registro;
-                System.err.println("Plan:" + planVina);
                 break;
             case 3:
                 this.local = registro;
-                System.err.println("Local:" + local);
                 break;
             case 4:
                 this.escolarDirecto = registro;
-                System.err.println("Esc.1:" + escolarDirecto);
                 break;
             case 5:
                 this.escolarLocal = registro;
-                System.err.println("Esc.2:" + escolarLocal);
                 break;
         }
     }
 
     public List<RegistroBoleto> getRegistro() {
         return registro;
+    }
+    
+    public List<RegistroBoleto> getUltimoRegistro() {
+        List<RegistroBoleto> reg = new ArrayList<>();
+        reg.add(directo);
+        reg.add(planVina);
+        reg.add(local);
+        reg.add(escolarLocal);
+        reg.add(escolarDirecto);
+        
+        return reg;
     }
 
     public void setRegistro(List<RegistroBoleto> registro) {

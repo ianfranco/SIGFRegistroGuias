@@ -27,7 +27,8 @@
                       <Component id="jPanel4" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="ultimaButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="printButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="saveButton" min="-2" max="-2" attributes="0"/>
@@ -53,6 +54,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="printButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ultimaButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -693,6 +695,11 @@
           <Font name="Lucida Grande" size="14" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Imprimir"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="ultimaButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Eliminar &#xda;ltima Vuelta"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -5,6 +5,8 @@
  */
 package com.areatecnica.nanduappgb.models;
 
+import com.areatecnica.nanduappgb.dao.IRegistroBoletoDao;
+import com.areatecnica.nanduappgb.dao.impl.RegistroBoletoDaoImpl;
 import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
 import java.util.ArrayList;
@@ -23,9 +25,13 @@ public class RegistroGuiaTableModel extends AbstractTableModel {
     private List<EstructuraRegistroBoletoÑandu> list;
     private final static String[] columnNames = {"#", "Servicio", "Directo", "Plan Viña", "Local", "Esc.Directo", "Esc. Local"};
     private int numeroVuelta;
+    private IRegistroBoletoDao dao;
+    private Guia guia;
 
     public RegistroGuiaTableModel(Guia guia) {
-        this.registroBoletoItems = guia.getRegistroBoletoList();
+        this.guia = guia;
+        this.dao = new RegistroBoletoDaoImpl();
+        this.registroBoletoItems = this.dao.findUltimaVueltaGuia(this.guia);
         init();
     }
 
@@ -35,28 +41,26 @@ public class RegistroGuiaTableModel extends AbstractTableModel {
 
     private void init() {
         this.list = new ArrayList<>();
+
         System.err.println("TAMAÑO DE REGISTRO DE BOLETOS:" + this.registroBoletoItems.size());
         Map<Integer, EstructuraRegistroBoletoÑandu> map = new HashMap<>();
 
-        for (RegistroBoleto r : this.registroBoletoItems) {
+//        for (RegistroBoleto r : this.registroBoletoItems) {
+//
+//            EstructuraRegistroBoletoÑandu e = new EstructuraRegistroBoletoÑandu();
+//
+//            if (map.containsKey(r.getRegistroBoletoNumeroVuelta())) {
+//                map.get(r.getRegistroBoletoNumeroVuelta()).addRegistroBoleto(r);
+//            } else {
+//                e.setNumero(r.getRegistroBoletoNumeroVuelta());
+//                e.setServicio(r.getRegistroBoletoIdServicio());
+//                e.addRegistroBoleto(r);
+//                map.put(r.getRegistroBoletoNumeroVuelta(), e);
+//            }
+//        }
+        this.numeroVuelta = 0;
 
-            EstructuraRegistroBoletoÑandu e = new EstructuraRegistroBoletoÑandu();
-
-            if (map.containsKey(r.getRegistroBoletoNumeroVuelta())) {
-                map.get(r.getRegistroBoletoNumeroVuelta()).addRegistroBoleto(r);
-            } else {
-                e.setNumero(r.getRegistroBoletoNumeroVuelta());
-                e.setServicio(r.getRegistroBoletoIdServicio());
-                e.addRegistroBoleto(r);
-                map.put(r.getRegistroBoletoNumeroVuelta(), e);
-            }
-        }
-
-        this.numeroVuelta = map.size();
-
-        map.forEach((k, v) -> list.add(v));
-
-        EstructuraRegistroBoletoÑandu a = list.get(list.size() - 1);
+        EstructuraRegistroBoletoÑandu a = new EstructuraRegistroBoletoÑandu(this.registroBoletoItems, this.guia);
 
         list = null;
         list = new ArrayList<>();
@@ -115,11 +119,14 @@ public class RegistroGuiaTableModel extends AbstractTableModel {
     public void addRow(EstructuraRegistroBoletoÑandu erb) {
         erb.setNumero(numeroVuelta);
         this.numeroVuelta++;
-
-        System.err.println("DIRECTO:" + erb.getDirecto().getRegistroBoletoSerie() + " :" + erb.getDirecto().getRegistroBoletoInicio());
-
         this.list.add(erb);
+        fireTableChanged(null);
+    }
 
+    public void remove(EstructuraRegistroBoletoÑandu erb) {
+        this.numeroVuelta--;
+        erb.setNumero(numeroVuelta);
+        this.list.remove(erb);
         fireTableChanged(null);
     }
 

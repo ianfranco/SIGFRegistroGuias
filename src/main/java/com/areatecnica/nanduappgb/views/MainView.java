@@ -5,6 +5,7 @@
  */
 package com.areatecnica.nanduappgb.views;
 
+import com.areatecnica.nanduappgb.controllers.GuiaItemsController;
 import com.areatecnica.nanduappgb.controllers.RegistroGuiaController;
 import com.areatecnica.nanduappgb.controllers.RegistroVueltaController;
 import com.areatecnica.nanduappgb.utils.ButtonTabComponent;
@@ -168,6 +169,8 @@ public class MainView extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         guiaItems = new GuiaItemsView();
+        GuiaItemsController controller = new GuiaItemsController(guiaItems);
+        setNewTab(guiaItems, "Guías x Fecha");
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 

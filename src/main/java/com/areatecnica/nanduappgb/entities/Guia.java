@@ -20,7 +20,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Guia.findByGuiaFolio", query = "SELECT g FROM Guia g WHERE g.guiaFolio = :guiaFolio")
     , @NamedQuery(name = "Guia.findLastGuiaByBusFecha", query = "SELECT g FROM Guia g WHERE g.guiaIdBus = :guiaIdBus AND g.guiaFecha <= :guiaFecha ORDER BY g.guiaId DESC")
     , @NamedQuery(name = "Guia.findByGuiaFecha", query = "SELECT g FROM Guia g WHERE g.guiaFecha = :guiaFecha")
-    , @NamedQuery(name = "Guia.findByFecha", query = "SELECT g FROM Guia g WHERE g.guiaFecha = :guiaFecha")
+    , @NamedQuery(name = "Guia.findByFecha", query = "SELECT g FROM Guia g WHERE g.guiaFecha = :guiaFecha ORDER BY g.guiaIdBus.busNumero ASC")
     , @NamedQuery(name = "Guia.findByGuiaTotalIngreso", query = "SELECT g FROM Guia g WHERE g.guiaTotalIngreso = :guiaTotalIngreso")})
 public class Guia implements Serializable {
 

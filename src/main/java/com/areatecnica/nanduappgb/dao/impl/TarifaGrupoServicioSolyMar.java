@@ -22,7 +22,6 @@ public class TarifaGrupoServicioSolyMar implements ITarifaGrupoServicio {
     public TarifaGrupoServicioSolyMar() {
         this.dao = new TarifaGrupoServicioDaoImpl();
         this.tarifasSolyMar = this.dao.findAllByGrupoServicio(grupo.getGrupoServicio());
-        System.err.println("TAMAÑO DE TARIFAS"+this.tarifasSolyMar.size());
     }
 
     @Override

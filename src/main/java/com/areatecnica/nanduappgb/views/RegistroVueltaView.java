@@ -72,6 +72,7 @@ public class RegistroVueltaView extends javax.swing.JPanel {
         estadoBoletoTextField = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
         printButton = new javax.swing.JButton();
+        ultimaButton = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel1.setText("Registro de Vueltas / Boletos");
@@ -381,6 +382,8 @@ public class RegistroVueltaView extends javax.swing.JPanel {
         printButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         printButton.setText("Imprimir");
 
+        ultimaButton.setText("Eliminar Última Vuelta");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -395,7 +398,8 @@ public class RegistroVueltaView extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(ultimaButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(printButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saveButton)))
@@ -415,7 +419,8 @@ public class RegistroVueltaView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
-                    .addComponent(printButton))
+                    .addComponent(printButton)
+                    .addComponent(ultimaButton))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -560,6 +565,10 @@ public class RegistroVueltaView extends javax.swing.JPanel {
         return printButton;
     }
 
+    public JButton getUltimaButton() {
+        return ultimaButton;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
@@ -601,5 +610,6 @@ public class RegistroVueltaView extends javax.swing.JPanel {
     private javax.swing.JButton saveButton;
     private javax.swing.JComboBox<String> servicioComboBox;
     private javax.swing.JTable table;
+    private javax.swing.JButton ultimaButton;
     // End of variables declaration//GEN-END:variables
 }

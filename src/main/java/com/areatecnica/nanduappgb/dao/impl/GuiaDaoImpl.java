@@ -5,7 +5,6 @@
  */
 package com.areatecnica.nanduappgb.dao.impl;
 
-
 import com.areatecnica.nanduappgb.dao.IGuiaDao;
 import com.areatecnica.nanduappgb.entities.Bus;
 import com.areatecnica.nanduappgb.entities.Cuenta;
@@ -102,11 +101,6 @@ public class GuiaDaoImpl extends GenericDAOImpl<Guia> implements IGuiaDao<Guia> 
         } catch (NoResultException ne) {
             return null;
         }
-    }
-
-    @Override
-    public void delete(Guia guia) {
-
     }
 
     @Override

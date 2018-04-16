@@ -37,9 +37,13 @@ public class GuiaItemsView extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         fecha = new com.toedter.calendar.JDateChooser();
         findButton = new javax.swing.JButton();
+        viewButton = new javax.swing.JButton();
+        printButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Guías a la Fecha"));
 
+        table.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -48,6 +52,7 @@ public class GuiaItemsView extends javax.swing.JPanel {
 
             }
         ));
+        table.setRowHeight(30);
         jScrollPane1.setViewportView(table);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione una Fecha"));
@@ -57,6 +62,9 @@ public class GuiaItemsView extends javax.swing.JPanel {
         jLabel1.setText("Fecha:");
         jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
+        fecha.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+
+        findButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         findButton.setText("Buscar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -67,10 +75,10 @@ public class GuiaItemsView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(findButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(446, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,6 +91,15 @@ public class GuiaItemsView extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        viewButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        viewButton.setText("Ver");
+
+        printButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        printButton.setText("Imprimir");
+
+        deleteButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        deleteButton.setText("Eliminar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,7 +108,13 @@ public class GuiaItemsView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 797, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(printButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(viewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -100,7 +123,12 @@ public class GuiaItemsView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(viewButton)
+                    .addComponent(printButton)
+                    .addComponent(deleteButton))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -117,15 +145,28 @@ public class GuiaItemsView extends javax.swing.JPanel {
         return table;
     }
 
-    
-    
-    
+    public JButton getPrintButton() {
+        return printButton;
+    }
+
+    public JButton getViewButton() {
+        return viewButton;
+    }
+
+    public JButton getDeleteButton() {
+        return deleteButton;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton deleteButton;
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JButton findButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton printButton;
     private javax.swing.JTable table;
+    private javax.swing.JButton viewButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -109,6 +109,7 @@ public class RegistroVueltaController extends RegistroController {
                     int inicio = Integer.parseInt(_value);
 
                     if (!flag) {
+
                         if (inicio < model.getUltimoRegistro().getDirecto().getRegistroBoletoInicio()) {
                             view.getDirectoTextField().setText(String.valueOf(model.getUltimoRegistro().getDirecto().getRegistroBoletoInicio()));
                         }
@@ -216,7 +217,7 @@ public class RegistroVueltaController extends RegistroController {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_ENTER:
                         if (guia != null) {
-                            System.err.println("LO OTRO");
+
                             addRow();
                         }
                         break;
@@ -234,7 +235,6 @@ public class RegistroVueltaController extends RegistroController {
             @Override
             public void mouseClicked(MouseEvent e) {
                 addRow();
-                System.err.println("CLICK");
             }
 
         });
@@ -245,6 +245,13 @@ public class RegistroVueltaController extends RegistroController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 printAction(e);
+            }
+        });
+
+        this.view.getUltimaButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeUltimaVuelta();
             }
         });
 
@@ -339,71 +346,6 @@ public class RegistroVueltaController extends RegistroController {
         return items;
     }
 
-//    public void setUpBoletos() {
-//        EstructuraRegistroBoletoÑandu serie = new EstructuraRegistroBoletoÑandu();
-//
-//        int _auxServicio = this.view.getServicioTextField().getSelectedIndex();
-//
-//        if (_auxServicio > -1) {
-//            this.servicio = this.servicioModel.getElementAt(_auxServicio);
-//            try {
-//
-//                String _directo = (this.view.getDirectoTextField().getText());
-//                String _planVina = (this.view.getPlanVinaTextField().getText());
-//                String _local = (this.view.getLocalTextField().getText());
-//                String _escolarDirecto = (this.view.getEscolarDirectoTextField().getText());
-//                String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
-//
-//                serie.setNumero(1111);
-//                serie.setServicio(this.servicio);
-//
-//                map.forEach((k, v) -> {
-//                    v.setRegistroBoletoIdGuia(this.guia);
-//                    switch (k) {
-//                        case 1:
-//                            v.setRegistroBoletoSerie(Integer.parseInt(_directo) / 1000);
-//                            v.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
-//                            break;
-//                        case 2:
-//                            v.setRegistroBoletoSerie(Integer.parseInt(_planVina) / 1000);
-//                            v.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
-//                            break;
-//                        case 3:
-//                            v.setRegistroBoletoSerie(Integer.parseInt(_local) / 1000);
-//                            v.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
-//                            break;
-//                        case 4:
-//                            v.setRegistroBoletoSerie(Integer.parseInt(_escolarDirecto) / 1000);
-//                            v.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
-//                            break;
-//                        case 5:
-//                            v.setRegistroBoletoSerie(Integer.parseInt(_escolarLocal) / 1000);
-//                            v.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
-//                            break;
-//                    }
-//                    serie.addRegistroBoleto(v);
-//                });
-//
-//                this.guia.setRegistroBoletoList(serie.getRegistro());
-//                this.model.addRow(serie);//Serie
-//                this.model.addRow(serie);//Inicio
-//                this.clearTextField();
-//
-//                int option = JOptionPane.showConfirmDialog(null, "¿Registrar Vuelta?", "Confirmación", JOptionPane.YES_NO_OPTION);
-//
-//                if (option == JOptionPane.YES_OPTION) {
-//                    RegistroGuiaSaveAction action = new RegistroGuiaSaveAction(this);
-//                    action.save();
-//                    reset();
-//                }
-//
-//            } catch (NumberFormatException numberFormatException) {
-//
-//            }
-//
-//        }
-//
-//    }
     private void addRow() {
         EstructuraRegistroBoletoÑandu serie = new EstructuraRegistroBoletoÑandu();
 
@@ -420,6 +362,9 @@ public class RegistroVueltaController extends RegistroController {
             String _escolarDirecto = (this.view.getEscolarDirectoTextField().getText());
             String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
 
+            int totalVuelta = 0;
+            int row = 0;
+            System.err.println("TAMAÑO UTLIMO REGISTRO LIST:" + this.model.getUltimoRegistro().getRegistro().size());
             for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
                 RegistroBoleto nuevoRegistro = new RegistroBoleto();
                 nuevoRegistro.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
@@ -430,6 +375,7 @@ public class RegistroVueltaController extends RegistroController {
                 nuevoRegistro.setRegistroBoletoValor(r.getRegistroBoletoValor());
                 nuevoRegistro.setRegistroBoletoEsNuevo(false);
                 nuevoRegistro.setRegistroBoletoObservacion("");
+                row++;
                 switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
                     case 1:
                         if (_directo.length() < 4) {
@@ -441,17 +387,21 @@ public class RegistroVueltaController extends RegistroController {
 
                             nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
                             nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+
+                            System.err.println("EL BOLETO NO ES NUEVO << QUE 4 DIGITOS");
                         } else {
                             nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo));
 
                             r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                             r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            System.err.println("INICIO directo: "+ r.getRegistroBoletoInicio());
+                            System.err.println("TERMINO directo:"+r.getRegistroBoletoTermino());
                             r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
 
                             nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
                             nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         }
-
+                        totalVuelta += r.getRegistroBoletoTotal();
                         break;
                     case 2:
                         if (_planVina.length() < 4) {
@@ -471,14 +421,15 @@ public class RegistroVueltaController extends RegistroController {
                             nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
                             nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         }
+                        totalVuelta += r.getRegistroBoletoTotal();
                         break;
                     case 3:
-                        if (_local.length()<4) {
+                        if (_local.length() < 4) {
                             nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
                             r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                             r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                             r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                            
+
                             nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
                             nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         } else {
@@ -486,18 +437,19 @@ public class RegistroVueltaController extends RegistroController {
                             r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                             r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                             r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                            
+
                             nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
                             nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         }
+                        totalVuelta += r.getRegistroBoletoTotal();
                         break;
                     case 4:
-                        if (_escolarDirecto.length()<4) {
+                        if (_escolarDirecto.length() < 4) {
                             nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
                             r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                             r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                             r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                            
+
                             nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
                             nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         } else {
@@ -505,18 +457,19 @@ public class RegistroVueltaController extends RegistroController {
                             r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                             r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                             r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                            
+
                             nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
                             nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         }
+                        totalVuelta += r.getRegistroBoletoTotal();
                         break;
                     case 5:
-                        if (_escolarLocal.length()<4) {
+                        if (_escolarLocal.length() < 4) {
                             nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
                             r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                             r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                             r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                            
+
                             nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
                             nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         } else {
@@ -524,35 +477,41 @@ public class RegistroVueltaController extends RegistroController {
                             r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
                             r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
                             r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                            
+
                             nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
                             nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
                         }
-
+                        totalVuelta += r.getRegistroBoletoTotal();
                         break;
                 }
                 serie.addRegistroBoleto(nuevoRegistro);
                 serie.setTotalVuelta(serie.getTotalVuelta() + r.getRegistroBoletoTotal());
 
-                System.err.println("TOTAL VUELTA:" + serie.getTotalVuelta());
+                System.err.println("TOTAL VUELTA:" + totalVuelta);
 
             }
+            System.err.println("Rows:" + row);
 
             this.model.addRow(serie);
 
+            //CTM
             if (this.guia.getRegistroBoletoList() == null) {
                 this.guia.setRegistroBoletoList(new ArrayList<>(serie.getRegistro()));
+                System.err.println("EL REGISTRO DE BOLETOS EN LA GUÍA ERA NULO ");
             } else {
-                this.guia.getRegistroBoletoList().addAll(serie.getRegistro());
+                this.guia.getRegistroBoletoList().addAll(serie.getUltimoRegistro());
             }
 
             clearTextField();
-            
+
             JPanel panel = new JPanel();
             JLabel label = new JLabel();
-            
-            label.setFont(new Font("Arial", Font.BOLD, 26));
-            label.setText("Total Vuelta:"+String.valueOf(serie.getTotalVuelta()));
+
+            if (totalVuelta > 30000) {
+                label.setForeground(Color.red);
+            }
+            label.setFont(new Font("Arial", Font.PLAIN, 24));
+            label.setText("Total Vuelta:" + String.format("%d", totalVuelta));
             panel.add(label);
 
             int option = JOptionPane.showConfirmDialog(null, panel, "Confirmación", JOptionPane.YES_NO_OPTION);
@@ -561,13 +520,30 @@ public class RegistroVueltaController extends RegistroController {
                 RegistroVueltaSaveAction action = new RegistroVueltaSaveAction(this);
                 action.save();
                 reset();
-            }else{
+            } else {
                 reset();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado el servicio", "Error", JOptionPane.ERROR_MESSAGE);
+            this.view.getServicioTextField().requestFocus();
+        }
+
+    }
+
+    private void removeUltimaVuelta() {
+        if (this.model.getRowCount() > 1) {
+            int option = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el ultimo registro de boletos/vuelta?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+            if (option == JOptionPane.YES_OPTION) {
+                if (this.guia.getRegistroBoletoList().removeAll(this.model.getUltimoRegistro().getRegistro())) {
+                    this.model.removeLast();
+                }
             }
         }
 
     }
 
+    @Override
     public void reset() {
         this.guia = new Guia();
         this.model = new RegistroBoletoTableModel();
@@ -575,11 +551,11 @@ public class RegistroVueltaController extends RegistroController {
         this.view.getFolioTextField().setText("");
         this.view.getBusTextField().setText("");
         this.view.getConductorTextField().setText("");
-        this.view.getPpuTextField().setText("");
-        this.view.getFlotaTextField().setText("");
-        this.view.getNombreConductorTextField().setText("");
-        this.view.getObservacionTextField().setText("");
-        this.view.getEstadoBoletoTextField().setText("");
+        this.view.getPpuTextField().setText(" ");
+        this.view.getFlotaTextField().setText(" ");
+        this.view.getNombreConductorTextField().setText(" ");
+        this.view.getObservacionTextField().setText(" ");
+        this.view.getEstadoBoletoTextField().setText(" ");
         clearTextField();
         this.view.getFolioTextField().requestFocus();
     }

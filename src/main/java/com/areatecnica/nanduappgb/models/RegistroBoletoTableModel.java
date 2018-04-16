@@ -35,7 +35,7 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
     private void init() {
         this.list = new ArrayList<>();
-        System.err.println("TAMAÑO DE REGISTRO DE BOLETOS:" + this.registroBoletoItems.size());
+
         Map<Integer, EstructuraRegistroBoletoÑandu> map = new HashMap<>();
 
         for (RegistroBoleto r : this.registroBoletoItems) {
@@ -113,18 +113,26 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
         erb.setNumero(numeroVuelta);
         this.numeroVuelta++;
 
-        System.err.println("DIRECTO:" + erb.getDirecto().getRegistroBoletoSerie() + " :" + erb.getDirecto().getRegistroBoletoInicio());
-
-        if(this.list.size()>2){
+        if (this.list.size() > 2) {
             this.list.remove(this.list.size() - 1); //Aqui estaba el problema, solucionado
 
         }
-        
+
         this.list.add(erb);
 
         this.list.add(getTotales());
 
         fireTableChanged(null);
+    }
+
+    public boolean removeLast() {
+        if (this.list.size() > 2) { //Si tiene una vuelta ingresada
+            if (this.list.remove(getUltimoRegistro())) {
+                fireTableChanged(null);
+                return true;
+            }
+        }
+        return false;
     }
 
     public int getNumeroVuelta() {
@@ -136,7 +144,7 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     }
 
     public EstructuraRegistroBoletoÑandu getUltimoRegistro() {
-        return (this.list.isEmpty()) ? null : list.get(list.size() - 1);
+        return (this.list.isEmpty()) ? null : list.get(numeroVuelta);
     }
 
     public EstructuraRegistroBoletoÑandu getTotales() {
@@ -158,10 +166,7 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     }
 
     public List<EstructuraRegistroBoletoÑandu> getList() {
-        System.err.println("QUE ONDA QUE ESTÁ VACIA:"+list.size());
         return this.list;
     }
-    
-    
 
 }

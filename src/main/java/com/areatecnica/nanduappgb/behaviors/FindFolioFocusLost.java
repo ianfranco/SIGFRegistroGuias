@@ -62,23 +62,6 @@ public class FindFolioFocusLost extends FocusAdapter {
                     this.controller.getView().getSaveButton().setEnabled(Boolean.FALSE);
                     this.controller.getView().getAddButton().setEnabled(Boolean.FALSE);
 
-//                    this.controller.setGuia(_guia);
-//                    
-//                    model = new RegistroBoletoTableModel(_guia);
-//                    this.controller.getView().getObservacionTextField().setText("Registro Vuelta Nº "+model.getNumeroVuelta());
-//                    this.controller.setModel(model);
-//                    this.controller.getView().getEstadoBoletoTextField().setText("");
-//                    this.controller.setFlag(Boolean.FALSE);
-//                    this.controller.getView().getBusTextField().setText(String.valueOf(_guia.getGuiaIdBus().getBusNumero()));
-//                    this.controller.getView().getPpuTextField().setText(_guia.getGuiaIdBus().getBusPatente());
-//                    this.controller.getView().getConductorTextField().setText(String.valueOf(_guia.getGuiaIdTrabajador().getTrabajadorCodigo()));
-//                    this.controller.getView().getNombreConductorTextField().setText(_guia.getGuiaIdTrabajador().toString());
-//                    
-//                    this.controller.getView().getEstadoBoletoTextField().setBackground(Color.WHITE);
-//                    
-//                    this.controller.getView().getBusTextField().setEnabled(Boolean.FALSE);
-//                    this.controller.getView().getConductorTextField().setEnabled(Boolean.FALSE);
-//                    this.controller.getView().getServicioTextField().requestFocus();
                 } else {
                     this.controller.setGuia(new Guia());
                     this.controller.getGuia().setGuiaFecha(new Date());

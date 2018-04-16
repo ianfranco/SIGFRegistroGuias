@@ -255,7 +255,6 @@ public class RegistroGuiaController extends RegistroController {
             @Override
             public void mouseClicked(MouseEvent e) {
                 addRow();
-                System.err.println("CLICK");
             }
 
         });
@@ -280,7 +279,6 @@ public class RegistroGuiaController extends RegistroController {
         return proceso;
     }
 
-    
     public RegistroGuiaTableModel getModel() {
         return model;
     }
@@ -291,9 +289,9 @@ public class RegistroGuiaController extends RegistroController {
 
         if (this.model.getRowCount() > 1) {
             if (this.guia.getRegistroBoletoList() == null) {
-                List<RegistroBoleto> list = new ArrayList<>();
-                list.addAll(this.model.getPrimerRegistro().getRegistro());
-                this.guia.setRegistroBoletoList(list);
+//                List<RegistroBoleto> list = new ArrayList<>();
+//                list.addAll(this.model.getPrimerRegistro().getRegistro());
+                this.guia.setRegistroBoletoList(this.model.getPrimerRegistro().getRegistro());
             }
             for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
                 switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
@@ -397,7 +395,7 @@ public class RegistroGuiaController extends RegistroController {
                 this.model.addRow(serie);//Inicio
                 this.clearTextField();
 
-                int option = JOptionPane.showConfirmDialog(null, "¿Registrar Vuelta?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                int option = JOptionPane.showConfirmDialog(null, "¿Registrar Guía?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
                 if (option == JOptionPane.YES_OPTION) {
                     RegistroGuiaSaveAction action = new RegistroGuiaSaveAction(this);
@@ -443,39 +441,114 @@ public class RegistroGuiaController extends RegistroController {
                 nuevoRegistro.setRegistroBoletoObservacion("");
                 switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
                     case 1:
-                        System.err.println("paso por directo");
-                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
-                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        if (_directo.length() < 4) {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        } else {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo));
+
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            System.err.println("INICIO directo: " + r.getRegistroBoletoInicio());
+                            System.err.println("TERMINO directo:" + r.getRegistroBoletoTermino());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        }
+
                         break;
                     case 2:
-                        System.err.println("paso por plan");
-                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
-                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        if (_planVina.length() < 4) {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        }else{
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local));
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        }
+
                         break;
                     case 3:
-                        System.err.println("paso por local");
-                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
-                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
+//                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        
+                        if (_local.length() < 4) {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        } else {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local));
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        }
+                        
                         break;
                     case 4:
-                        System.err.println("paso por escolar 1");
-                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
-                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
+//                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        
+                        if (_escolarDirecto.length() < 4) {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        } else {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto));
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        }
                         break;
                     case 5:
-                        System.err.println("paso por escolar 2");
-                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
-                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
+//                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        
+                        if (_escolarLocal.length() < 4) {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        } else {
+                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal));
+                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+
+                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+                        }
                         break;
                 }
                 serie.addRegistroBoleto(nuevoRegistro);
@@ -483,21 +556,24 @@ public class RegistroGuiaController extends RegistroController {
 
             this.model.addRow(serie);
 
-            if (this.guia.getRegistroBoletoList() == null) {
-                this.guia.setRegistroBoletoList(new ArrayList<>(serie.getRegistro()));
-            } else {
-                this.guia.getRegistroBoletoList().addAll(serie.getRegistro());
-            }
-
-            clearTextField();
-
-            int option = JOptionPane.showConfirmDialog(null, "¿Registrar Vuelta?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            int option = JOptionPane.showConfirmDialog(null, "¿Registrar Guía?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
             if (option == JOptionPane.YES_OPTION) {
+
+                if (this.guia.getRegistroBoletoList() == null) {
+                    this.guia.setRegistroBoletoList(new ArrayList<>(serie.getRegistro()));
+                } else {
+                    this.guia.getRegistroBoletoList().addAll(serie.getRegistro());
+                }
+
                 RegistroGuiaSaveAction action = new RegistroGuiaSaveAction(this);
                 action.save();
                 reset();
+            } else {
+                this.model.remove(serie);
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un servicio", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
