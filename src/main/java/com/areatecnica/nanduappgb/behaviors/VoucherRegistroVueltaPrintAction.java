@@ -54,11 +54,12 @@ public class VoucherRegistroVueltaPrintAction extends AbstractAction {
         this.map.put("serieLocal", this.controller.getModel().getPrimerRegistro().getLocal().getRegistroBoletoSerie());
         this.map.put("serieEscolarDirecto", this.controller.getModel().getPrimerRegistro().getEscolarDirecto().getRegistroBoletoSerie());
         this.map.put("serieEscolarLocal", this.controller.getModel().getPrimerRegistro().getEscolarLocal().getRegistroBoletoSerie());
-        this.map.put("totalDirecto", this.controller.getModel().getUltimoRegistro().getDirecto().getRegistroBoletoTotal());
-        this.map.put("totalPlan", this.controller.getModel().getUltimoRegistro().getPlanVina().getRegistroBoletoTotal());
-        this.map.put("totalLocal", this.controller.getModel().getUltimoRegistro().getLocal().getRegistroBoletoTotal());
-        this.map.put("totalEscolar1", this.controller.getModel().getUltimoRegistro().getEscolarDirecto().getRegistroBoletoTotal());
-        this.map.put("totalEscolar2", this.controller.getModel().getUltimoRegistro().getEscolarLocal().getRegistroBoletoTotal());
+        
+        this.map.put("totalDirecto", this.controller.getModel().getTotalRegistro().getDirecto().getRegistroBoletoTotal());
+        this.map.put("totalPlan", this.controller.getModel().getTotalRegistro().getPlanVina().getRegistroBoletoTotal());
+        this.map.put("totalLocal", this.controller.getModel().getTotalRegistro().getLocal().getRegistroBoletoTotal());
+        this.map.put("totalEscolar1", this.controller.getModel().getTotalRegistro().getEscolarDirecto().getRegistroBoletoTotal());
+        this.map.put("totalEscolar2", this.controller.getModel().getTotalRegistro().getEscolarLocal().getRegistroBoletoTotal());
 
         this.report = new ReportController(file, factory);
         this.report.setMap(map);

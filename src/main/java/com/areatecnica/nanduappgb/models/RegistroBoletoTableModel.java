@@ -146,6 +146,10 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     public EstructuraRegistroBoletoÑandu getUltimoRegistro() {
         return (this.list.isEmpty()) ? null : list.get(numeroVuelta);
     }
+    
+    public EstructuraRegistroBoletoÑandu getTotalRegistro() {
+        return (this.list.isEmpty()) ? null : list.get(getRowCount()-1);
+    }
 
     public EstructuraRegistroBoletoÑandu getTotales() {
         EstructuraRegistroBoletoÑandu totales = new EstructuraRegistroBoletoÑandu();

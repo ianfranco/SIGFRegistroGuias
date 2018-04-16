@@ -292,11 +292,11 @@
 	<summary>
 		<band height="55" splitType="Stretch">
 			<staticText>
-				<reportElement x="-11" y="5" width="23" height="25" uuid="45a0eb62-59bf-47a8-a3c7-687bc06fe6e8"/>
+				<reportElement x="-11" y="5" width="23" height="10" uuid="45a0eb62-59bf-47a8-a3c7-687bc06fe6e8"/>
 				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font size="7"/>
 				</textElement>
-				<text><![CDATA[Sub total]]></text>
+				<text><![CDATA[Res.]]></text>
 			</staticText>
 			<textField pattern="#,###">
 				<reportElement x="14" y="5" width="25" height="10" uuid="1920c4f3-a4a4-496c-aea7-37fa54db92f1">
