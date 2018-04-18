@@ -7,6 +7,7 @@ package com.areatecnica.nanduappgb.views;
 
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 
 /**
@@ -40,6 +41,9 @@ public class GuiaItemsView extends javax.swing.JPanel {
         viewButton = new javax.swing.JButton();
         printButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
+        panel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableBoleto = new javax.swing.JTable();
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Guías a la Fecha"));
 
@@ -53,6 +57,7 @@ public class GuiaItemsView extends javax.swing.JPanel {
             }
         ));
         table.setRowHeight(30);
+        table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(table);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione una Fecha"));
@@ -78,7 +83,7 @@ public class GuiaItemsView extends javax.swing.JPanel {
                 .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(findButton)
-                .addContainerGap(446, Short.MAX_VALUE))
+                .addContainerGap(557, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,6 +105,35 @@ public class GuiaItemsView extends javax.swing.JPanel {
         deleteButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         deleteButton.setText("Eliminar");
 
+        tableBoleto.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        tableBoleto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tableBoleto.setRowHeight(30);
+        jScrollPane2.setViewportView(tableBoleto);
+
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+        );
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,7 +141,8 @@ public class GuiaItemsView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 797, Short.MAX_VALUE)
+                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 908, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(deleteButton)
@@ -123,7 +158,9 @@ public class GuiaItemsView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(viewButton)
@@ -143,6 +180,10 @@ public class GuiaItemsView extends javax.swing.JPanel {
 
     public JTable getTable() {
         return table;
+    }
+
+    public JTable getTableBoletos() {
+        return tableBoleto;
     }
 
     public JButton getPrintButton() {
@@ -165,8 +206,11 @@ public class GuiaItemsView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel panel;
     private javax.swing.JButton printButton;
     private javax.swing.JTable table;
+    private javax.swing.JTable tableBoleto;
     private javax.swing.JButton viewButton;
     // End of variables declaration//GEN-END:variables
 }

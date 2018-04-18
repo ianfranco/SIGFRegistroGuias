@@ -10,6 +10,7 @@ import com.areatecnica.nanduappgb.dao.IGuiaDao;
 import com.areatecnica.nanduappgb.dao.impl.GuiaDaoImpl;
 import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.models.GuiaItemsModel;
+import com.areatecnica.nanduappgb.models.RegistroBoletoTableModel;
 import com.areatecnica.nanduappgb.views.GuiaItemsView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,8 @@ import java.awt.event.FocusEvent;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -31,6 +34,7 @@ public class GuiaItemsController {
     private IGuiaDao dao;
     private Date fecha;
     private GuiaItemsModel model;
+    private RegistroBoletoTableModel boletosModel;
 
     public GuiaItemsController() {
     }
@@ -43,7 +47,7 @@ public class GuiaItemsController {
 
     private void init() {
         this.view.getFecha().setDate(new Date());
-        
+
         this.view.getFecha().addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
@@ -67,6 +71,13 @@ public class GuiaItemsController {
             }
         });
 
+        this.view.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                getBoletosModel();
+            }
+        });
+
     }
 
     private void load() {
@@ -86,6 +97,17 @@ public class GuiaItemsController {
             JOptionPane.showMessageDialog(null, "Favor revisar la fecha seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
+    }
+
+    private void getBoletosModel() {
+        if (this.view.getTable().getSelectedRow() > -1) {
+            int index = this.view.getTable().getSelectedRow();
+
+            this.selected = this.model.getRowAt(index);
+
+            this.boletosModel = new RegistroBoletoTableModel(selected);
+            this.view.getTableBoletos().setModel(this.boletosModel);
+        }
     }
 
     private void remove(ActionEvent e) {
