@@ -120,7 +120,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" alignment="0" pref="841" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="0" pref="909" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="servicioComboBox" max="32767" attributes="0"/>
@@ -183,7 +183,7 @@
                       <Component id="servicioComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="99" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="109" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -503,7 +503,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel15" min="-2" pref="90" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="flotaTextField" pref="147" max="32767" attributes="0"/>
+                          <Component id="flotaTextField" pref="222" max="32767" attributes="0"/>
                       </Group>
                       <Component id="nombreConductorTextField" alignment="0" max="32767" attributes="0"/>
                       <Component id="estadoBoletoTextField" alignment="0" max="32767" attributes="0"/>

@@ -36,7 +36,7 @@ public class EstructuraRegistroBoletoÑandu {
 
         _registro.forEach((r) -> {
             RegistroBoleto nuevo = r;
-            nuevo.setRegistroBoletoIdGuia(guia);
+//            nuevo.setRegistroBoletoIdGuia(guia);
 
             addRegistroBoleto(nuevo);
         });

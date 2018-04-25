@@ -74,9 +74,16 @@ public class RegistroGuiaView extends javax.swing.JPanel {
         estadoBoletoTextField = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        setBackground(new java.awt.Color(19, 50, 71));
+
+        jPanel1.setBackground(new java.awt.Color(19, 50, 71));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Light", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Creación de Guías");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Ñandu Tur S.A.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -100,7 +107,8 @@ public class RegistroGuiaView extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Boletos:"));
+        jPanel2.setBackground(new java.awt.Color(19, 50, 71));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información Boletos:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
         table.setFont(new java.awt.Font("Helvetica", 3, 18)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -216,26 +224,27 @@ public class RegistroGuiaView extends javax.swing.JPanel {
                     .addComponent(addButton)
                     .addComponent(servicioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Guía:"));
+        jPanel3.setBackground(new java.awt.Color(19, 50, 71));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información Guía:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Folio :");
-        jLabel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Nº Bus :");
-        jLabel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Nº Conductor :");
-        jLabel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         folioTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
 
@@ -285,53 +294,54 @@ public class RegistroGuiaView extends javax.swing.JPanel {
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Útil:"));
+        jPanel4.setBackground(new java.awt.Color(19, 50, 71));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información Útil:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        jLabel12.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel12.setText("Observación :");
-        jLabel12.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        observacionTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        observacionTextField.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        observacionTextField.setForeground(new java.awt.Color(255, 255, 255));
         observacionTextField.setText(" ");
-        observacionTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel13.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel13.setText("Patente :");
-        jLabel13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        ppuTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        ppuTextField.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        ppuTextField.setForeground(new java.awt.Color(255, 255, 255));
         ppuTextField.setText(" ");
         ppuTextField.setToolTipText("");
-        ppuTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel15.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel15.setText("Flota :");
-        jLabel15.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        flotaTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        flotaTextField.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        flotaTextField.setForeground(new java.awt.Color(255, 255, 255));
         flotaTextField.setText(" ");
-        flotaTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel14.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Nombre :");
-        jLabel14.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        nombreConductorTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        nombreConductorTextField.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        nombreConductorTextField.setForeground(new java.awt.Color(255, 255, 255));
         nombreConductorTextField.setText(" ");
-        nombreConductorTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel16.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("Estado Boletos :");
-        jLabel16.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        estadoBoletoTextField.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        estadoBoletoTextField.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        estadoBoletoTextField.setForeground(new java.awt.Color(255, 255, 255));
         estadoBoletoTextField.setText(" ");
-        estadoBoletoTextField.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -352,7 +362,7 @@ public class RegistroGuiaView extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(flotaTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))
+                        .addComponent(flotaTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
                     .addComponent(nombreConductorTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(estadoBoletoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -381,7 +391,8 @@ public class RegistroGuiaView extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        saveButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        saveButton.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        saveButton.setForeground(new java.awt.Color(0, 0, 0));
         saveButton.setText("Registrar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

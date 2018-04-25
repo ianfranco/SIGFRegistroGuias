@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ianfrancoconcha
  */
 @Entity
-@Table(name = "servicio", catalog = "sigf", schema = "")
+@Table(name = "servicio", catalog = "sigfdb", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Servicio.findAll", query = "SELECT s FROM Servicio s WHERE s.servicioId<>1")
@@ -79,8 +79,6 @@ public class Servicio implements Serializable {
     @JoinColumn(name = "servicio_id_unidad", referencedColumnName = "unidad_negocio_id")
     @ManyToOne(optional = false)
     private UnidadNegocio servicioIdUnidad;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "registroBoletoIdServicio")
-    private List<RegistroBoleto> registroBoletoList;
 
     public Servicio() {
     }
@@ -193,16 +191,7 @@ public class Servicio implements Serializable {
     public void setServicioIdUnidad(UnidadNegocio servicioIdUnidad) {
         this.servicioIdUnidad = servicioIdUnidad;
     }
-
-    @XmlTransient
-    public List<RegistroBoleto> getRegistroBoletoList() {
-        return registroBoletoList;
-    }
-
-    public void setRegistroBoletoList(List<RegistroBoleto> registroBoletoList) {
-        this.registroBoletoList = registroBoletoList;
-    }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;

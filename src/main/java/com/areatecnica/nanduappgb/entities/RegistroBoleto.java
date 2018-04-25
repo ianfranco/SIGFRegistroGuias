@@ -27,13 +27,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Cacheable(false)
-@Table(name = "registro_boleto", catalog = "sigf", schema = "")
+@Table(name = "registro_boleto", catalog = "sigfdb", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "RegistroBoleto.findAll", query = "SELECT r FROM RegistroBoleto r")
-    , @NamedQuery(name = "RegistroBoleto.findUltimaVuelta", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoIdGuia = :registroBoletoIdGuia AND r.registroBoletoTotal= 0")
     , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoId", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoId = :registroBoletoId")
-    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoNumeroVuelta", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoNumeroVuelta = :registroBoletoNumeroVuelta")
     , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoValor", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoValor = :registroBoletoValor")
     , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoInicio", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoInicio = :registroBoletoInicio")
     , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoTermino", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoTermino = :registroBoletoTermino")
@@ -46,44 +44,36 @@ public class RegistroBoleto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "registro_boleto_id")
+    @Column(name = "registro_boleto_id", nullable = false)
     private Integer registroBoletoId;
     @Basic(optional = false)
-    @Column(name = "registro_boleto_numero_vuelta")
-    private int registroBoletoNumeroVuelta;
-    @Basic(optional = false)
-    @Column(name = "registro_boleto_serie")
+    @Column(name = "registro_boleto_serie", nullable = false)
     private int registroBoletoSerie;
     @Basic(optional = false)
-    @Column(name = "registro_boleto_valor")
+    @Column(name = "registro_boleto_valor", nullable = false)
     private int registroBoletoValor;
     @Basic(optional = false)
-    @Column(name = "registro_boleto_inicio")
+    @Column(name = "registro_boleto_inicio", nullable = false)
     private int registroBoletoInicio;
     @Basic(optional = false)
-    @Column(name = "registro_boleto_termino")
+    @Column(name = "registro_boleto_termino", nullable = false)
     private int registroBoletoTermino;
     @Basic(optional = false)
-    @Column(name = "registro_boleto_cantidad")
+    @Column(name = "registro_boleto_cantidad", nullable = false)
     private int registroBoletoCantidad;
     @Basic(optional = false)
-    @Column(name = "registro_boleto_total")
+    @Column(name = "registro_boleto_total", nullable = false)
     private int registroBoletoTotal;
     @Column(name = "registro_boleto_es_nuevo")
     private Boolean registroBoletoEsNuevo;
-    @Column(name = "registro_boleto_observacion")
+    @Column(name = "registro_boleto_observacion", length = 200)
     private String registroBoletoObservacion;
-    @Transient
-    private int diferencia;
-    @JoinColumn(name = "registro_boleto_id_boleto", referencedColumnName = "boleto_id")
+    @JoinColumn(name = "registro_boleto_id_boleto", referencedColumnName = "boleto_id", nullable = false)
     @ManyToOne(optional = false)
     private Boleto registroBoletoIdBoleto;
-    @JoinColumn(name = "registro_boleto_id_guia", referencedColumnName = "guia_id")
+    @JoinColumn(name = "registro_boleto_id_vuelta_guia", referencedColumnName = "vuelta_guia_id", nullable = false)
     @ManyToOne(optional = false)
-    private Guia registroBoletoIdGuia;
-    @JoinColumn(name = "registro_boleto_id_servicio", referencedColumnName = "servicio_id")
-    @ManyToOne(optional = false)
-    private Servicio registroBoletoIdServicio;
+    private VueltaGuia registroBoletoIdVueltaGuia;
 
     public RegistroBoleto() {
     }
@@ -100,9 +90,8 @@ public class RegistroBoleto implements Serializable {
         this.registroBoletoTotal = this.registroBoletoCantidad * this.registroBoletoValor;
     }
 
-    public RegistroBoleto(Integer registroBoletoId, int registroBoletoNumeroVuelta, int registroBoletoSerie, int registroBoletoValor, int registroBoletoInicio, int registroBoletoTermino, int registroBoletoCantidad, int registroBoletoTotal) {
+    public RegistroBoleto(Integer registroBoletoId, int registroBoletoSerie, int registroBoletoValor, int registroBoletoInicio, int registroBoletoTermino, int registroBoletoCantidad, int registroBoletoTotal) {
         this.registroBoletoId = registroBoletoId;
-        this.registroBoletoNumeroVuelta = registroBoletoNumeroVuelta;
         this.registroBoletoSerie = registroBoletoSerie;
         this.registroBoletoValor = registroBoletoValor;
         this.registroBoletoInicio = registroBoletoInicio;
@@ -117,14 +106,6 @@ public class RegistroBoleto implements Serializable {
 
     public void setRegistroBoletoId(Integer registroBoletoId) {
         this.registroBoletoId = registroBoletoId;
-    }
-
-    public int getRegistroBoletoNumeroVuelta() {
-        return registroBoletoNumeroVuelta;
-    }
-
-    public void setRegistroBoletoNumeroVuelta(int registroBoletoNumeroVuelta) {
-        this.registroBoletoNumeroVuelta = registroBoletoNumeroVuelta;
     }
 
     public int getRegistroBoletoSerie() {
@@ -199,29 +180,22 @@ public class RegistroBoleto implements Serializable {
         this.registroBoletoIdBoleto = registroBoletoIdBoleto;
     }
 
-    public Guia getRegistroBoletoIdGuia() {
-        return registroBoletoIdGuia;
+    public VueltaGuia getRegistroBoletoIdVueltaGuia() {
+        return registroBoletoIdVueltaGuia;
     }
 
-    public void setRegistroBoletoIdGuia(Guia registroBoletoIdGuia) {
-        this.registroBoletoIdGuia = registroBoletoIdGuia;
+    public void setRegistroBoletoIdVueltaGuia(VueltaGuia registroBoletoIdVueltaGuia) {
+        this.registroBoletoIdVueltaGuia = registroBoletoIdVueltaGuia;
     }
-
-    public Servicio getRegistroBoletoIdServicio() {
-        return registroBoletoIdServicio;
-    }
-
-    public void setRegistroBoletoIdServicio(Servicio registroBoletoIdServicio) {
-        this.registroBoletoIdServicio = registroBoletoIdServicio;
-    }
-
-    public int getDiferencia() {
-        return diferencia;
-    }
-
-    public void setDiferencia(int diferencia) {
-        this.diferencia = diferencia;
-    }
+//
+//
+//    public int getDiferencia() {
+//        return diferencia;
+//    }
+//
+//    public void setDiferencia(int diferencia) {
+//        this.diferencia = diferencia;
+//    }
 
     @Override
     public int hashCode() {

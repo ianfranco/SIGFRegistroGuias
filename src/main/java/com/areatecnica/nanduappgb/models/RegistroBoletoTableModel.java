@@ -25,7 +25,7 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     private int numeroVuelta;
 
     public RegistroBoletoTableModel(Guia guia) {
-        this.registroBoletoItems = guia.getRegistroBoletoList();
+//        this.registroBoletoItems = guia.getRegistroBoletoList();
         init();
     }
 
@@ -42,14 +42,14 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
             EstructuraRegistroBoletoÑandu e = new EstructuraRegistroBoletoÑandu();
 
-            if (map.containsKey(r.getRegistroBoletoNumeroVuelta())) {
-                map.get(r.getRegistroBoletoNumeroVuelta()).addRegistroBoleto(r);
-            } else {
-                e.setNumero(r.getRegistroBoletoNumeroVuelta());
-                e.setServicio(r.getRegistroBoletoIdServicio());
-                e.addRegistroBoleto(r);
-                map.put(r.getRegistroBoletoNumeroVuelta(), e);
-            }
+//            if (map.containsKey(r.getRegistroBoletoNumeroVuelta())) {
+//                map.get(r.getRegistroBoletoNumeroVuelta()).addRegistroBoleto(r);
+//            } else {
+//                e.setNumero(r.getRegistroBoletoNumeroVuelta());
+////                e.setServicio(r.getRegistroBoletoIdServicio());
+//                e.addRegistroBoleto(r);
+//                map.put(r.getRegistroBoletoNumeroVuelta(), e);
+//            }
         }
 
         this.numeroVuelta = map.size();
@@ -58,9 +58,21 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
         list.add(0, list.get(0));
 
-        if (getRowCount() > 1) {
+        if (getRowCount() > 2) {
             list.add(getTotales());
         }
+        
+        int i = 0;
+        for(EstructuraRegistroBoletoÑandu e:this.list){
+            System.err.println("N° de Registro: "+i);
+            System.err.println("Directo: "+e.getDirecto());
+            System.err.println("Plan Viña: "+e.getPlanVina());
+            System.err.println("Local: "+e.getLocal());
+            System.err.println("Escolar Directo: "+e.getEscolarDirecto());
+            System.err.println("Escolar Local: "+e.getEscolarLocal());
+            i++;
+        }
+        
     }
 
     @Override
@@ -91,7 +103,7 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
         switch (columnIndex) {
             case 0:
-                return (rowIndex == 0) ? "Serie" : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getNumero() : "Totales";
+                return (rowIndex == 0) ? "Serie" : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getNumero() : (getRowCount()<3);
             case 1:
                 return (rowIndex == 0) ? "" : list.get(rowIndex).getServicio();
             case 2:
@@ -156,7 +168,7 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
         EstructuraRegistroBoletoÑandu inicio = getPrimerRegistro();
 
-        EstructuraRegistroBoletoÑandu ultimo = getUltimoRegistro();
+        EstructuraRegistroBoletoÑandu ultimo = list.get(getRowCount()-1);
 
         totales.setRegistro(ultimo.getRegistro());
 

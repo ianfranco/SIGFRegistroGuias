@@ -289,30 +289,30 @@ public class RegistroVueltaController extends RegistroController {
         this.model = model;
 
         if (this.model.getRowCount() > 1) {
-            if (this.guia.getRegistroBoletoList() == null) {
-                List<RegistroBoleto> list = new ArrayList<>();
-                list.addAll(this.model.getPrimerRegistro().getRegistro());
-                this.guia.setRegistroBoletoList(list);
-            }
-            for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
-                switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
-                    case 1:
-                        this.view.getDirectoTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
-                        break;
-                    case 2:
-                        this.view.getPlanVinaTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
-                        break;
-                    case 3:
-                        this.view.getLocalTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
-                        break;
-                    case 4:
-                        this.view.getEscolarDirectoTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
-                        break;
-                    case 5:
-                        this.view.getEscolarLocalTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
-                        break;
-                }
-            }
+//            if (this.guia.getRegistroBoletoList() == null) {
+//                List<RegistroBoleto> list = new ArrayList<>();
+//                list.addAll(this.model.getPrimerRegistro().getRegistro());
+//                this.guia.setRegistroBoletoList(list);
+//            }
+//            for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
+//                switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
+//                    case 1:
+//                        this.view.getDirectoTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
+//                        break;
+//                    case 2:
+//                        this.view.getPlanVinaTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
+//                        break;
+//                    case 3:
+//                        this.view.getLocalTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
+//                        break;
+//                    case 4:
+//                        this.view.getEscolarDirectoTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
+//                        break;
+//                    case 5:
+//                        this.view.getEscolarLocalTextField().setText(String.valueOf(r.getRegistroBoletoInicio()));
+//                        break;
+//                }
+//            }
         }
 
     }
@@ -332,8 +332,8 @@ public class RegistroVueltaController extends RegistroController {
         for (TarifaGrupoServicio t : this.tarifaSolyMar.getTarifaGrupoServicio()) {
             RegistroBoleto r = new RegistroBoleto();
             r.setRegistroBoletoIdBoleto(t.getTarifaGrupoServicioIdBoleto());
-            r.setRegistroBoletoIdGuia(this.guia);
-            r.setRegistroBoletoIdServicio(this.servicio);
+//            r.setRegistroBoletoIdGuia(this.guia);
+//            r.setRegistroBoletoIdServicio(this.servicio);
             r.setRegistroBoletoEsNuevo(Boolean.TRUE);
             r.setRegistroBoletoValor(t.getTarifaGrupoServicioValor());
             r.setRegistroBoletoObservacion("Nuevo Boleto");
@@ -368,10 +368,10 @@ public class RegistroVueltaController extends RegistroController {
             for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
                 RegistroBoleto nuevoRegistro = new RegistroBoleto();
                 nuevoRegistro.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
-                nuevoRegistro.setRegistroBoletoIdGuia(this.guia);
-                nuevoRegistro.setRegistroBoletoIdServicio(this.servicio);
+//                nuevoRegistro.setRegistroBoletoIdGuia(this.guia);
+//                nuevoRegistro.setRegistroBoletoIdServicio(this.servicio);
                 nuevoRegistro.setRegistroBoletoSerie(r.getRegistroBoletoSerie());
-                nuevoRegistro.setRegistroBoletoNumeroVuelta(this.model.getNumeroVuelta());
+                //nuevoRegistro.setRegistroBoletoNumeroVuelta(this.model.getNumeroVuelta());
                 nuevoRegistro.setRegistroBoletoValor(r.getRegistroBoletoValor());
                 nuevoRegistro.setRegistroBoletoEsNuevo(false);
                 nuevoRegistro.setRegistroBoletoObservacion("");
@@ -495,12 +495,12 @@ public class RegistroVueltaController extends RegistroController {
             this.model.addRow(serie);
 
             //CTM
-            if (this.guia.getRegistroBoletoList() == null) {
-                this.guia.setRegistroBoletoList(new ArrayList<>(serie.getRegistro()));
-                System.err.println("EL REGISTRO DE BOLETOS EN LA GUÍA ERA NULO ");
-            } else {
-                this.guia.getRegistroBoletoList().addAll(serie.getUltimoRegistro());
-            }
+//            if (this.guia.getRegistroBoletoList() == null) {
+//                this.guia.setRegistroBoletoList(new ArrayList<>(serie.getRegistro()));
+//                System.err.println("EL REGISTRO DE BOLETOS EN LA GUÍA ERA NULO ");
+//            } else {
+//                this.guia.getRegistroBoletoList().addAll(serie.getUltimoRegistro());
+//            }
 
             clearTextField();
 
@@ -535,9 +535,9 @@ public class RegistroVueltaController extends RegistroController {
             int option = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el ultimo registro de boletos/vuelta?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (option == JOptionPane.YES_OPTION) {
-                if (this.guia.getRegistroBoletoList().removeAll(this.model.getUltimoRegistro().getRegistro())) {
-                    this.model.removeLast();
-                }
+//                if (this.guia.getRegistroBoletoList().removeAll(this.model.getUltimoRegistro().getRegistro())) {
+//                    this.model.removeLast();
+//                }
             }
         }
 

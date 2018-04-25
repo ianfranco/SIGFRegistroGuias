@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ianfrancoconcha
  */
 @Entity
-@Table(name = "guia", catalog = "sigf", schema = "")
+@Table(name = "guia", catalog = "sigfdb", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Guia.findAll", query = "SELECT g FROM Guia g")
@@ -47,24 +48,25 @@ public class Guia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "guia_id")
+    @Column(name = "guia_id", nullable = false)
     private Integer guiaId;
     @Basic(optional = false)
-    @Column(name = "guia_folio")
+    @Column(name = "guia_folio", nullable = false)
     private int guiaFolio;
     @Basic(optional = false)
-    @Column(name = "guia_fecha")
+    @Column(name = "guia_fecha", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date guiaFecha;
     @Basic(optional = false)
-    @Column(name = "guia_total_ingreso")
+    @Column(name = "guia_total_ingreso", nullable = false)
     private int guiaTotalIngreso;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "registroBoletoIdGuia")
-    private List<RegistroBoleto> registroBoletoList;
-    @JoinColumn(name = "guia_id_bus", referencedColumnName = "bus_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vueltaGuiaIdGuia")
+    @OrderBy("vueltaGuiaNumero ASC")
+    private List<VueltaGuia> vueltaGuiaList;
+    @JoinColumn(name = "guia_id_bus", referencedColumnName = "bus_id", nullable = false)
     @ManyToOne(optional = false)
     private Bus guiaIdBus;
-    @JoinColumn(name = "guia_id_trabajador", referencedColumnName = "trabajador_id")
+    @JoinColumn(name = "guia_id_trabajador", referencedColumnName = "trabajador_id", nullable = false)
     @ManyToOne(optional = false)
     private Trabajador guiaIdTrabajador;
 
@@ -115,12 +117,12 @@ public class Guia implements Serializable {
     }
 
     @XmlTransient
-    public List<RegistroBoleto> getRegistroBoletoList() {
-        return registroBoletoList;
+    public List<VueltaGuia> getVueltaGuiaList() {
+        return vueltaGuiaList;
     }
 
-    public void setRegistroBoletoList(List<RegistroBoleto> registroBoletoList) {
-        this.registroBoletoList = registroBoletoList;
+    public void setVueltaGuiaList(List<VueltaGuia> vueltaGuiaList) {
+        this.vueltaGuiaList = vueltaGuiaList;
     }
 
     public Bus getGuiaIdBus() {

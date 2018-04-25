@@ -181,7 +181,7 @@ public class EstructuraRegistroBoleto {
 
         for (RegistroBoleto r : registro) {
             
-            r.setRegistroBoletoIdGuia(guia);
+//            r.setRegistroBoletoIdGuia(guia);
             switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
                 case 1:
                     this.setSerieDirecto(r.getRegistroBoletoSerie());

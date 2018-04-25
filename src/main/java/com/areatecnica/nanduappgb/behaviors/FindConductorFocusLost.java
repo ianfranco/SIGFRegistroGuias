@@ -5,7 +5,7 @@
  */
 package com.areatecnica.nanduappgb.behaviors;
 
-import com.areatecnica.nanduappgb.controllers.RegistroGuiaController;
+import com.areatecnica.nanduappgb.controllers.RegistroBoletoController;
 import com.areatecnica.nanduappgb.dao.ITrabajadorDao;
 import com.areatecnica.nanduappgb.dao.impl.TrabajadorDaoImpl;
 import com.areatecnica.nanduappgb.entities.Trabajador;
@@ -19,10 +19,10 @@ import java.awt.event.FocusEvent;
  */
 public class FindConductorFocusLost extends FocusAdapter {
 
-    private RegistroGuiaController controller;
+    private RegistroBoletoController controller;
     private final ITrabajadorDao dao;
 
-    public FindConductorFocusLost(RegistroGuiaController controller) {
+    public FindConductorFocusLost(RegistroBoletoController controller) {
         this.controller = controller;
         this.dao = new TrabajadorDaoImpl();
     }

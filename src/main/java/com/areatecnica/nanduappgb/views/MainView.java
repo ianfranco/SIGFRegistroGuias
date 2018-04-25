@@ -6,9 +6,15 @@
 package com.areatecnica.nanduappgb.views;
 
 import com.areatecnica.nanduappgb.controllers.GuiaItemsController;
+import com.areatecnica.nanduappgb.controllers.RegistroBoletoController;
 import com.areatecnica.nanduappgb.controllers.RegistroGuiaController;
-import com.areatecnica.nanduappgb.controllers.RegistroVueltaController;
 import com.areatecnica.nanduappgb.utils.ButtonTabComponent;
+import java.awt.AWTException;
+import java.awt.Image;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.TrayIcon.MessageType;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -36,6 +42,7 @@ public class MainView extends javax.swing.JFrame {
     private void initComponents() {
 
         tabbedPane = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -54,6 +61,24 @@ public class MainView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de Guías / Boletos");
 
+        tabbedPane.setBackground(new java.awt.Color(19, 50, 71));
+        tabbedPane.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+
+        jPanel1.setBackground(new java.awt.Color(19, 50, 71));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 751, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 389, Short.MAX_VALUE)
+        );
+
+        tabbedPane.addTab("Inicio", jPanel1);
+
         fileMenu.setMnemonic('f');
         fileMenu.setText("Archivo");
 
@@ -71,6 +96,7 @@ public class MainView extends javax.swing.JFrame {
         editMenu.setMnemonic('e');
         editMenu.setText("Acciones");
 
+        creacionGuiaMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         creacionGuiaMenuItem.setMnemonic('t');
         creacionGuiaMenuItem.setText("Creación de Guías");
         creacionGuiaMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -80,6 +106,7 @@ public class MainView extends javax.swing.JFrame {
         });
         editMenu.add(creacionGuiaMenuItem);
 
+        registroBoletoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         registroBoletoMenuItem.setText("Registro de Boletos");
         registroBoletoMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,11 +161,11 @@ public class MainView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
         );
 
         pack();
@@ -162,8 +189,8 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_creacionGuiaMenuItemActionPerformed
 
     private void registroBoletoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroBoletoMenuItemActionPerformed
-        MainView.registroVueltaView = new RegistroVueltaView();
-        RegistroVueltaController controller = new RegistroVueltaController(registroVueltaView);
+        MainView.registroVueltaView = new RegistroBoletoView();
+        RegistroBoletoController controller = new RegistroBoletoController(registroVueltaView);
         setNewTab(registroVueltaView, "Registro Vueltas / Boleto");
     }//GEN-LAST:event_registroBoletoMenuItemActionPerformed
 
@@ -184,6 +211,23 @@ public class MainView extends javax.swing.JFrame {
         return tabbedPane;
     }
 
+    public void displayMessage(String message) throws AWTException{
+        //Obtain only one instance of the SystemTray object
+        SystemTray tray = SystemTray.getSystemTray();
+        //Creating a tray icon
+        ImageIcon icon = new ImageIcon(getClass().getResource("/bus.png"));
+        Image image = icon.getImage();
+        //System.out.println(image);
+        TrayIcon trayIcon = new TrayIcon(image, "Información");
+        //Let the system resizes the image if needed
+        trayIcon.setImageAutoSize(true);
+        //Set tooltip text for the tray icon
+        trayIcon.setToolTip("SIGF - Registro de Boletos");
+        tray.add(trayIcon);
+        trayIcon.displayMessage(message, null, MessageType.INFO);
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -233,13 +277,14 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu infoMenu;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem registroBoletoMenuItem;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JMenuItem tarifasMenuItem;
     // End of variables declaration//GEN-END:variables
     private TarifaGrupoServicioView tarifaGrupoServicioView;
-    private static RegistroVueltaView registroVueltaView;
+    private static RegistroBoletoView registroVueltaView;
     private static RegistroGuiaView registroGuiaView;
     private GuiaItemsView guiaItems; 
 }
