@@ -7,7 +7,6 @@ package com.areatecnica.nanduappgb.views;
 
 import com.areatecnica.nanduappgb.controllers.GuiaItemsController;
 import com.areatecnica.nanduappgb.controllers.RegistroBoletoController;
-import com.areatecnica.nanduappgb.controllers.RegistroGuiaController;
 import com.areatecnica.nanduappgb.utils.ButtonTabComponent;
 import java.awt.AWTException;
 import java.awt.Image;
@@ -47,7 +46,6 @@ public class MainView extends javax.swing.JFrame {
         fileMenu = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
-        creacionGuiaMenuItem = new javax.swing.JMenuItem();
         registroBoletoMenuItem = new javax.swing.JMenuItem();
         buscarGuiaMenuItem = new javax.swing.JMenuItem();
         buscarBoletoMenuItem = new javax.swing.JMenuItem();
@@ -95,16 +93,6 @@ public class MainView extends javax.swing.JFrame {
 
         editMenu.setMnemonic('e');
         editMenu.setText("Acciones");
-
-        creacionGuiaMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        creacionGuiaMenuItem.setMnemonic('t');
-        creacionGuiaMenuItem.setText("Creación de Guías");
-        creacionGuiaMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                creacionGuiaMenuItemActionPerformed(evt);
-            }
-        });
-        editMenu.add(creacionGuiaMenuItem);
 
         registroBoletoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         registroBoletoMenuItem.setText("Registro de Boletos");
@@ -161,11 +149,11 @@ public class MainView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
+            .addComponent(tabbedPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+            .addComponent(tabbedPane)
         );
 
         pack();
@@ -179,14 +167,6 @@ public class MainView extends javax.swing.JFrame {
         tarifaGrupoServicioView = new TarifaGrupoServicioView();
         setNewTab(tarifaGrupoServicioView, "Tarifas");
     }//GEN-LAST:event_tarifasMenuItemActionPerformed
-
-    private void creacionGuiaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creacionGuiaMenuItemActionPerformed
-
-        MainView.registroGuiaView = new RegistroGuiaView();
-        RegistroGuiaController controller = new RegistroGuiaController(registroGuiaView);
-        setNewTab(registroGuiaView, "Creación de Guía");
-
-    }//GEN-LAST:event_creacionGuiaMenuItemActionPerformed
 
     private void registroBoletoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroBoletoMenuItemActionPerformed
         MainView.registroVueltaView = new RegistroBoletoView();
@@ -270,7 +250,6 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenu advancedMenu;
     private javax.swing.JMenuItem buscarBoletoMenuItem;
     private javax.swing.JMenuItem buscarGuiaMenuItem;
-    private javax.swing.JMenuItem creacionGuiaMenuItem;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
