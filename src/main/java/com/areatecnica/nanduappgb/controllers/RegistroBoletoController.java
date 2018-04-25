@@ -96,9 +96,9 @@ public class RegistroBoletoController extends MainView {
         this.view.getVueltaComboBox().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!flag) {
-                    //changeTableModel();
-                }
+
+                changeTableModel();
+
             }
         });
 
@@ -184,10 +184,13 @@ public class RegistroBoletoController extends MainView {
 
     private void changeTableModel() {
         int index = this.view.getVueltaComboBox().getSelectedIndex();
-        if (index > -1 && !flag) {
-            this.vueltaGuia = this.vueltaGuiaComboBoxModel.getElementAt(index);
-
+        if (index > -1) {
+            this.vueltaGuia = this.vueltaGuiaComboBoxModel.getSelectedItem();
             this.model = new BoletoTableModel(this.vueltaGuia.getRegistroBoletoList(), false);
+            
+            System.err.println("total boletos despues de cambiar:"+this.vueltaGuia.getRegistroBoletoList().size());
+            
+            this.view.getTable().setModel(model);
         }
     }
 
@@ -255,6 +258,7 @@ public class RegistroBoletoController extends MainView {
 
     public void setVueltasItems(List<VueltaGuia> vueltasItems) {
         this.vueltasItems = vueltasItems;
+        setVueltaGuia(getVueltasItems().get(getVueltasItems().size() - 1));
     }
 
     public Guia getGuia() {

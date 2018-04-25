@@ -65,7 +65,7 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
                         this.controller.setGuia(_guia);
 
                         int numeroVueltas = _guia.getVueltaGuiaList().size();
-
+                        numeroVueltas = numeroVueltas+1;
                         this.controller.getView().getBusTextField().setText(String.valueOf(_guia.getGuiaIdBus().getBusNumero()));
                         this.controller.getView().getPpuTextField().setText(_guia.getGuiaIdBus().getBusPatente());
                         this.controller.getView().getFlotaTextField().setText(_guia.getGuiaIdBus().getBusIdFlota().getFlotaNombre());
@@ -104,13 +104,30 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
 
                             this.controller.setVueltasItems(_guia.getVueltaGuiaList());
 
-//                            for (VueltaGuia v : this.controller.getVueltasItems()) {
-//                                System.err.println("V:" + v.getRegistroBoletoList().size());
-//                                for (RegistroBoleto r : v.getRegistroBoletoList()) {
-//                                    System.err.println("BOLETO:" + r.getRegistroBoletoIdBoleto().getBoletoNombre());
-//                                }
-//                            }
-                            this.controller.setVueltaGuia(this.controller.getVueltasItems().get(this.controller.getVueltasItems().size() - 1));
+                            //this.controller.setVueltaGuia(this.controller.getVueltasItems().get(this.controller.getVueltasItems().size() - 1));
+                            VueltaGuia nuevaVuelta = new VueltaGuia();
+                            nuevaVuelta.setRegistroBoletoList(new ArrayList());
+                            nuevaVuelta.setVueltaGuiaIdGuia(this.controller.getGuia());
+                            nuevaVuelta.setVueltaGuiaNumero(numeroVueltas);
+                            
+                            for (RegistroBoleto r : this.controller.getVueltaGuia().getRegistroBoletoList()) {
+                                System.err.println("BOLETO:" + r.getRegistroBoletoIdBoleto().getBoletoNombre());
+                                RegistroBoleto nuevoBoleto = new RegistroBoleto();
+                                nuevoBoleto.setRegistroBoletoIdVueltaGuia(nuevaVuelta);
+                                nuevoBoleto.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
+                                nuevoBoleto.setRegistroBoletoValor(r.getRegistroBoletoValor());
+                                nuevoBoleto.setRegistroBoletoInicio(r.getRegistroBoletoTermino());
+                                nuevoBoleto.setRegistroBoletoSerie(r.getRegistroBoletoSerie());
+                                nuevoBoleto.setRegistroBoletoCantidad(0);
+                                nuevoBoleto.setRegistroBoletoTotal(0);
+                                nuevoBoleto.setRegistroBoletoTermino(0);
+                                
+                                nuevaVuelta.getRegistroBoletoList().add(nuevoBoleto);
+                            }
+                            
+                            this.controller.setVueltaGuia(nuevaVuelta);
+                            this.controller.getVueltasItems().add(nuevaVuelta);
+                            //this.controller.getGuia().getVueltaGuiaList().add(nuevaVuelta);
 
                             model = new BoletoTableModel(this.controller.getVueltaGuia().getRegistroBoletoList(), false);
 
@@ -123,8 +140,9 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
 
                         this.controller.getView().getServicioComboBox().requestFocus();
 
-                        VueltaGuiaComboBoxModel vueltasModel = new VueltaGuiaComboBoxModel(_guia.getVueltaGuiaList());
+                        VueltaGuiaComboBoxModel vueltasModel = new VueltaGuiaComboBoxModel(this.controller.getGuia().getVueltaGuiaList());
                         this.controller.setVueltaGuiaComboBoxModel(vueltasModel);
+                        this.controller.getView().getVueltaComboBox().setSelectedIndex(numeroVueltas-1);
 
                     } else {
                         try {

@@ -26,28 +26,32 @@ public class BoletoTableModel extends AbstractTableModel {
     private String[] names = {"N°", "Boleto", "Tarifa", "Serie", "Inicio", "Término", "Cantidad", "Total"};
     private IRegistroBoletoDao dao;
     private Boolean flag;
-    private RegistroBoleto total;
+    private final static RegistroBoleto total = new RegistroBoleto(-1);
+    private int totalBoletos;
+    private int cantidadBoletos; 
 
     public BoletoTableModel() {
         this.items = new ArrayList<>();
+        
     }
 
     public BoletoTableModel(List<RegistroBoleto> items, Boolean flag) {
         this.items = items;
-        this.flag = flag;
+        this.flag = flag;      
+        this.items.removeIf(r-> r == total);
         
         if (!items.isEmpty()) {
-            Collections.sort(items, new Comparator<RegistroBoleto>() {
+            Collections.sort(this.items, new Comparator<RegistroBoleto>() {
                 @Override
                 public int compare(RegistroBoleto o1, RegistroBoleto o2) {
                     return (o1.getRegistroBoletoIdBoleto().getBoletoOrden() > o2.getRegistroBoletoIdBoleto().getBoletoOrden()) ? 1 : -1;
                 }
             });
         }
-        System.err.println("TAMAÑOS DE ITEMS:"+items.size());
-        
-        this.total = new RegistroBoleto();
-        this.items.add(total);
+        if(!this.items.contains(total)){
+            this.items.add(total);
+        }
+        setTotales();
     }
 
     public Guia getSelected() {
@@ -80,9 +84,9 @@ public class BoletoTableModel extends AbstractTableModel {
             case 5:
                 return (rowIndex != getRowCount() - 1) ? items.get(rowIndex).getRegistroBoletoTermino() : "Totales";
             case 6:
-                return items.get(rowIndex).getRegistroBoletoCantidad();
+                return (rowIndex != getRowCount() - 1) ? items.get(rowIndex).getRegistroBoletoCantidad() : this.cantidadBoletos;
             case 7:
-                return items.get(rowIndex).getRegistroBoletoTotal();
+                return (rowIndex != getRowCount() - 1) ? items.get(rowIndex).getRegistroBoletoTotal() : this.totalBoletos;
         }
         return null;
     }
@@ -155,12 +159,14 @@ public class BoletoTableModel extends AbstractTableModel {
         int totalDinero = 0;
 
         for (RegistroBoleto r : this.items) {
-            totalCantidad = +r.getRegistroBoletoCantidad();
-            totalDinero = +r.getRegistroBoletoTotal();
+            totalCantidad = totalCantidad+r.getRegistroBoletoCantidad();
+            totalDinero = totalDinero+r.getRegistroBoletoTotal();
         }
 
-        this.getItems().get(this.getRowCount() - 1).setRegistroBoletoCantidad(totalCantidad);
-        this.getItems().get(this.getRowCount() - 1).setRegistroBoletoTotal(totalDinero);
+        this.totalBoletos = totalDinero;
+        this.cantidadBoletos = totalCantidad;
+        System.err.println("cantidad"+this.cantidadBoletos+" plata:"+totalBoletos);
+        fireTableChanged(null);
     }
 
     public void removeTotal() {
