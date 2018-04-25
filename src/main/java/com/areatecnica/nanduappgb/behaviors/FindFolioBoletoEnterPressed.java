@@ -38,7 +38,7 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
     private IVueltaGuiaDao vueltaDao;
     private VueltaGuia vueltaGuia;
     private List<VueltaGuia> vueltaGuiaItems;
-    private BoletoTableModel model; 
+    private BoletoTableModel model;
 
     public FindFolioBoletoEnterPressed(RegistroBoletoController controller) {
         this.controller = controller;
@@ -58,7 +58,7 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
                     this.folio = Integer.parseInt(_folio);
 
                     this.controller.getView().getFolioTextField().setBackground(Color.WHITE);
-                    
+
                     Guia _guia = this.dao.findByFolio(folio);
 
                     if (_guia != null) {
@@ -81,7 +81,6 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
                         this.controller.getView().getBusTextField().setEnabled(Boolean.TRUE);
                         this.controller.getView().getConductorTextField().setEnabled(Boolean.TRUE);
                         this.controller.getView().getSaveButton().setEnabled(Boolean.TRUE);
-                        
 
                         PanelGuia panel = new PanelGuia();
                         panel.getVueltaLabel().setText(String.valueOf(numeroVueltas) + " ?");
@@ -105,20 +104,19 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
 
                             this.controller.setVueltasItems(_guia.getVueltaGuiaList());
 
-                            for (VueltaGuia v : this.controller.getVueltasItems()) {
-                                System.err.println("V:" + v.getRegistroBoletoList().size());
-                                for (RegistroBoleto r : v.getRegistroBoletoList()) {
-                                    System.err.println("BOLETO:" + r.getRegistroBoletoIdBoleto().getBoletoNombre());
-                                }
-                            }
-
+//                            for (VueltaGuia v : this.controller.getVueltasItems()) {
+//                                System.err.println("V:" + v.getRegistroBoletoList().size());
+//                                for (RegistroBoleto r : v.getRegistroBoletoList()) {
+//                                    System.err.println("BOLETO:" + r.getRegistroBoletoIdBoleto().getBoletoNombre());
+//                                }
+//                            }
                             this.controller.setVueltaGuia(this.controller.getVueltasItems().get(this.controller.getVueltasItems().size() - 1));
 
                             model = new BoletoTableModel(this.controller.getVueltaGuia().getRegistroBoletoList(), false);
 
                             this.controller.setModel(model);
                             this.controller.getView().getServicioComboBox().setSelectedIndex(0);
-                            
+
                         } else {
                             this.controller.getView().getVueltaComboBox().requestFocus();
                         }

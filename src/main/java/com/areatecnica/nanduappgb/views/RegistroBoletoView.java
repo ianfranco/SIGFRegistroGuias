@@ -290,7 +290,6 @@ public class RegistroBoletoView extends javax.swing.JPanel {
         );
 
         jPanel12.setBackground(new java.awt.Color(19, 50, 71));
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resumen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -301,15 +300,15 @@ public class RegistroBoletoView extends javax.swing.JPanel {
         totalIngresosLabel.setForeground(new java.awt.Color(255, 255, 255));
         totalIngresosLabel.setText("$ 0");
 
-        saveButton.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        saveButton.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         saveButton.setForeground(new java.awt.Color(0, 0, 0));
         saveButton.setText("Registrar");
 
-        printButton.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        printButton.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         printButton.setForeground(new java.awt.Color(0, 0, 0));
         printButton.setText("Imprimir");
 
-        ultimaButton.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        ultimaButton.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         ultimaButton.setForeground(new java.awt.Color(0, 0, 0));
         ultimaButton.setText("Eliminar  Vuelta");
         ultimaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -327,7 +326,7 @@ public class RegistroBoletoView extends javax.swing.JPanel {
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(totalIngresosLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(534, 534, 534)
+                .addGap(541, 541, 541)
                 .addComponent(ultimaButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(printButton)
@@ -339,13 +338,16 @@ public class RegistroBoletoView extends javax.swing.JPanel {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(totalIngresosLabel)
-                    .addComponent(saveButton)
-                    .addComponent(printButton)
-                    .addComponent(ultimaButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ultimaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(totalIngresosLabel)
+                            .addComponent(saveButton)
+                            .addComponent(printButton))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(19, 50, 71));
