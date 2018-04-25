@@ -114,10 +114,11 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
 
                             this.controller.setVueltaGuia(this.controller.getVueltasItems().get(this.controller.getVueltasItems().size() - 1));
 
-                            model = new BoletoTableModel(this.controller.getVueltaGuia().getRegistroBoletoList(), true);
+                            model = new BoletoTableModel(this.controller.getVueltaGuia().getRegistroBoletoList(), false);
 
                             this.controller.setModel(model);
                             this.controller.getView().getServicioComboBox().setSelectedIndex(0);
+                            
                         } else {
                             this.controller.getView().getVueltaComboBox().requestFocus();
                         }
