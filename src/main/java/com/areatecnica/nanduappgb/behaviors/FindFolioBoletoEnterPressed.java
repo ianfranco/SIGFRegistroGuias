@@ -9,8 +9,8 @@ import com.areatecnica.nanduappgb.controllers.RegistroBoletoController;
 import com.areatecnica.nanduappgb.dao.IGuiaDao;
 import com.areatecnica.nanduappgb.dao.IVueltaGuiaDao;
 import com.areatecnica.nanduappgb.dao.impl.GuiaDaoImpl;
-import com.areatecnica.nanduappgb.dao.impl.VueltaGuiaDaoImpl;
 import com.areatecnica.nanduappgb.entities.Guia;
+import com.areatecnica.nanduappgb.entities.RegistroBoleto;
 import com.areatecnica.nanduappgb.entities.VueltaGuia;
 import com.areatecnica.nanduappgb.models.BoletoTableModel;
 import com.areatecnica.nanduappgb.models.VueltaGuiaComboBoxModel;
@@ -35,9 +35,10 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
     private RegistroBoletoController controller;
     private final IGuiaDao dao;
     private int folio;
-    private  IVueltaGuiaDao vueltaDao;
+    private IVueltaGuiaDao vueltaDao;
     private VueltaGuia vueltaGuia;
     private List<VueltaGuia> vueltaGuiaItems;
+    private BoletoTableModel model; 
 
     public FindFolioBoletoEnterPressed(RegistroBoletoController controller) {
         this.controller = controller;
@@ -52,16 +53,18 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
 
             if (!_folio.equals("")) {
                 try {
+                    System.err.println("FINDFOLIOKEYPRESSED");
+
                     this.folio = Integer.parseInt(_folio);
 
                     this.controller.getView().getFolioTextField().setBackground(Color.WHITE);
-                    BoletoTableModel model = null;
+                    
                     Guia _guia = this.dao.findByFolio(folio);
 
                     if (_guia != null) {
                         this.controller.setGuia(_guia);
 
-                        int vuelta = _guia.getVueltaGuiaList().size();
+                        int numeroVueltas = _guia.getVueltaGuiaList().size();
 
                         this.controller.getView().getBusTextField().setText(String.valueOf(_guia.getGuiaIdBus().getBusNumero()));
                         this.controller.getView().getPpuTextField().setText(_guia.getGuiaIdBus().getBusPatente());
@@ -81,12 +84,12 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
                         this.controller.getView().getAddButton().setEnabled(Boolean.TRUE);
 
                         PanelGuia panel = new PanelGuia();
-                        panel.getVueltaLabel().setText(String.valueOf(vuelta) + " ?");
+                        panel.getVueltaLabel().setText(String.valueOf(numeroVueltas) + " ?");
                         int option = JOptionPane.showConfirmDialog(null, panel, "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                         if (option == JOptionPane.YES_OPTION) {
-                            
-                            this.controller.getView().getObservacionTextField().setText("Registro Vuelta Nº " + vuelta);
+
+                            this.controller.getView().getObservacionTextField().setText("Registro Vuelta Nº " + numeroVueltas);
                             this.controller.getView().getEstadoBoletoTextField().setText("x Registrar");
 
                             if (_guia.getVueltaGuiaList().isEmpty()) {
@@ -96,16 +99,21 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
                                 vueltaGuia.setRegistroBoletoList(this.controller.getTarifas());
                                 this.controller.setVueltaGuia(vueltaGuia);
                                 _guia.getVueltaGuiaList().add(this.controller.getVueltaGuia());
-                            }else{
-                                
+                            } else {
+
                             }
 
                             this.controller.setVueltasItems(_guia.getVueltaGuiaList());
-                            this.controller.setVueltaGuia(this.controller.getVueltasItems().get(this.controller.getVueltasItems().size()-1));
-                            
-                            System.err.println("TAMAÑO DE LA LISTA DE VUELTAS en guia: "+this.controller.getVueltasItems().size());
-                            System.err.println("TAMAÑO DE LA LISTA DE VUELTAS: "+this.controller.getVueltaGuia());
-                            
+
+                            for (VueltaGuia v : this.controller.getVueltasItems()) {
+                                System.err.println("V:" + v.getRegistroBoletoList().size());
+                                for (RegistroBoleto r : v.getRegistroBoletoList()) {
+                                    System.err.println("BOLETO:" + r.getRegistroBoletoIdBoleto().getBoletoNombre());
+                                }
+                            }
+
+                            this.controller.setVueltaGuia(this.controller.getVueltasItems().get(this.controller.getVueltasItems().size() - 1));
+
                             model = new BoletoTableModel(this.controller.getVueltaGuia().getRegistroBoletoList(), true);
 
                             this.controller.setModel(model);

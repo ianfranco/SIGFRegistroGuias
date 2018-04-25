@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -57,6 +58,7 @@ public class VueltaGuia implements Serializable {
     @ManyToOne(optional = false)
     private Servicio vueltaGuiaIdServicio;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "registroBoletoIdVueltaGuia")
+    @OrderBy("registroBoletoIdBoleto")
     private List<RegistroBoleto> registroBoletoList;
 
     public VueltaGuia() {

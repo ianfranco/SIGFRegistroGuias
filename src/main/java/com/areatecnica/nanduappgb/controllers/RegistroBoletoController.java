@@ -95,7 +95,7 @@ public class RegistroBoletoController extends MainView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!flag) {
-                    changeTableModel();
+                    //changeTableModel();
                 }
             }
         });

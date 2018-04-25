@@ -54,7 +54,7 @@ public class FindBusFocusLost extends FocusAdapter {
     public void find() {
         if (this.controller.getGuia().getGuiaId() == null) {
             try {
-
+                System.err.println("FINDBUSFOCUSLOST");
                 String _busNumero = this.controller.getView().getBusTextField().getText();
 
                 Bus _bus = this.dao.findByNumeroBusProceso(Integer.valueOf(_busNumero), this.controller.getProceso().getProceso());

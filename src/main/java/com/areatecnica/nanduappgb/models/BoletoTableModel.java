@@ -42,6 +42,7 @@ public class BoletoTableModel extends AbstractTableModel {
                 }
             });
         }
+        System.err.println("TAMAÑOS DE ITEMS:"+items.size());
         
         this.total = new RegistroBoleto();
         this.items.add(total);
