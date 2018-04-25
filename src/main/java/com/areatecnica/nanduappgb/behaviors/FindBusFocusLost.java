@@ -91,7 +91,7 @@ public class FindBusFocusLost extends FocusAdapter {
                         model = new BoletoTableModel(this.vueltaGuia.getRegistroBoletoList(), true);
                         this.controller.getView().getEstadoBoletoTextField().setForeground(Color.RED);
                         this.controller.getView().getEstadoBoletoTextField().setText("ATENCIÓN -> DEBE INGRESAR SERIE DE BOLETOS COMPLETA");
-                        this.controller.getView().getTotalVueltaLabel().setText("---");
+                        
                         this.controller.getView().getTotalIngresosLabel().setText("---");
                         this.controller.setModel(model);
                         this.controller.setFlag(Boolean.TRUE);

@@ -8,6 +8,7 @@ package com.areatecnica.nanduappgb.models;
 import com.areatecnica.nanduappgb.dao.IRegistroBoletoDao;
 import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -28,6 +29,7 @@ public class BoletoTableModel extends AbstractTableModel {
     private RegistroBoleto total;
 
     public BoletoTableModel() {
+        this.items = new ArrayList<>();
     }
 
     public BoletoTableModel(List<RegistroBoleto> items, Boolean flag) {
