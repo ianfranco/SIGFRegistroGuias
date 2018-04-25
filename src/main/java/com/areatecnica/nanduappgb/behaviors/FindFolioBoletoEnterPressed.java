@@ -81,7 +81,7 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
                         this.controller.getView().getBusTextField().setEnabled(Boolean.TRUE);
                         this.controller.getView().getConductorTextField().setEnabled(Boolean.TRUE);
                         this.controller.getView().getSaveButton().setEnabled(Boolean.TRUE);
-                        this.controller.getView().getAddButton().setEnabled(Boolean.TRUE);
+                        
 
                         PanelGuia panel = new PanelGuia();
                         panel.getVueltaLabel().setText(String.valueOf(numeroVueltas) + " ?");

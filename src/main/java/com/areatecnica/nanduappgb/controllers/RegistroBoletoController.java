@@ -83,7 +83,9 @@ public class RegistroBoletoController extends MainView {
         this.view.getFolioTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getFolioTextField()));
         this.view.getFolioTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getFolioTextField()));
 
-        this.view.getBusTextField().addFocusListener(new FindBusFocusLost(this));
+        this.view.getBusTextField().addFocusListener(new FocusAdapter() {
+            FindBusFocusLost fb = new FindBusFocusLost(RegistroBoletoController.this);
+        });
         this.view.getBusTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getBusTextField()));
         this.view.getBusTextField().addKeyListener(new NextObject(this.view.getFolioTextField(), this.view.getConductorTextField(), null, null));
 
@@ -145,7 +147,7 @@ public class RegistroBoletoController extends MainView {
         for (TarifaGrupoServicio t : this.tarifaSolyMar.getTarifaGrupoServicio()) {
             RegistroBoleto r = new RegistroBoleto();
             r.setRegistroBoletoIdBoleto(t.getTarifaGrupoServicioIdBoleto());
-            System.err.println("VALOR DE LA VUELTA:"+this.vueltaGuia.getVueltaGuiaIdGuia().getGuiaFolio());
+            System.err.println("VALOR DE LA VUELTA:" + this.vueltaGuia.getVueltaGuiaIdGuia().getGuiaFolio());
             r.setRegistroBoletoIdVueltaGuia(this.vueltaGuia);
 //            r.setRegistroBoletoIdServicio(this.servicio);
             r.setRegistroBoletoEsNuevo(Boolean.TRUE);
