@@ -79,12 +79,20 @@ public class RegistroBoletoController extends MainView {
         this.map = new HashMap<Integer, RegistroBoleto>();
         //getTarifas();
 
-        this.view.getFolioTextField().addKeyListener(new FindFolioBoletoEnterPressed(this));
+        this.view.getFolioTextField().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                findFolio(e);
+            }
+        });
         this.view.getFolioTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getFolioTextField()));
         this.view.getFolioTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getFolioTextField()));
 
         this.view.getBusTextField().addFocusListener(new FocusAdapter() {
-            FindBusFocusLost fb = new FindBusFocusLost(RegistroBoletoController.this);
+            @Override
+            public void focusLost(FocusEvent e) {
+                findBus();
+            }
         });
         this.view.getBusTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getBusTextField()));
         this.view.getBusTextField().addKeyListener(new NextObject(this.view.getFolioTextField(), this.view.getConductorTextField(), null, null));
@@ -96,9 +104,7 @@ public class RegistroBoletoController extends MainView {
         this.view.getVueltaComboBox().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 changeTableModel();
-
             }
         });
 
@@ -147,9 +153,8 @@ public class RegistroBoletoController extends MainView {
         for (TarifaGrupoServicio t : this.tarifaSolyMar.getTarifaGrupoServicio()) {
             RegistroBoleto r = new RegistroBoleto();
             r.setRegistroBoletoIdBoleto(t.getTarifaGrupoServicioIdBoleto());
-            System.err.println("VALOR DE LA VUELTA:" + this.vueltaGuia.getVueltaGuiaIdGuia().getGuiaFolio());
+            
             r.setRegistroBoletoIdVueltaGuia(this.vueltaGuia);
-//            r.setRegistroBoletoIdServicio(this.servicio);
             r.setRegistroBoletoEsNuevo(Boolean.TRUE);
             r.setRegistroBoletoValor(t.getTarifaGrupoServicioValor());
             r.setRegistroBoletoObservacion("Nuevo Boleto");
@@ -162,14 +167,30 @@ public class RegistroBoletoController extends MainView {
         return items;
     }
 
-    private void save() {
-        PanelGuia panel = new PanelGuia();
-        panel.getVueltaLabel().setText("¿Ingresar vuelta/boletos a la Guía N° Folio: " + this.selected.getGuiaFolio() + "?");
-        int option = JOptionPane.showConfirmDialog(null, panel, "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    private void findFolio(KeyEvent e) {
+        FindFolioBoletoEnterPressed enter = new FindFolioBoletoEnterPressed(this);
+        enter.press(e);;
+    }
 
-        if (option == JOptionPane.YES_OPTION) {
-            SaveGuiaAction saveGuia = new SaveGuiaAction(this);
-            saveGuia.save();
+    private void findBus() {
+        FindBusFocusLost fb = new FindBusFocusLost(RegistroBoletoController.this);
+        fb.find();
+    }
+
+    private void save() {
+        if (this.view.getServicioComboBox().getSelectedIndex()>-1) {
+            PanelGuia panel = new PanelGuia();
+            panel.getVueltaLabel().setText("");
+            
+            panel.getLabel().setText("¿Ingresar vuelta/boletos a la Guía N° Folio: " + this.selected.getGuiaFolio() + "?");
+            int option = JOptionPane.showConfirmDialog(null, panel, "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            
+            if (option == JOptionPane.YES_OPTION) {
+                SaveGuiaAction saveGuia = new SaveGuiaAction(this);
+                saveGuia.save();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar el Servicio", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -187,9 +208,9 @@ public class RegistroBoletoController extends MainView {
         if (index > -1) {
             this.vueltaGuia = this.vueltaGuiaComboBoxModel.getSelectedItem();
             this.model = new BoletoTableModel(this.vueltaGuia.getRegistroBoletoList(), false);
-            
-            System.err.println("total boletos despues de cambiar:"+this.vueltaGuia.getRegistroBoletoList().size());
-            
+
+            System.err.println("total boletos despues de cambiar:" + this.vueltaGuia.getRegistroBoletoList().size());
+
             this.view.getTable().setModel(model);
         }
     }

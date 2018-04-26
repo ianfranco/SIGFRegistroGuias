@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -35,6 +36,7 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
     private RegistroBoletoController controller;
     private final IGuiaDao dao;
     private int folio;
+    private int totalGuia;
     private IVueltaGuiaDao vueltaDao;
     private VueltaGuia vueltaGuia;
     private List<VueltaGuia> vueltaGuiaItems;
@@ -43,10 +45,15 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
     public FindFolioBoletoEnterPressed(RegistroBoletoController controller) {
         this.controller = controller;
         this.dao = new GuiaDaoImpl();
+
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+        press(e);
+    }
+
+    public void press(KeyEvent e) {
 
         if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_TAB) {
             String _folio = this.controller.getView().getFolioTextField().getText();
@@ -64,8 +71,16 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
                     if (_guia != null) {
                         this.controller.setGuia(_guia);
 
+                        for (VueltaGuia v : this.controller.getGuia().getVueltaGuiaList()) {
+                            for (RegistroBoleto r : v.getRegistroBoletoList()) {
+                                totalGuia = totalGuia + r.getRegistroBoletoTotal();
+                            }
+                        }
+
+                        this.controller.getView().getTotalIngresosLabel().setText("$ " + String.format("%d", totalGuia));
+
                         int numeroVueltas = _guia.getVueltaGuiaList().size();
-                        numeroVueltas = numeroVueltas+1;
+                        numeroVueltas = numeroVueltas + 1;
                         this.controller.getView().getBusTextField().setText(String.valueOf(_guia.getGuiaIdBus().getBusNumero()));
                         this.controller.getView().getPpuTextField().setText(_guia.getGuiaIdBus().getBusPatente());
                         this.controller.getView().getFlotaTextField().setText(_guia.getGuiaIdBus().getBusIdFlota().getFlotaNombre());
@@ -82,7 +97,8 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
                         this.controller.getView().getConductorTextField().setEnabled(Boolean.TRUE);
                         this.controller.getView().getSaveButton().setEnabled(Boolean.TRUE);
 
-                        PanelGuia panel = new PanelGuia();
+                        PanelGuia panel = null;
+                        panel = new PanelGuia();
                         panel.getVueltaLabel().setText(String.valueOf(numeroVueltas) + " ?");
                         int option = JOptionPane.showConfirmDialog(null, panel, "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
@@ -98,9 +114,7 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
                                 vueltaGuia.setRegistroBoletoList(this.controller.getTarifas());
                                 this.controller.setVueltaGuia(vueltaGuia);
                                 _guia.getVueltaGuiaList().add(this.controller.getVueltaGuia());
-                            } else {
-
-                            }
+                            } 
 
                             this.controller.setVueltasItems(_guia.getVueltaGuiaList());
 
@@ -109,9 +123,9 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
                             nuevaVuelta.setRegistroBoletoList(new ArrayList());
                             nuevaVuelta.setVueltaGuiaIdGuia(this.controller.getGuia());
                             nuevaVuelta.setVueltaGuiaNumero(numeroVueltas);
-                            
+
                             for (RegistroBoleto r : this.controller.getVueltaGuia().getRegistroBoletoList()) {
-                                System.err.println("BOLETO:" + r.getRegistroBoletoIdBoleto().getBoletoNombre());
+                                //System.err.println("BOLETO:" + r.getRegistroBoletoIdBoleto().getBoletoNombre());
                                 RegistroBoleto nuevoBoleto = new RegistroBoleto();
                                 nuevoBoleto.setRegistroBoletoIdVueltaGuia(nuevaVuelta);
                                 nuevoBoleto.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
@@ -121,15 +135,14 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
                                 nuevoBoleto.setRegistroBoletoCantidad(0);
                                 nuevoBoleto.setRegistroBoletoTotal(0);
                                 nuevoBoleto.setRegistroBoletoTermino(0);
-                                
+
                                 nuevaVuelta.getRegistroBoletoList().add(nuevoBoleto);
                             }
-                            
+
                             this.controller.setVueltaGuia(nuevaVuelta);
                             this.controller.getVueltasItems().add(nuevaVuelta);
-                            //this.controller.getGuia().getVueltaGuiaList().add(nuevaVuelta);
-
-                            model = new BoletoTableModel(this.controller.getVueltaGuia().getRegistroBoletoList(), false);
+                            
+                            model = new BoletoTableModel(nuevaVuelta.getRegistroBoletoList(), false);
 
                             this.controller.setModel(model);
                             this.controller.getView().getServicioComboBox().setSelectedIndex(0);
@@ -142,24 +155,17 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
 
                         VueltaGuiaComboBoxModel vueltasModel = new VueltaGuiaComboBoxModel(this.controller.getGuia().getVueltaGuiaList());
                         this.controller.setVueltaGuiaComboBoxModel(vueltasModel);
-                        this.controller.getView().getVueltaComboBox().setSelectedIndex(numeroVueltas-1);
+                        this.controller.getView().getVueltaComboBox().setSelectedItem(this.controller.getVueltaGuia());
 
                     } else {
                         try {
+
                             this.controller.getGuia().setGuiaFolio(folio);
                             this.controller.displayMessage("Nueva Guía");
-
-                            VueltaGuia vueltaGuia = new VueltaGuia();
-                            vueltaGuia.setVueltaGuiaIdGuia(this.controller.getGuia());
-                            vueltaGuia.setVueltaGuiaNumero(0);
-                            this.controller.setVueltaGuia(vueltaGuia);
-                            this.controller.getVueltaGuia().setRegistroBoletoList(this.controller.getTarifas());
-
-                            this.controller.getGuia().setVueltaGuiaList(new ArrayList<>());
-                            this.controller.getGuia().getVueltaGuiaList().add(this.controller.getVueltaGuia());
-
                             this.controller.getView().getFechaGuiaTextField().setDate(new Date());
+
                             this.controller.getView().getBusTextField().requestFocus();
+
                         } catch (AWTException ex) {
                             Logger.getLogger(FindFolioBoletoEnterPressed.class.getName()).log(Level.SEVERE, null, ex);
                         }

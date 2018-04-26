@@ -14,6 +14,7 @@ import com.areatecnica.nanduappgb.dao.impl.GuiaDaoImpl;
 import com.areatecnica.nanduappgb.dao.impl.VueltaGuiaDaoImpl;
 import com.areatecnica.nanduappgb.entities.Bus;
 import com.areatecnica.nanduappgb.entities.Guia;
+import com.areatecnica.nanduappgb.entities.RegistroBoleto;
 import com.areatecnica.nanduappgb.entities.VueltaGuia;
 import com.areatecnica.nanduappgb.models.BoletoTableModel;
 import com.areatecnica.nanduappgb.models.VueltaGuiaComboBoxModel;
@@ -52,74 +53,114 @@ public class FindBusFocusLost extends FocusAdapter {
     }
 
     public void find() {
-        if (this.controller.getGuia().getGuiaId() == null) {
-            try {
-                System.err.println("FINDBUSFOCUSLOST");
-                String _busNumero = this.controller.getView().getBusTextField().getText();
+//        if (this.controller.getGuia().getGuiaId() == null) {
+        try {
+            System.err.println("FINDBUSFOCUSLOST");
+            String _busNumero = this.controller.getView().getBusTextField().getText();
 
-                Bus _bus = this.dao.findByNumeroBusProceso(Integer.valueOf(_busNumero), this.controller.getProceso().getProceso());
+            Bus _bus = this.dao.findByNumeroBusProceso(Integer.valueOf(_busNumero), this.controller.getProceso().getProceso());
 
-                if (_bus != null) {
-                    this.controller.getView().getBusTextField().setBackground(Color.WHITE);
-                    this.controller.getGuia().setGuiaIdBus(_bus);
-                    this.controller.getView().getPpuTextField().setText(_bus.getBusPatente());
-                    this.controller.getView().getFlotaTextField().setText(_bus.getBusIdFlota().getFlotaNombre());
+            if (_bus != null) {
+                this.controller.getView().getBusTextField().setBackground(Color.WHITE);
+                this.controller.getGuia().setGuiaIdBus(_bus);
+                this.controller.getView().getPpuTextField().setText(_bus.getBusPatente());
+                this.controller.getView().getFlotaTextField().setText(_bus.getBusIdFlota().getFlotaNombre());
 
-                    Guia _guia = this.guiaDao.findLastGuiaByBusFecha(_bus, fecha);
+                Guia _guia = this.guiaDao.findLastGuiaByBusFecha(_bus, fecha);
 
-                    BoletoTableModel model = null;
+                BoletoTableModel model = null;
 
-                    if (_guia != null && !_guia.getVueltaGuiaList().isEmpty()) {
-                        this.vueltaGuiaItems = this.vueltaDao.findByGuia(_guia);
-                        this.vueltaGuia = this.vueltaGuiaItems.get(this.vueltaGuiaItems.size() - 1);
-                        model = new BoletoTableModel(this.vueltaGuia.getRegistroBoletoList(), false);
+                if (_guia != null && !_guia.getVueltaGuiaList().isEmpty()) {
 
-                        this.controller.setModel(model);
-                        this.controller.getView().getEstadoBoletoTextField().setText("");
-                        this.controller.getView().getEstadoBoletoTextField().setForeground(Color.WHITE);
-                        this.controller.setFlag(Boolean.FALSE);
-                        
-                    } else {
-                        this.vueltaGuia = new VueltaGuia();
-                        this.vueltaGuia.setVueltaGuiaIdGuia(this.controller.getGuia());
-                        this.vueltaGuia.setVueltaGuiaIdServicio(this.controller.getServicio());
-                        this.vueltaGuia.setRegistroBoletoList(this.controller.getTarifas());
-                        this.vueltaGuiaItems = new ArrayList<>();
-                        this.vueltaGuiaItems.add(vueltaGuia);
-                        
-                        this.controller.getGuia().setVueltaGuiaList(vueltaGuiaItems);
-                        model = new BoletoTableModel(this.vueltaGuia.getRegistroBoletoList(), true);
-                        this.controller.getView().getEstadoBoletoTextField().setForeground(Color.RED);
-                        this.controller.getView().getEstadoBoletoTextField().setText("ATENCIÓN -> DEBE INGRESAR SERIE DE BOLETOS COMPLETA");
-                        
-                        this.controller.getView().getTotalIngresosLabel().setText("---");
-                        this.controller.setModel(model);
-                        this.controller.setFlag(Boolean.TRUE);
+                    VueltaGuia nuevaVuelta = new VueltaGuia();
+                    nuevaVuelta.setRegistroBoletoList(new ArrayList());
+                    nuevaVuelta.setVueltaGuiaIdGuia(this.controller.getGuia());
+                    nuevaVuelta.setVueltaGuiaNumero(1);
 
+                    System.err.println("N° DE VUELTA ANTIGUA:" + this.controller.getVueltaGuia().getVueltaGuiaNumero());
+
+                    for (RegistroBoleto r : _guia.getVueltaGuiaList().get(_guia.getVueltaGuiaList().size() - 1).getRegistroBoletoList()) {
+                        System.err.println("BOLETO:" + r.getRegistroBoletoIdBoleto().getBoletoNombre() + " Serie:" + r.getRegistroBoletoSerie());
+                        RegistroBoleto nuevoBoleto = new RegistroBoleto();
+                        nuevoBoleto.setRegistroBoletoIdVueltaGuia(nuevaVuelta);
+                        nuevoBoleto.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
+                        nuevoBoleto.setRegistroBoletoValor(r.getRegistroBoletoValor());
+                        nuevoBoleto.setRegistroBoletoInicio(r.getRegistroBoletoTermino());
+                        nuevoBoleto.setRegistroBoletoSerie(r.getRegistroBoletoSerie());
+                        nuevoBoleto.setRegistroBoletoCantidad(0);
+                        nuevoBoleto.setRegistroBoletoTotal(0);
+                        nuevoBoleto.setRegistroBoletoTermino(0);
+
+                        nuevaVuelta.getRegistroBoletoList().add(nuevoBoleto);
                     }
+
+                    List<VueltaGuia> array = new ArrayList<>();
+                    array.add(nuevaVuelta);
+                    this.controller.setVueltasItems(array);
                     
+                    
+//                    this.controller.setVueltaGuia(nuevaVuelta);
+//                    this.controller.getVueltasItems().add(nuevaVuelta);
+                    this.controller.getGuia().setVueltaGuiaList(this.controller.getVueltasItems());
                     VueltaGuiaComboBoxModel vueltasModel = new VueltaGuiaComboBoxModel(this.controller.getGuia().getVueltaGuiaList());
                     this.controller.setVueltaGuiaComboBoxModel(vueltasModel);
+
                     this.controller.getView().getServicioComboBox().setSelectedIndex(0);
 
-                } else {
-                    this.controller.getView().getBusTextField().setBackground(Color.RED);
-                    this.controller.getView().getPpuTextField().setText("Error");
-                    this.controller.getView().getFlotaTextField().setText("");
+                    model = new BoletoTableModel(this.controller.getVueltaGuia().getRegistroBoletoList(), false);
 
+                    this.controller.setModel(model);
+                    this.controller.getView().getServicioComboBox().setSelectedIndex(0);
+
+                    this.controller.getView().getEstadoBoletoTextField().setText("");
+                    this.controller.getView().getEstadoBoletoTextField().setForeground(Color.WHITE);
+                    this.controller.setFlag(Boolean.FALSE);
+                    
+                    this.controller.getView().getObservacionTextField().setText("Nueva Guía");
+                    this.controller.getView().getEstadoBoletoTextField().setText("Continuidad desde Guía Folio N°:"+_guia.getGuiaFolio());
+                    
+                } else {
+                    System.err.println("NUEVA GUÍA PARA EL BUS");
+                    this.vueltaGuia = new VueltaGuia();
+                    this.vueltaGuia.setVueltaGuiaIdGuia(this.controller.getGuia());
+                    this.vueltaGuia.setVueltaGuiaIdServicio(this.controller.getServicio());
+                    this.vueltaGuia.setRegistroBoletoList(this.controller.getTarifas());
+                    this.vueltaGuia.setVueltaGuiaNumero(1);
+                    this.vueltaGuiaItems = new ArrayList<>();
+                    this.vueltaGuiaItems.add(this.vueltaGuia);
+
+                    this.controller.getGuia().setVueltaGuiaList(this.vueltaGuiaItems);
+                    model = new BoletoTableModel(this.vueltaGuia.getRegistroBoletoList(), true);
+                    this.controller.getView().getEstadoBoletoTextField().setForeground(Color.RED);
+                    this.controller.getView().getEstadoBoletoTextField().setText("ATENCIÓN -> DEBE INGRESAR SERIE DE BOLETOS COMPLETA");
+
+                    this.controller.getView().getTotalIngresosLabel().setText("---");
+                    this.controller.setModel(model);
+                    this.controller.setFlag(Boolean.TRUE);
+                    VueltaGuiaComboBoxModel vueltasModel = new VueltaGuiaComboBoxModel(this.controller.getGuia().getVueltaGuiaList());
+                    this.controller.setVueltaGuiaComboBoxModel(vueltasModel);
+                    
+                    this.controller.getView().getServicioComboBox().setSelectedIndex(0);
                 }
 
-            } catch (NullPointerException ee) {
+            } else {
                 this.controller.getView().getBusTextField().setBackground(Color.RED);
-                ee.printStackTrace();
-            } catch (NumberFormatException ex) {
-                this.controller.getView().getBusTextField().setBackground(Color.GREEN);
-                this.controller.getView().getSaveButton().setEnabled(Boolean.FALSE);
+                this.controller.getView().getPpuTextField().setText("Error");
+                this.controller.getView().getFlotaTextField().setText("");
+
             }
-        } else {
-            this.controller.getView().getBusTextField().setBackground(Color.WHITE);
-            this.controller.getView().getSaveButton().setEnabled(Boolean.TRUE);
+
+        } catch (NullPointerException ee) {
+            this.controller.getView().getBusTextField().setBackground(Color.RED);
+            ee.printStackTrace();
+        } catch (NumberFormatException ex) {
+            this.controller.getView().getBusTextField().setBackground(Color.GREEN);
+            this.controller.getView().getSaveButton().setEnabled(Boolean.FALSE);
         }
+//        } else {
+//            this.controller.getView().getBusTextField().setBackground(Color.WHITE);
+//            this.controller.getView().getSaveButton().setEnabled(Boolean.TRUE);
+//        }
     }
 
 }

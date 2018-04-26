@@ -112,6 +112,7 @@ public class BoletoTableModel extends AbstractTableModel {
                         break;
                     case 4:
                         items.get(rowIndex).setRegistroBoletoInicio(value);
+                        items.get(rowIndex).setRegistroBoletoTermino(value);
                         setTotales();
                         break;
                     case 5:

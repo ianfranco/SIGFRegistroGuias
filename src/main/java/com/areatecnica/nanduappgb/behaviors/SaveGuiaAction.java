@@ -52,6 +52,7 @@ public class SaveGuiaAction extends AbstractAction {
 
                     for (VueltaGuia r : this.controller.getGuia().getVueltaGuiaList()) {
                         r.setVueltaGuiaIdGuia(this.controller.getGuia());
+                        r.setVueltaGuiaIdServicio(this.controller.getServicio());
                         System.err.println("N° DE VUELTA:" + r.getVueltaGuiaNumero());
                         System.err.println("Folio Vuelta:" + r.getVueltaGuiaIdGuia().getGuiaFolio());
                         System.err.println("Total de Registros:" + r.getRegistroBoletoList().size());
@@ -61,6 +62,7 @@ public class SaveGuiaAction extends AbstractAction {
                                 toDelete = b;
                             } else {
                                 System.err.println("NOMBRE DE BOLETO:" + b.getRegistroBoletoIdBoleto().getBoletoNombre());
+                                b.setRegistroBoletoIdVueltaGuia(r);
                                 list.add(b);
                             }
 
@@ -68,7 +70,7 @@ public class SaveGuiaAction extends AbstractAction {
                         r.setRegistroBoletoList(list);
                         list = new ArrayList<>();
                     }
-
+                    System.err.println("cantidad de vueltas en la guia nueva "+this.controller.getGuia().getVueltaGuiaList().size());
                     this.dao.update(this.controller.getGuia());
                     this.controller.reset();
                 } catch (Exception e) {
