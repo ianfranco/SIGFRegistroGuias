@@ -5,6 +5,8 @@
  */
 package com.areatecnica.nanduappgb.controllers;
 
+import com.areatecnica.nanduappgb.behaviors.DeleteGuiaAction;
+import com.areatecnica.nanduappgb.behaviors.DeleteVueltaGuiaAction;
 import com.areatecnica.nanduappgb.behaviors.FindBusFocusLost;
 import com.areatecnica.nanduappgb.behaviors.FindConductorFocusLost;
 import com.areatecnica.nanduappgb.behaviors.FindFolioBoletoEnterPressed;
@@ -95,7 +97,23 @@ public class RegistroBoletoController extends MainView {
             }
         });
         this.view.getBusTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getBusTextField()));
-        this.view.getBusTextField().addKeyListener(new NextObject(this.view.getFolioTextField(), this.view.getConductorTextField(), null, null));
+        this.view.getBusTextField().addKeyListener(new NextObject(this.view.getFechaGuiaTextField(), this.view.getConductorTextField(), null, null));
+
+        this.view.getFechaGuiaTextField().addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                view.getFechaGuiaTextField().setSelectionStart(0);
+                view.getFechaGuiaTextField().setSelectionEnd(1);
+            }
+        });
+        this.view.getFechaGuiaTextField().addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                selected.setGuiaFecha(view.getDate());
+                System.err.println("FECHA DE LA GUIA: "+selected.getGuiaFecha());
+            }
+        });
+        this.view.getFechaGuiaTextField().addKeyListener(new NextObject(this.view.getFolioTextField(), this.view.getBusTextField(), null, null));
 
         this.view.getConductorTextField().addKeyListener(new NextObject(this.view.getBusTextField(), this.view.getServicioComboBox(), null, null));
         this.view.getConductorTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getConductorTextField()));
@@ -136,10 +154,23 @@ public class RegistroBoletoController extends MainView {
             }
         });
 
+        this.view.getDeleteGuiaButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DeleteGuiaAction action = new DeleteGuiaAction(selected);
+                if (action.save()) {
+                    reset();
+                };
+            }
+        });
+
         this.view.getUltimaButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                removeUltimaVuelta();
+                DeleteVueltaGuiaAction action = new DeleteVueltaGuiaAction(vueltaGuia);
+                if (action.save()) {
+                    reset();
+                }
             }
         });
 
@@ -153,7 +184,7 @@ public class RegistroBoletoController extends MainView {
         for (TarifaGrupoServicio t : this.tarifaSolyMar.getTarifaGrupoServicio()) {
             RegistroBoleto r = new RegistroBoleto();
             r.setRegistroBoletoIdBoleto(t.getTarifaGrupoServicioIdBoleto());
-            
+
             r.setRegistroBoletoIdVueltaGuia(this.vueltaGuia);
             r.setRegistroBoletoEsNuevo(Boolean.TRUE);
             r.setRegistroBoletoValor(t.getTarifaGrupoServicioValor());
@@ -178,13 +209,13 @@ public class RegistroBoletoController extends MainView {
     }
 
     private void save() {
-        if (this.view.getServicioComboBox().getSelectedIndex()>-1) {
+        if (this.view.getServicioComboBox().getSelectedIndex() > -1) {
             PanelGuia panel = new PanelGuia();
             panel.getVueltaLabel().setText("");
-            
+
             panel.getLabel().setText("¿Ingresar vuelta/boletos a la Guía N° Folio: " + this.selected.getGuiaFolio() + "?");
             int option = JOptionPane.showConfirmDialog(null, panel, "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            
+
             if (option == JOptionPane.YES_OPTION) {
                 SaveGuiaAction saveGuia = new SaveGuiaAction(this);
                 saveGuia.save();
@@ -199,6 +230,7 @@ public class RegistroBoletoController extends MainView {
             int option = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el ultimo registro de boletos/vuelta?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (option == JOptionPane.YES_OPTION) {
+
             }
         }
     }
@@ -242,7 +274,7 @@ public class RegistroBoletoController extends MainView {
         this.view.getNombreConductorTextField().setText(" ");
         this.view.getObservacionTextField().setText(" ");
         this.view.getEstadoBoletoTextField().setText(" ");
-
+        this.view.getTotalIngresosLabel().setText("---");
         this.view.getFolioTextField().requestFocus();
     }
 

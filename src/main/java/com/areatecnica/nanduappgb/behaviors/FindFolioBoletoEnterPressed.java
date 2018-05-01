@@ -24,7 +24,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -84,7 +83,7 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
                         this.controller.getView().getBusTextField().setText(String.valueOf(_guia.getGuiaIdBus().getBusNumero()));
                         this.controller.getView().getPpuTextField().setText(_guia.getGuiaIdBus().getBusPatente());
                         this.controller.getView().getFlotaTextField().setText(_guia.getGuiaIdBus().getBusIdFlota().getFlotaNombre());
-                        this.controller.getView().getFechaGuiaTextField().setDate(_guia.getGuiaFecha());
+                        this.controller.getView().getFechaGuiaTextField().setValue(_guia.getGuiaFecha());
                         this.controller.getView().getConductorTextField().setText(String.valueOf(_guia.getGuiaIdTrabajador().getTrabajadorCodigo()));
                         this.controller.getView().getNombreConductorTextField().setText(_guia.getGuiaIdTrabajador().toString());
                         this.controller.getView().getObservacionTextField().setForeground(Color.WHITE);
@@ -162,9 +161,9 @@ public class FindFolioBoletoEnterPressed extends KeyAdapter {
 
                             this.controller.getGuia().setGuiaFolio(folio);
                             this.controller.displayMessage("Nueva Guía");
-                            this.controller.getView().getFechaGuiaTextField().setDate(new Date());
+                            //
 
-                            this.controller.getView().getBusTextField().requestFocus();
+                            this.controller.getView().getFechaGuiaTextField().requestFocus();
 
                         } catch (AWTException ex) {
                             Logger.getLogger(FindFolioBoletoEnterPressed.class.getName()).log(Level.SEVERE, null, ex);

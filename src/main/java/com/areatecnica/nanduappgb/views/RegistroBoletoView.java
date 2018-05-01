@@ -6,9 +6,14 @@
 package com.areatecnica.nanduappgb.views;
 
 import com.areatecnica.nanduappgb.utils.NumberLimiter;
-import com.toedter.calendar.JDateChooser;
+import com.areatecnica.nanduappgb.helpers.DateFormatter;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -48,7 +53,11 @@ public class RegistroBoletoView extends javax.swing.JPanel {
         busTextField = new javax.swing.JTextField();
         conductorTextField = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        fechaGuiaTextField = new com.toedter.calendar.JDateChooser();
+        try{
+            fechaTextField = new JFormattedTextField(new DateFormatter());
+        }catch(ParseException e){
+            e.getMessage();
+        }
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         observacionTextField = new javax.swing.JLabel();
@@ -65,7 +74,8 @@ public class RegistroBoletoView extends javax.swing.JPanel {
         totalIngresosLabel = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
         printButton = new javax.swing.JButton();
-        ultimaButton = new javax.swing.JButton();
+        deleteGuiaButton = new javax.swing.JButton();
+        ultimaButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -143,7 +153,8 @@ public class RegistroBoletoView extends javax.swing.JPanel {
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel17.setText("Fecha :");
 
-        fechaGuiaTextField.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        fechaTextField.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        fechaTextField.setSelectionStart(0);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -163,7 +174,7 @@ public class RegistroBoletoView extends javax.swing.JPanel {
                     .addComponent(vueltaComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(busTextField)
                     .addComponent(conductorTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                    .addComponent(fechaGuiaTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(fechaTextField))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -176,7 +187,7 @@ public class RegistroBoletoView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
-                    .addComponent(fechaGuiaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fechaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -308,14 +319,13 @@ public class RegistroBoletoView extends javax.swing.JPanel {
         printButton.setForeground(new java.awt.Color(0, 0, 0));
         printButton.setText("Imprimir");
 
-        ultimaButton.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
-        ultimaButton.setForeground(new java.awt.Color(0, 0, 0));
-        ultimaButton.setText("Eliminar  Vuelta");
-        ultimaButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ultimaButtonActionPerformed(evt);
-            }
-        });
+        deleteGuiaButton.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        deleteGuiaButton.setForeground(new java.awt.Color(0, 0, 0));
+        deleteGuiaButton.setText("Eliminar  Guía");
+
+        ultimaButton1.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
+        ultimaButton1.setForeground(new java.awt.Color(0, 0, 0));
+        ultimaButton1.setText("Eliminar  Vuelta");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -325,9 +335,11 @@ public class RegistroBoletoView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(totalIngresosLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(541, 541, 541)
-                .addComponent(ultimaButton)
+                .addComponent(totalIngresosLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addGap(386, 386, 386)
+                .addComponent(deleteGuiaButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ultimaButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(printButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -338,16 +350,14 @@ public class RegistroBoletoView extends javax.swing.JPanel {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ultimaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(totalIngresosLabel)
-                            .addComponent(saveButton)
-                            .addComponent(printButton))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(totalIngresosLabel)
+                    .addComponent(saveButton)
+                    .addComponent(printButton)
+                    .addComponent(deleteGuiaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ultimaButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(19, 50, 71));
@@ -438,10 +448,6 @@ public class RegistroBoletoView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ultimaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ultimaButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ultimaButtonActionPerformed
-
     public JTextField getBusTextField() {
         return busTextField;
     }
@@ -466,8 +472,12 @@ public class RegistroBoletoView extends javax.swing.JPanel {
         this.observacionTextField = observacionTextField;
     }
 
-    public JDateChooser getFechaGuiaTextField() {
-        return fechaGuiaTextField;
+    public JFormattedTextField getFechaGuiaTextField() {
+        return fechaTextField;
+    }
+
+    public JButton getDeleteGuiaButton() {
+        return deleteGuiaButton;
     }
 
     public JButton getSaveButton() {
@@ -523,7 +533,7 @@ public class RegistroBoletoView extends javax.swing.JPanel {
     }
 
     public JButton getUltimaButton() {
-        return ultimaButton;
+        return deleteGuiaButton;
     }
 
     public JTable getTable() {
@@ -534,12 +544,23 @@ public class RegistroBoletoView extends javax.swing.JPanel {
         return servicioComboBox;
     }
 
+    public Date getDate() {
+        Date fecha = null;
+        try {
+            fecha = (Date) this.fechaTextField.getValue();
+        } catch (NullPointerException e) {
+
+        }
+        return fecha;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField busTextField;
     private javax.swing.JTextField conductorTextField;
+    private javax.swing.JButton deleteGuiaButton;
     private javax.swing.JLabel estadoBoletoTextField;
-    private com.toedter.calendar.JDateChooser fechaGuiaTextField;
+    private javax.swing.JFormattedTextField fechaTextField;
     private javax.swing.JLabel flotaTextField;
     private javax.swing.JTextField folioTextField;
     private javax.swing.JLabel jLabel1;
@@ -570,7 +591,7 @@ public class RegistroBoletoView extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> servicioComboBox;
     private javax.swing.JTable table;
     private javax.swing.JLabel totalIngresosLabel;
-    private javax.swing.JButton ultimaButton;
+    private javax.swing.JButton ultimaButton1;
     private javax.swing.JComboBox<String> vueltaComboBox;
     // End of variables declaration//GEN-END:variables
 }

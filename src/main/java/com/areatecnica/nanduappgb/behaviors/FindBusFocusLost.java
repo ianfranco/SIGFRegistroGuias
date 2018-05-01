@@ -21,6 +21,7 @@ import com.areatecnica.nanduappgb.models.VueltaGuiaComboBoxModel;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,13 +39,14 @@ public class FindBusFocusLost extends FocusAdapter {
     private VueltaGuia vueltaGuia;
     private List<VueltaGuia> vueltaGuiaItems;
     private Date fecha;
+    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyy");
 
     public FindBusFocusLost(RegistroBoletoController controller) {
         this.controller = controller;
         this.dao = new BusDaoImpl();
         this.guiaDao = new GuiaDaoImpl();
         this.vueltaDao = new VueltaGuiaDaoImpl();
-        this.fecha = new Date();
+        //this.fecha = new Date();
     }
 
     @Override
@@ -53,7 +55,6 @@ public class FindBusFocusLost extends FocusAdapter {
     }
 
     public void find() {
-//        if (this.controller.getGuia().getGuiaId() == null) {
         try {
             System.err.println("FINDBUSFOCUSLOST");
             String _busNumero = this.controller.getView().getBusTextField().getText();
@@ -66,7 +67,7 @@ public class FindBusFocusLost extends FocusAdapter {
                 this.controller.getView().getPpuTextField().setText(_bus.getBusPatente());
                 this.controller.getView().getFlotaTextField().setText(_bus.getBusIdFlota().getFlotaNombre());
 
-                Guia _guia = this.guiaDao.findLastGuiaByBusFecha(_bus, fecha);
+                Guia _guia = this.guiaDao.findLastGuiaByBusFecha(_bus, this.controller.getView().getDate());
 
                 BoletoTableModel model = null;
 
@@ -76,8 +77,6 @@ public class FindBusFocusLost extends FocusAdapter {
                     nuevaVuelta.setRegistroBoletoList(new ArrayList());
                     nuevaVuelta.setVueltaGuiaIdGuia(this.controller.getGuia());
                     nuevaVuelta.setVueltaGuiaNumero(1);
-
-                    System.err.println("N° DE VUELTA ANTIGUA:" + this.controller.getVueltaGuia().getVueltaGuiaNumero());
 
                     for (RegistroBoleto r : _guia.getVueltaGuiaList().get(_guia.getVueltaGuiaList().size() - 1).getRegistroBoletoList()) {
                         System.err.println("BOLETO:" + r.getRegistroBoletoIdBoleto().getBoletoNombre() + " Serie:" + r.getRegistroBoletoSerie());
@@ -117,7 +116,7 @@ public class FindBusFocusLost extends FocusAdapter {
                     this.controller.setFlag(Boolean.FALSE);
                     
                     this.controller.getView().getObservacionTextField().setText("Nueva Guía");
-                    this.controller.getView().getEstadoBoletoTextField().setText("Continuidad desde Guía Folio N°:"+_guia.getGuiaFolio());
+                    this.controller.getView().getEstadoBoletoTextField().setText("Continuidad desde Guía Folio N°:"+_guia.getGuiaFolio()+" de fecha "+format.format(_guia.getGuiaFecha()));
                     
                 } else {
                     System.err.println("NUEVA GUÍA PARA EL BUS");

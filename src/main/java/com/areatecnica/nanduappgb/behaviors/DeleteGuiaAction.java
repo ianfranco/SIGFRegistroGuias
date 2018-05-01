@@ -5,10 +5,9 @@
  */
 package com.areatecnica.nanduappgb.behaviors;
 
-import com.areatecnica.nanduappgb.controllers.GuiaItemsController;
-import com.areatecnica.nanduappgb.controllers.RegistroController;
 import com.areatecnica.nanduappgb.dao.IGuiaDao;
 import com.areatecnica.nanduappgb.dao.impl.GuiaDaoImpl;
+import com.areatecnica.nanduappgb.entities.Guia;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
@@ -17,13 +16,13 @@ import javax.swing.JOptionPane;
  *
  * @author ianfrancoconcha
  */
-public class RegistroGuiaDeleteAction extends AbstractAction {
+public class DeleteGuiaAction extends AbstractAction {
 
     private IGuiaDao dao;
-    private GuiaItemsController controller;
+    private Guia selected;
 
-    public RegistroGuiaDeleteAction(GuiaItemsController controller) {
-        this.controller = controller;
+    public DeleteGuiaAction(Guia selected) {
+        this.selected = selected;
         init();
     }
 
@@ -37,13 +36,13 @@ public class RegistroGuiaDeleteAction extends AbstractAction {
     }
 
     public boolean save() {
-        if (this.controller.getSelected() != null) {
+        if (this.selected != null) {
 
             int option = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar la guía?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (option == JOptionPane.YES_OPTION) {
 
-                this.dao.delete(this.controller.getSelected());
+                this.dao.delete(selected);
                 return true;
             }
 

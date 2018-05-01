@@ -361,7 +361,7 @@ public class RegistroGuiaController extends RegistroController {
                 String _escolarLocal = (this.view.getEscolarLocalTextField().getText());
 
                 serie.setNumero(1111);
-                serie.setServicio(this.servicio);
+//                serie.setServicio(this.servicio);
 
                 map.forEach((k, v) -> {
 //                    v.setRegistroBoletoIdGuia(this.guia);
@@ -387,7 +387,7 @@ public class RegistroGuiaController extends RegistroController {
                             v.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
                             break;
                     }
-                    serie.addRegistroBoleto(v);
+//                    serie.addRegistroBoleto(v);
                 });
 
 //                this.guia.setRegistroBoletoList(serie.getRegistro());
@@ -419,7 +419,7 @@ public class RegistroGuiaController extends RegistroController {
         if (_auxServicio > -1) {
             this.servicio = this.servicioModel.getElementAt(_auxServicio);
 
-            serie.setServicio(servicio);
+//            serie.setServicio(servicio);
 
             String _directo = (this.view.getDirectoTextField().getText());
             String _planVina = (this.view.getPlanVinaTextField().getText());
@@ -429,130 +429,130 @@ public class RegistroGuiaController extends RegistroController {
 
             RegistroBoleto nuevoRegistro = null;
 
-            for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
-                nuevoRegistro = new RegistroBoleto();
-                nuevoRegistro.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
-//                nuevoRegistro.setRegistroBoletoIdGuia(this.guia);
-//                nuevoRegistro.setRegistroBoletoIdServicio(this.servicio);
-                nuevoRegistro.setRegistroBoletoSerie(r.getRegistroBoletoSerie());
-                //nuevoRegistro.setRegistroBoletoNumeroVuelta(this.model.getNumeroVuelta());
-                nuevoRegistro.setRegistroBoletoValor(r.getRegistroBoletoValor());
-                nuevoRegistro.setRegistroBoletoEsNuevo(false);
-                nuevoRegistro.setRegistroBoletoObservacion("");
-                switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
-                    case 1:
-                        if (_directo.length() < 4) {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        } else {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo));
-
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            System.err.println("INICIO directo: " + r.getRegistroBoletoInicio());
-                            System.err.println("TERMINO directo:" + r.getRegistroBoletoTermino());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        }
-
-                        break;
-                    case 2:
-                        if (_planVina.length() < 4) {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        }else{
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local));
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        }
-
-                        break;
-                    case 3:
-//                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
-//                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-//                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-//                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//            for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
+//                nuevoRegistro = new RegistroBoleto();
+//                nuevoRegistro.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
+////                nuevoRegistro.setRegistroBoletoIdGuia(this.guia);
+////                nuevoRegistro.setRegistroBoletoIdServicio(this.servicio);
+//                nuevoRegistro.setRegistroBoletoSerie(r.getRegistroBoletoSerie());
+//                //nuevoRegistro.setRegistroBoletoNumeroVuelta(this.model.getNumeroVuelta());
+//                nuevoRegistro.setRegistroBoletoValor(r.getRegistroBoletoValor());
+//                nuevoRegistro.setRegistroBoletoEsNuevo(false);
+//                nuevoRegistro.setRegistroBoletoObservacion("");
+//                switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
+//                    case 1:
+//                        if (_directo.length() < 4) {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        } else {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo));
+//
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            System.err.println("INICIO directo: " + r.getRegistroBoletoInicio());
+//                            System.err.println("TERMINO directo:" + r.getRegistroBoletoTermino());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        }
+//
+//                        break;
+//                    case 2:
+//                        if (_planVina.length() < 4) {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        }else{
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local));
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        }
+//
+//                        break;
+//                    case 3:
+////                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
+////                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+////                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+////                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+////                        
+//                        if (_local.length() < 4) {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        } else {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local));
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        }
 //                        
-                        if (_local.length() < 4) {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        } else {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local));
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        }
-                        
-                        break;
-                    case 4:
-//                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
-//                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-//                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-//                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        
-                        if (_escolarDirecto.length() < 4) {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        } else {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto));
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        }
-                        break;
-                    case 5:
-//                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
-//                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-//                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-//                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        
-                        if (_escolarLocal.length() < 4) {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        } else {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal));
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        }
-                        break;
-                }
-                serie.addRegistroBoleto(nuevoRegistro);
-            }
+//                        break;
+//                    case 4:
+////                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
+////                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+////                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+////                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        
+//                        if (_escolarDirecto.length() < 4) {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        } else {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto));
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        }
+//                        break;
+//                    case 5:
+////                        nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
+////                        r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+////                        r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+////                        r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        
+//                        if (_escolarLocal.length() < 4) {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        } else {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal));
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        }
+//                        break;
+//                }
+//                serie.addRegistroBoleto(nuevoRegistro);
+//            }
 
             this.model.addRow(serie);
 

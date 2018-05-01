@@ -44,7 +44,7 @@ public class SaveGuiaAction extends AbstractAction {
 
             if (this.controller.getGuia().getGuiaIdBus() != null && this.controller.getGuia().getGuiaIdTrabajador() != null) {
                 try {
-                    this.controller.getGuia().setGuiaFecha(this.controller.getView().getFechaGuiaTextField().getDate());
+                    this.controller.getGuia().setGuiaFecha(this.controller.getView().getDate());
                     //this.controller.getModel().removeTotal();
 
                     System.err.println("TOTAL DE VUELTAS ASIGNADAS A LA GUIA:" + this.controller.getGuia().getVueltaGuiaList().size());

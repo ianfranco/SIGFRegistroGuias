@@ -154,7 +154,7 @@
                       <Component id="vueltaComboBox" max="32767" attributes="0"/>
                       <Component id="busTextField" alignment="0" max="32767" attributes="0"/>
                       <Component id="conductorTextField" alignment="0" pref="150" max="32767" attributes="0"/>
-                      <Component id="fechaGuiaTextField" max="32767" attributes="0"/>
+                      <Component id="fechaTextField" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -171,7 +171,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                      <Component id="fechaGuiaTextField" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="fechaTextField" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -292,12 +292,18 @@
             <Property name="text" type="java.lang.String" value="Fecha :"/>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="fechaGuiaTextField">
+        <Component class="javax.swing.JFormattedTextField" name="fechaTextField">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI Light" size="18" style="1"/>
             </Property>
+            <Property name="selectionStart" type="int" value="0"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(new DateFormatter());"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="}catch(ParseException e){&#xd;&#xa;e.getMessage();&#xd;&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -507,9 +513,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel7" min="-2" pref="163" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="totalIngresosLabel" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="541" max="-2" attributes="0"/>
-                  <Component id="ultimaButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="totalIngresosLabel" pref="288" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="386" max="-2" attributes="0"/>
+                  <Component id="deleteGuiaButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="ultimaButton1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="printButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -522,19 +530,15 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="ultimaButton" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="totalIngresosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="printButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="totalIngresosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="printButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="deleteGuiaButton" alignment="3" max="32767" attributes="0"/>
+                      <Component id="ultimaButton1" alignment="3" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -585,7 +589,18 @@
             <Property name="text" type="java.lang.String" value="Imprimir"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="ultimaButton">
+        <Component class="javax.swing.JButton" name="deleteGuiaButton">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Light" size="16" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Eliminar  Gu&#xed;a"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="ultimaButton1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI Light" size="16" style="1"/>
@@ -595,9 +610,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Eliminar  Vuelta"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ultimaButtonActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

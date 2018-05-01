@@ -60,13 +60,12 @@ public class RegistroGuiaTableModel extends AbstractTableModel {
 //        }
         this.numeroVuelta = 0;
 
-        EstructuraRegistroBoletoÑandu a = new EstructuraRegistroBoletoÑandu(this.registroBoletoItems, this.guia);
+       // EstructuraRegistroBoletoÑandu a = new EstructuraRegistroBoletoÑandu(this.registroBoletoItems, this.guia);
 
         list = null;
         list = new ArrayList<>();
 
-        list.add(a);
-        list.add(a);
+ //
 
     }
 
@@ -100,7 +99,7 @@ public class RegistroGuiaTableModel extends AbstractTableModel {
             case 0:
                 return (rowIndex == 0) ? "Serie" : (rowIndex == 1) ? "Ùltimo Registro" : "Inicio";
             case 1:
-                return (rowIndex == 0) ? "" : list.get(rowIndex).getServicio();
+                //return (rowIndex == 0) ? "" : list.get(rowIndex).getServicio();
             case 2:
                 return (rowIndex == 0) ? list.get(rowIndex).getDirecto().getRegistroBoletoSerie() : list.get(rowIndex).getDirecto().getRegistroBoletoInicio();
             case 3:

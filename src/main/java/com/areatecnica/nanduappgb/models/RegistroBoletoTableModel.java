@@ -7,10 +7,9 @@ package com.areatecnica.nanduappgb.models;
 
 import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.entities.RegistroBoleto;
+import com.areatecnica.nanduappgb.entities.VueltaGuia;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -21,11 +20,12 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
     private List<RegistroBoleto> registroBoletoItems;
     private List<EstructuraRegistroBoletoÑandu> list;
+    private Guia guia;
     private final static String[] columnNames = {"#", "Servicio", "Directo", "Plan Viña", "Local", "Esc.Directo", "Esc. Local"};
     private int numeroVuelta;
 
     public RegistroBoletoTableModel(Guia guia) {
-//        this.registroBoletoItems = guia.getRegistroBoletoList();
+        this.guia = guia;
         init();
     }
 
@@ -36,43 +36,9 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     private void init() {
         this.list = new ArrayList<>();
 
-        Map<Integer, EstructuraRegistroBoletoÑandu> map = new HashMap<>();
-
-        for (RegistroBoleto r : this.registroBoletoItems) {
-
-            EstructuraRegistroBoletoÑandu e = new EstructuraRegistroBoletoÑandu();
-
-//            if (map.containsKey(r.getRegistroBoletoNumeroVuelta())) {
-//                map.get(r.getRegistroBoletoNumeroVuelta()).addRegistroBoleto(r);
-//            } else {
-//                e.setNumero(r.getRegistroBoletoNumeroVuelta());
-////                e.setServicio(r.getRegistroBoletoIdServicio());
-//                e.addRegistroBoleto(r);
-//                map.put(r.getRegistroBoletoNumeroVuelta(), e);
-//            }
+        for (VueltaGuia v : this.guia.getVueltaGuiaList()) {
+            this.list.add(new EstructuraRegistroBoletoÑandu(v));
         }
-
-        this.numeroVuelta = map.size();
-
-        map.forEach((k, v) -> list.add(v));
-
-        list.add(0, list.get(0));
-
-        if (getRowCount() > 2) {
-            list.add(getTotales());
-        }
-        
-        int i = 0;
-        for(EstructuraRegistroBoletoÑandu e:this.list){
-            System.err.println("N° de Registro: "+i);
-            System.err.println("Directo: "+e.getDirecto());
-            System.err.println("Plan Viña: "+e.getPlanVina());
-            System.err.println("Local: "+e.getLocal());
-            System.err.println("Escolar Directo: "+e.getEscolarDirecto());
-            System.err.println("Escolar Local: "+e.getEscolarLocal());
-            i++;
-        }
-        
     }
 
     @Override
@@ -103,9 +69,9 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
         switch (columnIndex) {
             case 0:
-                return (rowIndex == 0) ? "Serie" : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getNumero() : (getRowCount()<3);
+                return (rowIndex == 0) ? "Serie" : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getVueltaGuia().getVueltaGuiaNumero() : (getRowCount() < 3);
             case 1:
-                return (rowIndex == 0) ? "" : list.get(rowIndex).getServicio();
+                return (rowIndex == 0) ? "" : list.get(rowIndex).getVueltaGuia().getVueltaGuiaIdServicio().getServicioNumeroServicio();
             case 2:
                 return (rowIndex == 0) ? list.get(rowIndex).getDirecto().getRegistroBoletoSerie() : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getDirecto().getRegistroBoletoInicio() : list.get(rowIndex).getDirecto().getRegistroBoletoTotal();
             case 3:
@@ -158,9 +124,9 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     public EstructuraRegistroBoletoÑandu getUltimoRegistro() {
         return (this.list.isEmpty()) ? null : list.get(numeroVuelta);
     }
-    
+
     public EstructuraRegistroBoletoÑandu getTotalRegistro() {
-        return (this.list.isEmpty()) ? null : list.get(getRowCount()-1);
+        return (this.list.isEmpty()) ? null : list.get(getRowCount() - 1);
     }
 
     public EstructuraRegistroBoletoÑandu getTotales() {
@@ -168,9 +134,9 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
         EstructuraRegistroBoletoÑandu inicio = getPrimerRegistro();
 
-        EstructuraRegistroBoletoÑandu ultimo = list.get(getRowCount()-1);
+        EstructuraRegistroBoletoÑandu ultimo = list.get(getRowCount() - 1);
 
-        totales.setRegistro(ultimo.getRegistro());
+        //totales.setRegistro(ultimo.getRegistro());
 
         totales.setDirecto(new RegistroBoleto(ultimo.getDirecto().getRegistroBoletoInicio(), inicio.getDirecto().getRegistroBoletoInicio(), ultimo.getDirecto().getRegistroBoletoValor()));
         totales.setPlanVina(new RegistroBoleto(ultimo.getPlanVina().getRegistroBoletoInicio(), inicio.getPlanVina().getRegistroBoletoInicio(), ultimo.getPlanVina().getRegistroBoletoValor()));

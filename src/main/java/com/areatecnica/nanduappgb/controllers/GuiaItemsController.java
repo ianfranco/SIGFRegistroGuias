@@ -5,7 +5,7 @@
  */
 package com.areatecnica.nanduappgb.controllers;
 
-import com.areatecnica.nanduappgb.behaviors.RegistroGuiaDeleteAction;
+import com.areatecnica.nanduappgb.behaviors.DeleteGuiaAction;
 import com.areatecnica.nanduappgb.dao.IGuiaDao;
 import com.areatecnica.nanduappgb.dao.impl.GuiaDaoImpl;
 import com.areatecnica.nanduappgb.entities.Guia;
@@ -116,7 +116,7 @@ public class GuiaItemsController {
 
         if (index > -1) {
             this.selected = this.model.getRowAt(index);
-            RegistroGuiaDeleteAction action = new RegistroGuiaDeleteAction(this);
+            DeleteGuiaAction action = new DeleteGuiaAction(this.selected);
             if (action.save()) {
                 this.model.remove(selected);
                 this.selected = null;

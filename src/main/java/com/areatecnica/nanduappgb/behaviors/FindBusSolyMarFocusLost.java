@@ -33,7 +33,7 @@ public class FindBusSolyMarFocusLost extends FocusAdapter {
         this.controller = controller;
         this.dao = new BusDaoImpl();
         this.guiaDao = new GuiaDaoImpl();
-        this.fecha = new Date();
+        //this.fecha = new Date();
     }
 
     @Override

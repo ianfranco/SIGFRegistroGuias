@@ -45,9 +45,11 @@ public class GuiaItemsView extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableBoleto = new javax.swing.JTable();
 
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Guías a la Fecha"));
+        setBackground(new java.awt.Color(19, 50, 71));
 
-        table.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Guías a la Fecha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+
+        table.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -60,16 +62,17 @@ public class GuiaItemsView extends javax.swing.JPanel {
         table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(table);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccione una Fecha"));
+        jPanel1.setBackground(new java.awt.Color(19, 50, 71));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Seleccione una Fecha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Fecha:");
-        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        fecha.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        fecha.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
 
-        findButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        findButton.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         findButton.setText("Buscar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -83,29 +86,32 @@ public class GuiaItemsView extends javax.swing.JPanel {
                 .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(findButton)
-                .addContainerGap(557, Short.MAX_VALUE))
+                .addContainerGap(724, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(findButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(fecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(findButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        viewButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        viewButton.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         viewButton.setText("Ver");
 
-        printButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        printButton.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         printButton.setText("Imprimir");
 
-        deleteButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        deleteButton.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         deleteButton.setText("Eliminar");
 
-        tableBoleto.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        tableBoleto.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         tableBoleto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -142,12 +148,12 @@ public class GuiaItemsView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 908, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1082, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(deleteButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(printButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(printButton, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(viewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())

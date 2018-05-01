@@ -354,7 +354,7 @@ public class RegistroVueltaController extends RegistroController {
         if (_auxServicio > -1) {
             this.servicio = this.servicioModel.getElementAt(_auxServicio);
 
-            serie.setServicio(servicio);
+//            serie.setServicio(servicio);
 
             String _directo = (this.view.getDirectoTextField().getText());
             String _planVina = (this.view.getPlanVinaTextField().getText());
@@ -364,132 +364,132 @@ public class RegistroVueltaController extends RegistroController {
 
             int totalVuelta = 0;
             int row = 0;
-            System.err.println("TAMAÑO UTLIMO REGISTRO LIST:" + this.model.getUltimoRegistro().getRegistro().size());
-            for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
-                RegistroBoleto nuevoRegistro = new RegistroBoleto();
-                nuevoRegistro.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
-//                nuevoRegistro.setRegistroBoletoIdGuia(this.guia);
-//                nuevoRegistro.setRegistroBoletoIdServicio(this.servicio);
-                nuevoRegistro.setRegistroBoletoSerie(r.getRegistroBoletoSerie());
-                //nuevoRegistro.setRegistroBoletoNumeroVuelta(this.model.getNumeroVuelta());
-                nuevoRegistro.setRegistroBoletoValor(r.getRegistroBoletoValor());
-                nuevoRegistro.setRegistroBoletoEsNuevo(false);
-                nuevoRegistro.setRegistroBoletoObservacion("");
-                row++;
-                switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
-                    case 1:
-                        if (_directo.length() < 4) {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
-
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            System.err.println("EL BOLETO NO ES NUEVO << QUE 4 DIGITOS");
-                        } else {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo));
-
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            System.err.println("INICIO directo: "+ r.getRegistroBoletoInicio());
-                            System.err.println("TERMINO directo:"+r.getRegistroBoletoTermino());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        }
-                        totalVuelta += r.getRegistroBoletoTotal();
-                        break;
-                    case 2:
-                        if (_planVina.length() < 4) {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        } else {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina));
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        }
-                        totalVuelta += r.getRegistroBoletoTotal();
-                        break;
-                    case 3:
-                        if (_local.length() < 4) {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        } else {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local));
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        }
-                        totalVuelta += r.getRegistroBoletoTotal();
-                        break;
-                    case 4:
-                        if (_escolarDirecto.length() < 4) {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        } else {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto));
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        }
-                        totalVuelta += r.getRegistroBoletoTotal();
-                        break;
-                    case 5:
-                        if (_escolarLocal.length() < 4) {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        } else {
-                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal));
-                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
-                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
-                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-
-                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
-                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
-                        }
-                        totalVuelta += r.getRegistroBoletoTotal();
-                        break;
-                }
-                serie.addRegistroBoleto(nuevoRegistro);
-                serie.setTotalVuelta(serie.getTotalVuelta() + r.getRegistroBoletoTotal());
-
-                System.err.println("TOTAL VUELTA:" + totalVuelta);
-
-            }
+//            System.err.println("TAMAÑO UTLIMO REGISTRO LIST:" + this.model.getUltimoRegistro().getRegistro().size());
+//            for (RegistroBoleto r : this.model.getUltimoRegistro().getRegistro()) {
+//                RegistroBoleto nuevoRegistro = new RegistroBoleto();
+//                nuevoRegistro.setRegistroBoletoIdBoleto(r.getRegistroBoletoIdBoleto());
+////                nuevoRegistro.setRegistroBoletoIdGuia(this.guia);
+////                nuevoRegistro.setRegistroBoletoIdServicio(this.servicio);
+//                nuevoRegistro.setRegistroBoletoSerie(r.getRegistroBoletoSerie());
+//                //nuevoRegistro.setRegistroBoletoNumeroVuelta(this.model.getNumeroVuelta());
+//                nuevoRegistro.setRegistroBoletoValor(r.getRegistroBoletoValor());
+//                nuevoRegistro.setRegistroBoletoEsNuevo(false);
+//                nuevoRegistro.setRegistroBoletoObservacion("");
+//                row++;
+//                switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
+//                    case 1:
+//                        if (_directo.length() < 4) {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo) % 1000);
+//
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            System.err.println("EL BOLETO NO ES NUEVO << QUE 4 DIGITOS");
+//                        } else {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_directo));
+//
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            System.err.println("INICIO directo: "+ r.getRegistroBoletoInicio());
+//                            System.err.println("TERMINO directo:"+r.getRegistroBoletoTermino());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        }
+//                        totalVuelta += r.getRegistroBoletoTotal();
+//                        break;
+//                    case 2:
+//                        if (_planVina.length() < 4) {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina) % 1000);
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        } else {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_planVina));
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        }
+//                        totalVuelta += r.getRegistroBoletoTotal();
+//                        break;
+//                    case 3:
+//                        if (_local.length() < 4) {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local) % 1000);
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        } else {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_local));
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        }
+//                        totalVuelta += r.getRegistroBoletoTotal();
+//                        break;
+//                    case 4:
+//                        if (_escolarDirecto.length() < 4) {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto) % 1000);
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        } else {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarDirecto));
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        }
+//                        totalVuelta += r.getRegistroBoletoTotal();
+//                        break;
+//                    case 5:
+//                        if (_escolarLocal.length() < 4) {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal) % 1000);
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        } else {
+//                            nuevoRegistro.setRegistroBoletoInicio(Integer.parseInt(_escolarLocal));
+//                            r.setRegistroBoletoTermino(nuevoRegistro.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoCantidad(r.getRegistroBoletoTermino() - r.getRegistroBoletoInicio());
+//                            r.setRegistroBoletoTotal(r.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//
+//                            nuevoRegistro.setRegistroBoletoCantidad(nuevoRegistro.getRegistroBoletoInicio() - r.getRegistroBoletoTermino());
+//                            nuevoRegistro.setRegistroBoletoTotal(nuevoRegistro.getRegistroBoletoCantidad() * r.getRegistroBoletoValor());
+//                        }
+//                        totalVuelta += r.getRegistroBoletoTotal();
+//                        break;
+//                }
+////                serie.addRegistroBoleto(nuevoRegistro);
+//                serie.setTotalVuelta(serie.getTotalVuelta() + r.getRegistroBoletoTotal());
+//
+//                System.err.println("TOTAL VUELTA:" + totalVuelta);
+//
+//            }
             System.err.println("Rows:" + row);
 
             this.model.addRow(serie);
