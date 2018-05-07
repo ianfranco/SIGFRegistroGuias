@@ -6,6 +6,7 @@
 package com.areatecnica.nanduappgb.behaviors;
 
 import com.areatecnica.nanduappgb.controllers.BoletosFactory;
+import com.areatecnica.nanduappgb.controllers.RegistroBoletoController;
 import com.areatecnica.nanduappgb.controllers.RegistroVueltaController;
 import com.areatecnica.nanduappgb.helpers.ReportController;
 import java.awt.event.ActionEvent;
@@ -21,7 +22,7 @@ import javax.swing.AbstractAction;
  */
 public class VoucherRegistroVueltaPrintAction extends AbstractAction {
 
-    private RegistroVueltaController controller;
+    private RegistroBoletoController controller;
     private Date fecha;
     private ReportController report;
     private Map map;
@@ -29,9 +30,9 @@ public class VoucherRegistroVueltaPrintAction extends AbstractAction {
     //private static final String path = ""; 
     private InputStream file = getClass().getResourceAsStream("/Voucher_boletos2.jrxml");
 
-    public VoucherRegistroVueltaPrintAction(RegistroVueltaController controller) {
+    public VoucherRegistroVueltaPrintAction(RegistroBoletoController controller) {
         this.controller = controller;
-        this.factory = new BoletosFactory(this.controller.getModel().getList());
+        this.factory = new BoletosFactory(this.controller.getModel().getItems());
     }
 
     @Override

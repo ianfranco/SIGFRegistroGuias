@@ -43,8 +43,8 @@ public class RegistroVueltaSaveAction extends AbstractAction {
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
 
-            VoucherRegistroVueltaPrintAction v = new VoucherRegistroVueltaPrintAction(this.controller);
-            v.print();
+//            VoucherRegistroVueltaPrintAction v = new VoucherRegistroVueltaPrintAction(this.controller);
+//            v.print();
 
             this.controller.reset();
         }

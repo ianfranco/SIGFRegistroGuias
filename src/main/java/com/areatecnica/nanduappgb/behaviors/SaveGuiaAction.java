@@ -70,9 +70,13 @@ public class SaveGuiaAction extends AbstractAction {
                         r.setRegistroBoletoList(list);
                         list = new ArrayList<>();
                     }
-                    System.err.println("cantidad de vueltas en la guia nueva "+this.controller.getGuia().getVueltaGuiaList().size());
+                    System.err.println("cantidad de vueltas en la guia nueva " + this.controller.getGuia().getVueltaGuiaList().size());
                     this.dao.update(this.controller.getGuia());
                     this.controller.reset();
+
+                    VoucherRegistroVueltaPrintAction v = new VoucherRegistroVueltaPrintAction(this.controller);
+                    v.print();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
