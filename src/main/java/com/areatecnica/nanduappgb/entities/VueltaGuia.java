@@ -5,6 +5,7 @@
  */
 package com.areatecnica.nanduappgb.entities;
 
+import com.areatecnica.nanduappgb.models.EstructuraRegistroBoletoÑandu;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -21,6 +22,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -60,6 +62,8 @@ public class VueltaGuia implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "registroBoletoIdVueltaGuia")
     @OrderBy("registroBoletoIdBoleto")
     private List<RegistroBoleto> registroBoletoList;
+    @Transient
+    private EstructuraRegistroBoletoÑandu estructura;
 
     public VueltaGuia() {
     }
@@ -121,6 +125,34 @@ public class VueltaGuia implements Serializable {
 
     public void setRegistroBoletoList(List<RegistroBoleto> registroBoletoList) {
         this.registroBoletoList = registroBoletoList;
+    }
+
+    public EstructuraRegistroBoletoÑandu getEstructura() {
+        if (this.estructura == null) {
+            this.estructura = new EstructuraRegistroBoletoÑandu();
+
+            for (RegistroBoleto r : this.registroBoletoList) {
+                switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
+                    case 1:
+                        this.estructura.setDirecto(r);
+                        break;
+                    case 2:
+                        this.estructura.setPlanVina(r);
+                        break;
+                    case 3:
+                        this.estructura.setLocal(r);
+                        break;
+                    case 4:
+                        this.estructura.setEscolarDirecto(r);
+                        break;
+                    case 5:
+                        this.estructura.setEscolarLocal(r);
+                        break;
+                    default:
+                }
+            }
+        }
+        return estructura;
     }
 
     @Override

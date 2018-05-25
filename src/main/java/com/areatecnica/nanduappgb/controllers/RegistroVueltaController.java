@@ -259,8 +259,8 @@ public class RegistroVueltaController extends RegistroController {
     }
 
     public void printAction(ActionEvent e) {
-        VoucherRegistroVueltaPrintAction print = new VoucherRegistroVueltaPrintAction(this);
-        print.actionPerformed(e);
+//        VoucherRegistroVueltaPrintAction print = new VoucherRegistroVueltaPrintAction(this);
+        //print.actionPerformed(e);
     }
 
     public RegistroVueltaView getView() {

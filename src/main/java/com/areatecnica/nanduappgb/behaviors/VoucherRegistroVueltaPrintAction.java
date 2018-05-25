@@ -7,12 +7,15 @@ package com.areatecnica.nanduappgb.behaviors;
 
 import com.areatecnica.nanduappgb.controllers.BoletosFactory;
 import com.areatecnica.nanduappgb.controllers.RegistroBoletoController;
-import com.areatecnica.nanduappgb.controllers.RegistroVueltaController;
+import com.areatecnica.nanduappgb.entities.VueltaGuia;
 import com.areatecnica.nanduappgb.helpers.ReportController;
+import com.areatecnica.nanduappgb.models.EstructuraRegistroBoletoÑandu;
 import java.awt.event.ActionEvent;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.AbstractAction;
 
@@ -32,7 +35,15 @@ public class VoucherRegistroVueltaPrintAction extends AbstractAction {
 
     public VoucherRegistroVueltaPrintAction(RegistroBoletoController controller) {
         this.controller = controller;
-        this.factory = new BoletosFactory(this.controller.getModel().getItems());
+        
+        List<EstructuraRegistroBoletoÑandu> items = new ArrayList<>();
+        
+        for(VueltaGuia v:this.controller.getVueltasItems()){
+            items.add(new EstructuraRegistroBoletoÑandu(v));
+        }
+        System.err.println("TAMAÑO ITEMS:"+items.size());
+        
+        this.factory = new BoletosFactory(items);
     }
 
     @Override
@@ -50,17 +61,11 @@ public class VoucherRegistroVueltaPrintAction extends AbstractAction {
         this.map.put("patente", this.controller.getGuia().getGuiaIdBus().getBusPatente());
         this.map.put("flota", this.controller.getGuia().getGuiaIdBus().getBusIdFlota().getFlotaNombre());
         this.map.put("empresa", this.controller.getGuia().getGuiaIdBus().getBusIdEmpresa().getEmpresaNombre());
-        this.map.put("serieDirecto", this.controller.getModel().getPrimerRegistro().getDirecto().getRegistroBoletoSerie());
-        this.map.put("seriePlan", this.controller.getModel().getPrimerRegistro().getPlanVina().getRegistroBoletoSerie());
-        this.map.put("serieLocal", this.controller.getModel().getPrimerRegistro().getLocal().getRegistroBoletoSerie());
-        this.map.put("serieEscolarDirecto", this.controller.getModel().getPrimerRegistro().getEscolarDirecto().getRegistroBoletoSerie());
-        this.map.put("serieEscolarLocal", this.controller.getModel().getPrimerRegistro().getEscolarLocal().getRegistroBoletoSerie());
-        
-        this.map.put("totalDirecto", this.controller.getModel().getTotalRegistro().getDirecto().getRegistroBoletoTotal());
-        this.map.put("totalPlan", this.controller.getModel().getTotalRegistro().getPlanVina().getRegistroBoletoTotal());
-        this.map.put("totalLocal", this.controller.getModel().getTotalRegistro().getLocal().getRegistroBoletoTotal());
-        this.map.put("totalEscolar1", this.controller.getModel().getTotalRegistro().getEscolarDirecto().getRegistroBoletoTotal());
-        this.map.put("totalEscolar2", this.controller.getModel().getTotalRegistro().getEscolarLocal().getRegistroBoletoTotal());
+        this.map.put("serieDirecto", this.controller.getVueltasItems().get(0).getEstructura().getDirecto().getRegistroBoletoSerie());
+        this.map.put("seriePlan", this.controller.getVueltasItems().get(0).getEstructura().getPlanVina().getRegistroBoletoSerie());
+        this.map.put("serieLocal", this.controller.getVueltasItems().get(0).getEstructura().getLocal().getRegistroBoletoSerie());
+        this.map.put("serieEscolarDirecto", this.controller.getVueltasItems().get(0).getEstructura().getEscolarDirecto().getRegistroBoletoSerie());
+        this.map.put("serieEscolarLocal", this.controller.getVueltasItems().get(0).getEstructura().getEscolarLocal().getRegistroBoletoSerie());
 
         this.report = new ReportController(file, factory);
         this.report.setMap(map);

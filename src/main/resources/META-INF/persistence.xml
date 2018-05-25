@@ -39,7 +39,7 @@
     <class>com.areatecnica.nanduappgb.entities.TarifaGrupoServicio</class>
     <class>com.areatecnica.nanduappgb.entities.VueltaGuia</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://www.areatecnica.cl:3306/sigfdb"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://www.areatecnica.cl:3306/sigfdb2"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="NintendO64"/>

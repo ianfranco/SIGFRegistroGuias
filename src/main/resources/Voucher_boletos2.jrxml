@@ -4,7 +4,7 @@
 	<property name="com.jaspersoft.studio.unit." value="cm"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="217"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="777"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter1.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="folio" class="java.lang.Integer"/>
 	<parameter name="fecha" class="java.util.Date"/>
 	<parameter name="numeroBus" class="java.lang.Integer"/>
@@ -29,9 +29,6 @@
 	<field name="escolarDirecto" class="com.areatecnica.nanduappgb.entities.RegistroBoleto">
 		<fieldDescription><![CDATA[escolarDirecto]]></fieldDescription>
 	</field>
-	<field name="servicio" class="com.areatecnica.nanduappgb.entities.Servicio">
-		<fieldDescription><![CDATA[servicio]]></fieldDescription>
-	</field>
 	<field name="escolarLocal" class="com.areatecnica.nanduappgb.entities.RegistroBoleto">
 		<fieldDescription><![CDATA[escolarLocal]]></fieldDescription>
 	</field>
@@ -49,9 +46,6 @@
 	</field>
 	<field name="planVina" class="com.areatecnica.nanduappgb.entities.RegistroBoleto">
 		<fieldDescription><![CDATA[planVina]]></fieldDescription>
-	</field>
-	<field name="registro" class="java.util.List">
-		<fieldDescription><![CDATA[registro]]></fieldDescription>
 	</field>
 	<field name="totalVuelta" class="java.lang.Integer">
 		<fieldDescription><![CDATA[totalVuelta]]></fieldDescription>

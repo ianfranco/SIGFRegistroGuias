@@ -8,6 +8,7 @@ package com.areatecnica.nanduappgb.views;
 import com.areatecnica.nanduappgb.utils.NumberLimiter;
 import com.areatecnica.nanduappgb.helpers.DateFormatter;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -547,9 +548,17 @@ public class RegistroBoletoView extends javax.swing.JPanel {
     public Date getDate() {
         Date fecha = null;
         try {
-            fecha = (Date) this.fechaTextField.getValue();
+            //fecha = (Date) this.fechaTextField.getValue();
+            
+            String auxFecha = this.fechaTextField.getText();
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+            fecha = sdf.parse(auxFecha);
+            
         } catch (NullPointerException e) {
-
+            System.err.println("ERROR AL CREAR LA HORA");
+        } catch (ParseException ex) {
+            Logger.getLogger(RegistroBoletoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         return fecha;
     }

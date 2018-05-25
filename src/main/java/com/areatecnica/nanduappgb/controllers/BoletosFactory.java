@@ -18,7 +18,7 @@ public class BoletosFactory {
     private static List<EstructuraRegistroBoletoÑandu> items;
 
     public BoletosFactory(List<EstructuraRegistroBoletoÑandu> items) {
-        this.items = new ArrayList<>(items.subList(1, items.size()-1));
+        this.items = items;//new ArrayList<>(items.subList(1, items.size()-1));
     }
 
     public static java.util.Collection<EstructuraRegistroBoletoÑandu> load() {

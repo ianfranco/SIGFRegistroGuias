@@ -33,6 +33,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,8 +70,10 @@ public class RegistroBoletoController extends MainView {
         this.servicioModel = new ServicioComboBoxModel();
         this.servicio = this.servicioModel.getElementAt(0);
         this.selected = new Guia();
+        this.selected.setGuiaFecha(new Date());
         this.view.getServicioComboBox().setModel(servicioModel);
         this.flag = false;
+        
 
         this.mapServicios = new HashMap<String, Servicio>();
 
@@ -263,7 +266,10 @@ public class RegistroBoletoController extends MainView {
     }
 
     public void reset() {
+        Date auxDate = this.selected.getGuiaFecha();
+        
         this.selected = new Guia();
+        this.selected.setGuiaFecha(auxDate);
         this.model = new BoletoTableModel();
         this.view.getTable().setModel(model);
         this.view.getFolioTextField().setText("");

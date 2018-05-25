@@ -67,7 +67,7 @@ public class FindBusFocusLost extends FocusAdapter {
                 this.controller.getView().getPpuTextField().setText(_bus.getBusPatente());
                 this.controller.getView().getFlotaTextField().setText(_bus.getBusIdFlota().getFlotaNombre());
 
-                Guia _guia = this.guiaDao.findLastGuiaByBusFecha(_bus, this.controller.getView().getDate());
+                Guia _guia = this.guiaDao.findLastGuiaByBusFecha(_bus, this.controller.getGuia().getGuiaFecha());
 
                 BoletoTableModel model = null;
 

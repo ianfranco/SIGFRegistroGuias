@@ -72,10 +72,12 @@ public class SaveGuiaAction extends AbstractAction {
                     }
                     System.err.println("cantidad de vueltas en la guia nueva " + this.controller.getGuia().getVueltaGuiaList().size());
                     this.dao.update(this.controller.getGuia());
-                    this.controller.reset();
+                    
 
-                    VoucherRegistroVueltaPrintAction v = new VoucherRegistroVueltaPrintAction(this.controller);
-                    v.print();
+                    /*VoucherRegistroVueltaPrintAction v = new VoucherRegistroVueltaPrintAction(this.controller);
+                    v.print();*/
+                    
+                    this.controller.reset();
 
                 } catch (Exception e) {
                     e.printStackTrace();
