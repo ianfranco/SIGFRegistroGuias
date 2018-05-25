@@ -24,6 +24,7 @@
             <version>2.5.2</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.jdesktop</groupId>
             <artifactId>beansbinding</artifactId>
