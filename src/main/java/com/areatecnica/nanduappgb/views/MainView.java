@@ -264,6 +264,5 @@ public class MainView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private TarifaGrupoServicioView tarifaGrupoServicioView;
     private static RegistroBoletoView registroVueltaView;
-    private static RegistroGuiaView registroGuiaView;
     private GuiaItemsView guiaItems; 
 }
