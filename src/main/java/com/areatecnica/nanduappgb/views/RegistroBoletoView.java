@@ -533,7 +533,7 @@ public class RegistroBoletoView extends javax.swing.JPanel {
     }
 
     public JButton getUltimaButton() {
-        return deleteGuiaButton;
+        return ultimaButton1;
     }
 
     public JTable getTable() {

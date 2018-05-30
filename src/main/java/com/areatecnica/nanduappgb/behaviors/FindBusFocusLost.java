@@ -67,7 +67,8 @@ public class FindBusFocusLost extends FocusAdapter {
                 this.controller.getView().getPpuTextField().setText(_bus.getBusPatente());
                 this.controller.getView().getFlotaTextField().setText(_bus.getBusIdFlota().getFlotaNombre());
 
-                Guia _guia = this.guiaDao.findLastGuiaByBusFecha(_bus, this.controller.getGuia().getGuiaFecha());
+                Guia _guia = this.guiaDao.findLastGuiaByBusFecha(_bus, this.controller.getView().getDate());
+                System.err.println("FECHA DE LA BUSQUEDA DE LA GUIA :;  " + this.controller.getGuia().getGuiaFecha());
 
                 BoletoTableModel model = null;
 
@@ -96,8 +97,7 @@ public class FindBusFocusLost extends FocusAdapter {
                     List<VueltaGuia> array = new ArrayList<>();
                     array.add(nuevaVuelta);
                     this.controller.setVueltasItems(array);
-                    
-                    
+
 //                    this.controller.setVueltaGuia(nuevaVuelta);
 //                    this.controller.getVueltasItems().add(nuevaVuelta);
                     this.controller.getGuia().setVueltaGuiaList(this.controller.getVueltasItems());
@@ -114,10 +114,10 @@ public class FindBusFocusLost extends FocusAdapter {
                     this.controller.getView().getEstadoBoletoTextField().setText("");
                     this.controller.getView().getEstadoBoletoTextField().setForeground(Color.WHITE);
                     this.controller.setFlag(Boolean.FALSE);
-                    
+
                     this.controller.getView().getObservacionTextField().setText("Nueva Guía");
-                    this.controller.getView().getEstadoBoletoTextField().setText("Continuidad desde Guía Folio N°:"+_guia.getGuiaFolio()+" de fecha "+format.format(_guia.getGuiaFecha()));
-                    
+                    this.controller.getView().getEstadoBoletoTextField().setText("Continuidad desde Guía Folio N°:" + _guia.getGuiaFolio() + " de fecha " + format.format(_guia.getGuiaFecha()));
+
                 } else {
                     System.err.println("NUEVA GUÍA PARA EL BUS");
                     this.vueltaGuia = new VueltaGuia();
@@ -138,7 +138,7 @@ public class FindBusFocusLost extends FocusAdapter {
                     this.controller.setFlag(Boolean.TRUE);
                     VueltaGuiaComboBoxModel vueltasModel = new VueltaGuiaComboBoxModel(this.controller.getGuia().getVueltaGuiaList());
                     this.controller.setVueltaGuiaComboBoxModel(vueltasModel);
-                    
+
                     this.controller.getView().getServicioComboBox().setSelectedIndex(0);
                 }
 

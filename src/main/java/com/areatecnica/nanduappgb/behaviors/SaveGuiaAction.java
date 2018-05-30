@@ -50,26 +50,26 @@ public class SaveGuiaAction extends AbstractAction {
                     System.err.println("TOTAL DE VUELTAS ASIGNADAS A LA GUIA:" + this.controller.getGuia().getVueltaGuiaList().size());
                     List<RegistroBoleto> list = new ArrayList<>();
 
-                    for (VueltaGuia r : this.controller.getGuia().getVueltaGuiaList()) {
-                        r.setVueltaGuiaIdGuia(this.controller.getGuia());
-                        r.setVueltaGuiaIdServicio(this.controller.getServicio());
-                        System.err.println("N° DE VUELTA:" + r.getVueltaGuiaNumero());
-                        System.err.println("Folio Vuelta:" + r.getVueltaGuiaIdGuia().getGuiaFolio());
-                        System.err.println("Total de Registros:" + r.getRegistroBoletoList().size());
-                        RegistroBoleto toDelete = null;
-                        for (RegistroBoleto b : r.getRegistroBoletoList()) {
-                            if (b.getRegistroBoletoIdBoleto() == null) {
-                                toDelete = b;
-                            } else {
-                                System.err.println("NOMBRE DE BOLETO:" + b.getRegistroBoletoIdBoleto().getBoletoNombre());
-                                b.setRegistroBoletoIdVueltaGuia(r);
-                                list.add(b);
-                            }
-
-                        }
-                        r.setRegistroBoletoList(list);
-                        list = new ArrayList<>();
-                    }
+//                    for (VueltaGuia r : this.controller.getGuia().getVueltaGuiaList()) {
+//                        r.setVueltaGuiaIdGuia(this.controller.getGuia());
+//                        r.setVueltaGuiaIdServicio(this.controller.getServicio());
+//                        System.err.println("N° DE VUELTA:" + r.getVueltaGuiaNumero());
+//                        System.err.println("Folio Vuelta:" + r.getVueltaGuiaIdGuia().getGuiaFolio());
+//                        System.err.println("Total de Registros:" + r.getRegistroBoletoList().size());
+//                        RegistroBoleto toDelete = null;
+//                        for (RegistroBoleto b : r.getRegistroBoletoList()) {
+//                            if (b.getRegistroBoletoIdBoleto() == null) {
+//                                toDelete = b;
+//                            } else {
+//                                System.err.println("NOMBRE DE BOLETO:" + b.getRegistroBoletoIdBoleto().getBoletoNombre());
+//                                b.setRegistroBoletoIdVueltaGuia(r);
+//                                list.add(b);
+//                            }
+//
+//                        }
+//                        r.setRegistroBoletoList(list);
+//                        list = new ArrayList<>();
+//                    }
                     System.err.println("cantidad de vueltas en la guia nueva " + this.controller.getGuia().getVueltaGuiaList().size());
                     this.dao.update(this.controller.getGuia());
                     

@@ -32,6 +32,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -73,7 +75,6 @@ public class RegistroBoletoController extends MainView {
         this.selected.setGuiaFecha(new Date());
         this.view.getServicioComboBox().setModel(servicioModel);
         this.flag = false;
-        
 
         this.mapServicios = new HashMap<String, Servicio>();
 
@@ -113,7 +114,7 @@ public class RegistroBoletoController extends MainView {
             @Override
             public void focusLost(FocusEvent e) {
                 selected.setGuiaFecha(view.getDate());
-                System.err.println("FECHA DE LA GUIA: "+selected.getGuiaFecha());
+                System.err.println("FECHA DE LA GUIA: " + selected.getGuiaFecha());
             }
         });
         this.view.getFechaGuiaTextField().addKeyListener(new NextObject(this.view.getFolioTextField(), this.view.getBusTextField(), null, null));
@@ -170,12 +171,17 @@ public class RegistroBoletoController extends MainView {
         this.view.getUltimaButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DeleteVueltaGuiaAction action = new DeleteVueltaGuiaAction(vueltaGuia);
-                if (action.save()) {
-                    reset();
-                }
+                deleteVuelta();
             }
         });
+
+        this.view.getUltimaButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                deleteVuelta();
+            }
+        }
+        );
 
         this.view.getFolioTextField().requestFocus();
     }
@@ -209,6 +215,14 @@ public class RegistroBoletoController extends MainView {
     private void findBus() {
         FindBusFocusLost fb = new FindBusFocusLost(RegistroBoletoController.this);
         fb.find();
+    }
+
+    private void deleteVuelta() {
+        System.err.println("QUIERE ELIMINAR VUELTA");
+        DeleteVueltaGuiaAction action = new DeleteVueltaGuiaAction(this.vueltaGuia);
+        if (action.save()) {
+            reset();
+        }
     }
 
     private void save() {
@@ -267,12 +281,14 @@ public class RegistroBoletoController extends MainView {
 
     public void reset() {
         Date auxDate = this.selected.getGuiaFecha();
-        
+
         this.selected = new Guia();
         this.selected.setGuiaFecha(auxDate);
         this.model = new BoletoTableModel();
+        this.vueltaGuiaComboBoxModel = new VueltaGuiaComboBoxModel(new ArrayList<>()); 
+        this.view.getVueltaComboBox().setModel(vueltaGuiaComboBoxModel);
         this.vueltasItems = new ArrayList();
-        this.vueltaGuia = null; 
+        this.vueltaGuia = null;
         this.view.getTable().setModel(model);
         this.view.getFolioTextField().setText("");
         this.view.getBusTextField().setText("");
