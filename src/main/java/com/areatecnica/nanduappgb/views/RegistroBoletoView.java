@@ -155,7 +155,6 @@ public class RegistroBoletoView extends javax.swing.JPanel {
         jLabel17.setText("Fecha :");
 
         fechaTextField.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
-        fechaTextField.setSelectionStart(0);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

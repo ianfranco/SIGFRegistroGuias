@@ -9,7 +9,7 @@ import com.areatecnica.nanduappgb.behaviors.DeleteGuiaAction;
 import com.areatecnica.nanduappgb.behaviors.DeleteVueltaGuiaAction;
 import com.areatecnica.nanduappgb.behaviors.FindBusFocusLost;
 import com.areatecnica.nanduappgb.behaviors.FindConductorFocusLost;
-import com.areatecnica.nanduappgb.behaviors.FindFolioBoletoEnterPressed;
+import com.areatecnica.nanduappgb.behaviors.FindFolioGuiaEnterPressed;
 import com.areatecnica.nanduappgb.behaviors.SaveGuiaAction;
 import com.areatecnica.nanduappgb.dao.impl.ProcesoGeneralNandu;
 import com.areatecnica.nanduappgb.dao.impl.TarifaGrupoServicioSolyMar;
@@ -202,7 +202,7 @@ public class RegistroBoletoController extends MainView {
     }
 
     private void findFolio(KeyEvent e) {
-        FindFolioBoletoEnterPressed enter = new FindFolioBoletoEnterPressed(this);
+        FindFolioGuiaEnterPressed enter = new FindFolioGuiaEnterPressed(this);
         enter.press(e);;
     }
 
@@ -271,6 +271,8 @@ public class RegistroBoletoController extends MainView {
         this.selected = new Guia();
         this.selected.setGuiaFecha(auxDate);
         this.model = new BoletoTableModel();
+        this.vueltasItems = new ArrayList();
+        this.vueltaGuia = null; 
         this.view.getTable().setModel(model);
         this.view.getFolioTextField().setText("");
         this.view.getBusTextField().setText("");

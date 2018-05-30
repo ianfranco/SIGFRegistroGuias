@@ -39,6 +39,12 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
         for (VueltaGuia v : this.guia.getVueltaGuiaList()) {
             this.list.add(new EstructuraRegistroBoletoÑandu(v));
         }
+
+        this.list.add(0, this.list.get(0));
+        this.list.add(this.list.get(this.list.size() - 1));
+        this.list.add(this.list.get(this.list.size() - 1));
+
+        setTotales();
     }
 
     @Override
@@ -67,21 +73,99 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
+        int ultimo = this.list.size() - 1;
+
         switch (columnIndex) {
             case 0:
-                return (rowIndex == 0) ? "Serie" : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getVueltaGuia().getVueltaGuiaNumero() : (getRowCount() < 3);
+                switch (rowIndex) {
+                    case 0:
+                        return "Serie";
+                    default:
+                        if (rowIndex == ultimo) {
+                            return "Totales";
+                        } else if (rowIndex == ultimo - 1) {
+                            return "Termino";
+                        }
+                        return list.get(rowIndex).getVueltaGuia().getVueltaGuiaNumero();
+
+                }
             case 1:
-                return (rowIndex == 0) ? "" : list.get(rowIndex).getVueltaGuia().getVueltaGuiaIdServicio().getServicioNumeroServicio();
+                switch (rowIndex) {
+                    case 0:
+                        return "";
+                    default:
+                        if (rowIndex == ultimo) {
+                            return "";
+                        }
+                        return list.get(rowIndex).getVueltaGuia().getVueltaGuiaIdServicio().getServicioNumeroServicio();
+
+                }
             case 2:
-                return (rowIndex == 0) ? list.get(rowIndex).getDirecto().getRegistroBoletoSerie() : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getDirecto().getRegistroBoletoInicio() : list.get(rowIndex).getDirecto().getRegistroBoletoTotal();
+                switch (rowIndex) {
+                    case 0:
+                        return list.get(rowIndex).getDirecto().getRegistroBoletoSerie();
+                    default:
+                        if (rowIndex == ultimo) {
+                            return list.get(rowIndex).getDirecto().getRegistroBoletoTotal();
+                        } else if (rowIndex == ultimo - 1) {
+                            return list.get(rowIndex).getDirecto().getRegistroBoletoTermino();
+                        }
+                        return list.get(rowIndex).getDirecto().getRegistroBoletoInicio();
+
+                }
+
             case 3:
-                return (rowIndex == 0) ? list.get(rowIndex).getPlanVina().getRegistroBoletoSerie() : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getPlanVina().getRegistroBoletoInicio() : list.get(rowIndex).getPlanVina().getRegistroBoletoTotal();
+                switch (rowIndex) {
+                    case 0:
+                        return list.get(rowIndex).getPlanVina().getRegistroBoletoSerie();
+                    default:
+                        if (rowIndex == ultimo) {
+                            return list.get(rowIndex).getPlanVina().getRegistroBoletoTotal();
+                        } else if (rowIndex == ultimo - 1) {
+                            return list.get(rowIndex).getPlanVina().getRegistroBoletoTermino();
+                        }
+                        return list.get(rowIndex).getPlanVina().getRegistroBoletoInicio();
+
+                }
             case 4:
-                return (rowIndex == 0) ? list.get(rowIndex).getLocal().getRegistroBoletoSerie() : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getLocal().getRegistroBoletoInicio() : list.get(rowIndex).getLocal().getRegistroBoletoTotal();
+                switch (rowIndex) {
+                    case 0:
+                        return list.get(rowIndex).getLocal().getRegistroBoletoSerie();
+                    default:
+                        if (rowIndex == ultimo) {
+                            return list.get(rowIndex).getLocal().getRegistroBoletoTotal();
+                        } else if (rowIndex == ultimo - 1) {
+                            return list.get(rowIndex).getLocal().getRegistroBoletoTermino();
+                        }
+                        return list.get(rowIndex).getLocal().getRegistroBoletoInicio();
+
+                }
             case 5:
-                return (rowIndex == 0) ? list.get(rowIndex).getEscolarDirecto().getRegistroBoletoSerie() : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getEscolarDirecto().getRegistroBoletoInicio() : list.get(rowIndex).getEscolarDirecto().getRegistroBoletoTotal();
+                switch (rowIndex) {
+                    case 0:
+                        return list.get(rowIndex).getEscolarDirecto().getRegistroBoletoSerie();
+                    default:
+                        if (rowIndex == ultimo) {
+                            return list.get(rowIndex).getEscolarDirecto().getRegistroBoletoTotal();
+                        } else if (rowIndex == ultimo - 1) {
+                            return list.get(rowIndex).getEscolarDirecto().getRegistroBoletoTermino();
+                        }
+                        return list.get(rowIndex).getEscolarDirecto().getRegistroBoletoInicio();
+
+                }
             case 6:
-                return (rowIndex == 0) ? list.get(rowIndex).getEscolarLocal().getRegistroBoletoSerie() : (rowIndex != getRowCount() - 1) ? list.get(rowIndex).getEscolarLocal().getRegistroBoletoInicio() : list.get(rowIndex).getEscolarLocal().getRegistroBoletoTotal();
+                switch (rowIndex) {
+                    case 0:
+                        return list.get(rowIndex).getEscolarLocal().getRegistroBoletoSerie();
+                    default:
+                        if (rowIndex == ultimo) {
+                            return list.get(rowIndex).getEscolarLocal().getRegistroBoletoTotal();
+                        } else if (rowIndex == ultimo - 1) {
+                            return list.get(rowIndex).getEscolarLocal().getRegistroBoletoTermino();
+                        }
+                        return list.get(rowIndex).getEscolarLocal().getRegistroBoletoInicio();
+
+                }
         }
 
         return null;
@@ -98,8 +182,7 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
 
         this.list.add(erb);
 
-        this.list.add(getTotales());
-
+        //this.list.add(getTotales());
         fireTableChanged(null);
     }
 
@@ -129,22 +212,21 @@ public class RegistroBoletoTableModel extends AbstractTableModel {
         return (this.list.isEmpty()) ? null : list.get(getRowCount() - 1);
     }
 
-    public EstructuraRegistroBoletoÑandu getTotales() {
-        EstructuraRegistroBoletoÑandu totales = new EstructuraRegistroBoletoÑandu();
+    public void setTotales() {
+        EstructuraRegistroBoletoÑandu totales = this.list.get(this.list.size() - 1);
+        totales.getDirecto().setRegistroBoletoTotal(0);
+        totales.getPlanVina().setRegistroBoletoTotal(0);
+        totales.getLocal().setRegistroBoletoTotal(0);
+        totales.getEscolarDirecto().setRegistroBoletoTotal(0);
+        totales.getEscolarLocal().setRegistroBoletoTotal(0);
 
-        EstructuraRegistroBoletoÑandu inicio = getPrimerRegistro();
-
-        EstructuraRegistroBoletoÑandu ultimo = list.get(getRowCount() - 1);
-
-        //totales.setRegistro(ultimo.getRegistro());
-
-        totales.setDirecto(new RegistroBoleto(ultimo.getDirecto().getRegistroBoletoInicio(), inicio.getDirecto().getRegistroBoletoInicio(), ultimo.getDirecto().getRegistroBoletoValor()));
-        totales.setPlanVina(new RegistroBoleto(ultimo.getPlanVina().getRegistroBoletoInicio(), inicio.getPlanVina().getRegistroBoletoInicio(), ultimo.getPlanVina().getRegistroBoletoValor()));
-        totales.setLocal(new RegistroBoleto(ultimo.getLocal().getRegistroBoletoInicio(), inicio.getLocal().getRegistroBoletoInicio(), ultimo.getLocal().getRegistroBoletoValor()));
-        totales.setEscolarDirecto(new RegistroBoleto(ultimo.getEscolarDirecto().getRegistroBoletoInicio(), inicio.getEscolarDirecto().getRegistroBoletoInicio(), ultimo.getEscolarDirecto().getRegistroBoletoValor()));
-        totales.setEscolarLocal(new RegistroBoleto(ultimo.getEscolarLocal().getRegistroBoletoInicio(), inicio.getEscolarLocal().getRegistroBoletoInicio(), ultimo.getEscolarLocal().getRegistroBoletoValor()));
-
-        return totales;
+        for (EstructuraRegistroBoletoÑandu e : this.list.subList(1, this.list.size() - 2)) {
+            totales.getDirecto().setRegistroBoletoTotal(e.getDirecto().getRegistroBoletoTotal() + totales.getDirecto().getRegistroBoletoTotal());
+            totales.getPlanVina().setRegistroBoletoTotal(e.getPlanVina().getRegistroBoletoTotal() + totales.getPlanVina().getRegistroBoletoTotal());
+            totales.getLocal().setRegistroBoletoTotal(e.getLocal().getRegistroBoletoTotal() + totales.getLocal().getRegistroBoletoTotal());
+            totales.getEscolarDirecto().setRegistroBoletoTotal(e.getEscolarDirecto().getRegistroBoletoTotal() + totales.getEscolarDirecto().getRegistroBoletoTotal());
+            totales.getEscolarLocal().setRegistroBoletoTotal(e.getEscolarLocal().getRegistroBoletoTotal() + totales.getEscolarLocal().getRegistroBoletoTotal());
+        }
     }
 
     public List<EstructuraRegistroBoletoÑandu> getList() {
