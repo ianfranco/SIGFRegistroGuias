@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,16 +33,19 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ianfrancoconcha
  */
 @Entity
+@Cacheable(false)
 @Table(name = "guia", catalog = "sigfdb", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Guia.findAll", query = "SELECT g FROM Guia g")
     , @NamedQuery(name = "Guia.findByGuiaId", query = "SELECT g FROM Guia g WHERE g.guiaId = :guiaId")
     , @NamedQuery(name = "Guia.findByGuiaFolio", query = "SELECT g FROM Guia g WHERE g.guiaFolio = :guiaFolio")
-    , @NamedQuery(name = "Guia.findLastGuiaByBusFecha", query = "SELECT g FROM Guia g WHERE g.guiaIdBus = :guiaIdBus AND g.guiaFecha <= :guiaFecha ORDER BY g.guiaFecha DESC")
+    , @NamedQuery(name = "Guia.findLastGuiaByBusFecha", query = "SELECT g FROM Guia g WHERE g.guiaIdBus = :guiaIdBus AND g.guiaFecha <= :guiaFecha ORDER BY g.guiaFecha DESC, g.guiaTurno DESC")
     , @NamedQuery(name = "Guia.findByGuiaFecha", query = "SELECT g FROM Guia g WHERE g.guiaFecha = :guiaFecha")
     , @NamedQuery(name = "Guia.findByFecha", query = "SELECT g FROM Guia g WHERE g.guiaFecha = :guiaFecha ORDER BY g.guiaIdBus.busNumero ASC")
-    , @NamedQuery(name = "Guia.findByGuiaTotalIngreso", query = "SELECT g FROM Guia g WHERE g.guiaTotalIngreso = :guiaTotalIngreso")})
+    , @NamedQuery(name = "Guia.findByGuiaTotalIngreso", query = "SELECT g FROM Guia g WHERE g.guiaTotalIngreso = :guiaTotalIngreso")
+    , @NamedQuery(name = "Guia.findByGuiaTurno", query = "SELECT g FROM Guia g WHERE g.guiaTurno = :guiaTurno")
+    , @NamedQuery(name = "Guia.findByGuiaFechaIngreso", query = "SELECT g FROM Guia g WHERE g.guiaFechaIngreso = :guiaFechaIngreso")})
 public class Guia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,6 +64,12 @@ public class Guia implements Serializable {
     @Basic(optional = false)
     @Column(name = "guia_total_ingreso", nullable = false)
     private int guiaTotalIngreso;
+    @Basic(optional = false)
+    @Column(name = "guia_turno", nullable = false)
+    private int guiaTurno;
+    @Column(name = "guia_fecha_ingreso")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date guiaFechaIngreso;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vueltaGuiaIdGuia")
     @OrderBy("vueltaGuiaNumero ASC")
     private List<VueltaGuia> vueltaGuiaList;
@@ -77,11 +87,13 @@ public class Guia implements Serializable {
         this.guiaId = guiaId;
     }
 
-    public Guia(Integer guiaId, int guiaFolio, Date guiaFecha, int guiaTotalIngreso) {
+    public Guia(Integer guiaId, int guiaFolio, Date guiaFecha, int guiaTotalIngreso, int guiaTurno) {
         this.guiaId = guiaId;
         this.guiaFolio = guiaFolio;
         this.guiaFecha = guiaFecha;
         this.guiaTotalIngreso = guiaTotalIngreso;
+        this.guiaTurno = guiaTurno;
+        this.guiaFechaIngreso = new Date();
     }
 
     public Integer getGuiaId() {
@@ -114,6 +126,22 @@ public class Guia implements Serializable {
 
     public void setGuiaTotalIngreso(int guiaTotalIngreso) {
         this.guiaTotalIngreso = guiaTotalIngreso;
+    }
+
+    public int getGuiaTurno() {
+        return guiaTurno;
+    }
+
+    public void setGuiaTurno(int guiaTurno) {
+        this.guiaTurno = guiaTurno;
+    }
+
+    public Date getGuiaFechaIngreso() {
+        return guiaFechaIngreso;
+    }
+
+    public void setGuiaFechaIngreso(Date guiaFechaIngreso) {
+        this.guiaFechaIngreso = guiaFechaIngreso;
     }
 
     @XmlTransient

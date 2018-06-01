@@ -30,6 +30,15 @@ public class EstructuraRegistroBoletoÑandu {
         this.totalVuelta = 0;
     }
 
+    public EstructuraRegistroBoletoÑandu(Boolean defecto) {
+        this.totalVuelta = 0;
+        this.directo = new RegistroBoleto();
+        this.planVina = new RegistroBoleto();
+        this.local = new RegistroBoleto();
+        this.escolarDirecto = new RegistroBoleto();
+        this.escolarLocal = new RegistroBoleto();
+    }
+    
     public EstructuraRegistroBoletoÑandu(VueltaGuia vueltaGuia) {
         this.vueltaGuia = vueltaGuia;
         for (RegistroBoleto r : this.vueltaGuia.getRegistroBoletoList()) {

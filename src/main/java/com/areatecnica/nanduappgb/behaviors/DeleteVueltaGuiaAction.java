@@ -63,13 +63,14 @@ public class DeleteVueltaGuiaAction extends AbstractAction {
 
                             System.err.println("CANTIDAD DE VUELTAS DESPUES DE BORRAR:"+this.guia.getVueltaGuiaList().size());
                             this.dao.delete(this.selected);
-                            this.guiaDao.update(this.guia);
+                            //this.guiaDao.update(this.guia);
 
                         } catch (Exception e) {
                             JOptionPane.showMessageDialog(null, e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
                         }
 
                         this.guia = null;
+                        this.selected = null;
                         return true;
                     }
                 } else {

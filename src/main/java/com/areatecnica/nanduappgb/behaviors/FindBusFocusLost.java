@@ -96,11 +96,11 @@ public class FindBusFocusLost extends FocusAdapter {
 
                     List<VueltaGuia> array = new ArrayList<>();
                     array.add(nuevaVuelta);
-                    this.controller.setVueltasItems(array);
+                    //this.controller.setVueltasItems(array);
 
 //                    this.controller.setVueltaGuia(nuevaVuelta);
 //                    this.controller.getVueltasItems().add(nuevaVuelta);
-                    this.controller.getGuia().setVueltaGuiaList(this.controller.getVueltasItems());
+                    //this.controller.getGuia().setVueltaGuiaList(this.controller.getVueltasItems());
                     VueltaGuiaComboBoxModel vueltasModel = new VueltaGuiaComboBoxModel(this.controller.getGuia().getVueltaGuiaList());
                     this.controller.setVueltaGuiaComboBoxModel(vueltasModel);
 

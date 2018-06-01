@@ -38,7 +38,7 @@ public class VoucherRegistroVueltaPrintAction extends AbstractAction {
         
         List<EstructuraRegistroBoletoÑandu> items = new ArrayList<>();
         
-        for(VueltaGuia v:this.controller.getVueltasItems()){
+        for(VueltaGuia v:this.controller.getGuia().getVueltaGuiaList()){
             items.add(new EstructuraRegistroBoletoÑandu(v));
         }
         System.err.println("TAMAÑO ITEMS:"+items.size());
@@ -61,11 +61,11 @@ public class VoucherRegistroVueltaPrintAction extends AbstractAction {
         this.map.put("patente", this.controller.getGuia().getGuiaIdBus().getBusPatente());
         this.map.put("flota", this.controller.getGuia().getGuiaIdBus().getBusIdFlota().getFlotaNombre());
         this.map.put("empresa", this.controller.getGuia().getGuiaIdBus().getBusIdEmpresa().getEmpresaNombre());
-        this.map.put("serieDirecto", this.controller.getVueltasItems().get(0).getEstructura().getDirecto().getRegistroBoletoSerie());
-        this.map.put("seriePlan", this.controller.getVueltasItems().get(0).getEstructura().getPlanVina().getRegistroBoletoSerie());
-        this.map.put("serieLocal", this.controller.getVueltasItems().get(0).getEstructura().getLocal().getRegistroBoletoSerie());
-        this.map.put("serieEscolarDirecto", this.controller.getVueltasItems().get(0).getEstructura().getEscolarDirecto().getRegistroBoletoSerie());
-        this.map.put("serieEscolarLocal", this.controller.getVueltasItems().get(0).getEstructura().getEscolarLocal().getRegistroBoletoSerie());
+        this.map.put("serieDirecto", this.controller.getGuia().getVueltaGuiaList().get(0).getEstructura().getDirecto().getRegistroBoletoSerie());
+        this.map.put("seriePlan", this.controller.getGuia().getVueltaGuiaList().get(0).getEstructura().getPlanVina().getRegistroBoletoSerie());
+        this.map.put("serieLocal", this.controller.getGuia().getVueltaGuiaList().get(0).getEstructura().getLocal().getRegistroBoletoSerie());
+        this.map.put("serieEscolarDirecto", this.controller.getGuia().getVueltaGuiaList().get(0).getEstructura().getEscolarDirecto().getRegistroBoletoSerie());
+        this.map.put("serieEscolarLocal", this.controller.getGuia().getVueltaGuiaList().get(0).getEstructura().getEscolarLocal().getRegistroBoletoSerie());
 
         this.report = new ReportController(file, factory);
         this.report.setMap(map);

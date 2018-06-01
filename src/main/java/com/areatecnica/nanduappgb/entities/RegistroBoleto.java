@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoTermino", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoTermino = :registroBoletoTermino")
     , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoCantidad", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoCantidad = :registroBoletoCantidad")
     , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoTotal", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoTotal = :registroBoletoTotal")
+    , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoTotalBoletoGuia", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoTotal = :registroBoletoTotal")    
     , @NamedQuery(name = "RegistroBoleto.findByRegistroBoletoEsNuevo", query = "SELECT r FROM RegistroBoleto r WHERE r.registroBoletoEsNuevo = :registroBoletoEsNuevo")})
 public class RegistroBoleto implements Serializable {
 
@@ -81,13 +82,13 @@ public class RegistroBoleto implements Serializable {
         this.registroBoletoId = registroBoletoId;
     }
 
-    public RegistroBoleto(int registroBoletoTermino, int registroBoletoInicio, int registroBoletoValor) {
-        this.registroBoletoTermino = registroBoletoTermino;
-        this.registroBoletoInicio = registroBoletoInicio;
-        this.registroBoletoValor = registroBoletoValor;
-        this.registroBoletoCantidad = this.registroBoletoTermino - this.registroBoletoInicio;
-        this.registroBoletoTotal = this.registroBoletoCantidad * this.registroBoletoValor;
-    }
+//    public RegistroBoleto(int registroBoletoTermino, int registroBoletoInicio, int registroBoletoValor) {
+//        this.registroBoletoTermino = registroBoletoTermino;
+//        this.registroBoletoInicio = registroBoletoInicio;
+//        this.registroBoletoValor = registroBoletoValor;
+//        this.registroBoletoCantidad = this.registroBoletoTermino - this.registroBoletoInicio;
+//        this.registroBoletoTotal = this.registroBoletoCantidad * this.registroBoletoValor;
+//    }
 
     public RegistroBoleto(Integer registroBoletoId, int registroBoletoSerie, int registroBoletoValor, int registroBoletoInicio, int registroBoletoTermino, int registroBoletoCantidad, int registroBoletoTotal) {
         this.registroBoletoId = registroBoletoId;

@@ -109,6 +109,7 @@ public class MainView extends javax.swing.JFrame {
         buscarBoletoMenuItem.setText("Buscar boleto");
         editMenu.add(buscarBoletoMenuItem);
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         jMenuItem1.setText("Guías x Fecha");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,12 +177,12 @@ public class MainView extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         guiaItems = new GuiaItemsView();
-        GuiaItemsController controller = new GuiaItemsController(guiaItems);
+        GuiaItemsController controller = new GuiaItemsController(guiaItems, this);
         setNewTab(guiaItems, "Guías x Fecha");
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void setNewTab(JPanel panel, String title) {
+    public void setNewTab(JPanel panel, String title) {
         this.tabbedPane.add(title, panel);
         this.tabbedPane.setSelectedComponent(panel);
         this.tabbedPane.setTabComponentAt(this.tabbedPane.getSelectedIndex(), new ButtonTabComponent(this.tabbedPane));

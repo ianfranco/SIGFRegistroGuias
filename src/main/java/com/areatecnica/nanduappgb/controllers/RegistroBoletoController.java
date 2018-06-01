@@ -54,7 +54,7 @@ public class RegistroBoletoController extends MainView {
     private ProcesoGeneralNandu proceso;
     private Servicio servicio;
     private VueltaGuia vueltaGuia;
-    private List<VueltaGuia> vueltasItems;
+    //private List<VueltaGuia> vueltasItems;
     private ServicioComboBoxModel servicioModel;
     private VueltaGuiaComboBoxModel vueltaGuiaComboBoxModel;
     private Map<Integer, RegistroBoleto> map;
@@ -92,7 +92,15 @@ public class RegistroBoletoController extends MainView {
             }
         });
         this.view.getFolioTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getFolioTextField()));
-        this.view.getFolioTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getFolioTextField()));
+
+        this.view.getTurnoTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getTurnoTextField()));
+        this.view.getTurnoTextField().addKeyListener(new NextObject(this.view.getConductorTextField(), this.view.getServicioComboBox(), null, this.view.getVueltaComboBox(), true));
+        this.view.getTurnoTextField().addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                setTurno();
+            }
+        });
 
         this.view.getBusTextField().addFocusListener(new FocusAdapter() {
             @Override
@@ -130,7 +138,7 @@ public class RegistroBoletoController extends MainView {
             }
         });
 
-        this.view.getServicioComboBox().addKeyListener(new NextObject(this.view.getVueltaComboBox(), this.view.getTable(), null, null, Boolean.TRUE));
+        this.view.getServicioComboBox().addKeyListener(new NextObject(this.view.getVueltaComboBox(), this.view.getTable(), this.view.getTurnoTextField(), null, Boolean.TRUE));
         this.view.getServicioComboBox().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -222,6 +230,20 @@ public class RegistroBoletoController extends MainView {
         DeleteVueltaGuiaAction action = new DeleteVueltaGuiaAction(this.vueltaGuia);
         if (action.save()) {
             reset();
+            action = null;
+        }
+    }
+    
+    private void setTurno(){
+        try{
+            String _turno = this.view.getTurnoTextField().getText();
+            int turno = Integer.parseInt(_turno);
+            
+            this.selected.setGuiaTurno(turno);
+            
+        }catch(NumberFormatException e){
+            this.selected.setGuiaTurno(1);
+            System.err.println("Error al transformar el numero");
         }
     }
 
@@ -239,16 +261,6 @@ public class RegistroBoletoController extends MainView {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar el Servicio", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void removeUltimaVuelta() {
-        if (this.model.getRowCount() > 1) {
-            int option = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el ultimo registro de boletos/vuelta?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-
-            if (option == JOptionPane.YES_OPTION) {
-
-            }
         }
     }
 
@@ -284,11 +296,13 @@ public class RegistroBoletoController extends MainView {
 
         this.selected = new Guia();
         this.selected.setGuiaFecha(auxDate);
+        this.selected.setGuiaTurno(1);
         this.model = new BoletoTableModel();
-        this.vueltaGuiaComboBoxModel = new VueltaGuiaComboBoxModel(new ArrayList<>()); 
+        this.vueltaGuiaComboBoxModel = new VueltaGuiaComboBoxModel(new ArrayList<>());
         this.view.getVueltaComboBox().setModel(vueltaGuiaComboBoxModel);
-        this.vueltasItems = new ArrayList();
+        //this.vueltasItems = new ArrayList();
         this.vueltaGuia = null;
+        this.view.getTurnoTextField().setText("");
         this.view.getTable().setModel(model);
         this.view.getFolioTextField().setText("");
         this.view.getBusTextField().setText("");
@@ -307,6 +321,7 @@ public class RegistroBoletoController extends MainView {
     }
 
     public VueltaGuia getVueltaGuia() {
+        
         return vueltaGuia;
     }
 
@@ -329,14 +344,14 @@ public class RegistroBoletoController extends MainView {
         this.view.getTable().setModel(model);
     }
 
-    public List<VueltaGuia> getVueltasItems() {
-        return vueltasItems;
-    }
-
-    public void setVueltasItems(List<VueltaGuia> vueltasItems) {
-        this.vueltasItems = vueltasItems;
-        setVueltaGuia(getVueltasItems().get(getVueltasItems().size() - 1));
-    }
+//    public List<VueltaGuia> getVueltasItems() {
+//        return vueltasItems;
+//    }
+//
+//    public void setVueltasItems(List<VueltaGuia> vueltasItems) {
+//        this.vueltasItems = vueltasItems;
+//        setVueltaGuia(getVueltasItems().get(getVueltasItems().size() - 1));
+//    }
 
     public Guia getGuia() {
         return selected;

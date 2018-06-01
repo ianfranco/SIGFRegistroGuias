@@ -12,10 +12,12 @@ import com.areatecnica.nanduappgb.entities.Guia;
 import com.areatecnica.nanduappgb.models.GuiaItemsModel;
 import com.areatecnica.nanduappgb.models.RegistroBoletoTableModel;
 import com.areatecnica.nanduappgb.views.GuiaItemsView;
+import com.areatecnica.nanduappgb.views.MainView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -28,6 +30,7 @@ import javax.swing.event.ListSelectionListener;
  */
 public class GuiaItemsController {
 
+    private MainView mainView;
     private GuiaItemsView view;
     private Guia selected;
     private List<Guia> items;
@@ -35,12 +38,14 @@ public class GuiaItemsController {
     private Date fecha;
     private GuiaItemsModel model;
     private RegistroBoletoTableModel boletosModel;
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
 
     public GuiaItemsController() {
     }
 
-    public GuiaItemsController(GuiaItemsView view) {
+    public GuiaItemsController(GuiaItemsView view, MainView mainView) {
         this.view = view;
+        this.mainView = mainView; 
         init();
         load();
     }
@@ -90,6 +95,7 @@ public class GuiaItemsController {
             if (!this.items.isEmpty()) {
                 this.model = new GuiaItemsModel(items);
                 this.view.getTable().setModel(model);
+                
             } else {
                 JOptionPane.showMessageDialog(null, "No se han encontrado registros", "Información", JOptionPane.WARNING_MESSAGE);
             }
