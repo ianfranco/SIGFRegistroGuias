@@ -66,7 +66,7 @@ public class VoucherRegistroVueltaPrintAction extends AbstractAction {
         this.map.put("serieLocal", this.controller.getGuia().getVueltaGuiaList().get(0).getEstructura().getLocal().getRegistroBoletoSerie());
         this.map.put("serieEscolarDirecto", this.controller.getGuia().getVueltaGuiaList().get(0).getEstructura().getEscolarDirecto().getRegistroBoletoSerie());
         this.map.put("serieEscolarLocal", this.controller.getGuia().getVueltaGuiaList().get(0).getEstructura().getEscolarLocal().getRegistroBoletoSerie());
-
+        
         this.report = new ReportController(file, factory);
         this.report.setMap(map);
 

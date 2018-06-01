@@ -11,6 +11,7 @@ import com.areatecnica.nanduappgb.behaviors.FindBusFocusLost;
 import com.areatecnica.nanduappgb.behaviors.FindConductorFocusLost;
 import com.areatecnica.nanduappgb.behaviors.FindFolioGuiaEnterPressed;
 import com.areatecnica.nanduappgb.behaviors.SaveGuiaAction;
+import com.areatecnica.nanduappgb.behaviors.VoucherRegistroVueltaPrintAction;
 import com.areatecnica.nanduappgb.dao.impl.ProcesoGeneralNandu;
 import com.areatecnica.nanduappgb.dao.impl.TarifaGrupoServicioSolyMar;
 import com.areatecnica.nanduappgb.entities.Guia;
@@ -191,6 +192,14 @@ public class RegistroBoletoController extends MainView {
         }
         );
 
+        this.view.getPrintButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.err.println("CLICKEO");
+                printGuia();
+            }
+        });
+
         this.view.getFolioTextField().requestFocus();
     }
 
@@ -232,6 +241,11 @@ public class RegistroBoletoController extends MainView {
             reset();
             action = null;
         }
+    }
+
+    private void printGuia() {
+        VoucherRegistroVueltaPrintAction v = new VoucherRegistroVueltaPrintAction(this);
+        v.print();
     }
 
     private void setTurno() {

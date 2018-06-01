@@ -38,26 +38,28 @@ public class EstructuraRegistroBoletoÑandu {
         this.escolarDirecto = new RegistroBoleto();
         this.escolarLocal = new RegistroBoleto();
     }
-    
+
     public EstructuraRegistroBoletoÑandu(VueltaGuia vueltaGuia) {
         this.vueltaGuia = vueltaGuia;
         for (RegistroBoleto r : this.vueltaGuia.getRegistroBoletoList()) {
-            switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
-                case 1:
-                    setDirecto(r);
-                    break;
-                case 2:
-                    setPlanVina(r);
-                    break;
-                case 3:
-                    setLocal(r);
-                    break;
-                case 4:
-                    setEscolarDirecto(r);
-                    break;
-                case 5:
-                    setEscolarLocal(r);
-                    break;
+            if (r.getRegistroBoletoIdBoleto() != null) {
+                switch (r.getRegistroBoletoIdBoleto().getBoletoOrden()) {
+                    case 1:
+                        setDirecto(r);
+                        break;
+                    case 2:
+                        setPlanVina(r);
+                        break;
+                    case 3:
+                        setLocal(r);
+                        break;
+                    case 4:
+                        setEscolarDirecto(r);
+                        break;
+                    case 5:
+                        setEscolarLocal(r);
+                        break;
+                }
             }
         }
     }

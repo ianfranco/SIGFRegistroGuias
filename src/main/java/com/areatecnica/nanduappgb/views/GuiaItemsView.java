@@ -47,7 +47,8 @@ public class GuiaItemsView extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(19, 50, 71));
 
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Guías a la Fecha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        jScrollPane1.setBackground(new java.awt.Color(19, 50, 71));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Guías a la Fecha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
 
         table.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -63,7 +64,7 @@ public class GuiaItemsView extends javax.swing.JPanel {
         jScrollPane1.setViewportView(table);
 
         jPanel1.setBackground(new java.awt.Color(19, 50, 71));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Seleccione una Fecha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Seleccione una Fecha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -111,6 +112,9 @@ public class GuiaItemsView extends javax.swing.JPanel {
         deleteButton.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         deleteButton.setText("Eliminar");
 
+        panel.setBackground(new java.awt.Color(19, 50, 71));
+        panel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle Boletos x Guía:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
+
         tableBoleto.setFont(new java.awt.Font("Segoe UI Light", 1, 18)); // NOI18N
         tableBoleto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -136,7 +140,7 @@ public class GuiaItemsView extends javax.swing.JPanel {
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -148,14 +152,14 @@ public class GuiaItemsView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1082, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(deleteButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(printButton, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(viewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(viewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

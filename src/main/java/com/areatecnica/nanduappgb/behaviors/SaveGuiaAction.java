@@ -75,8 +75,8 @@ public class SaveGuiaAction extends AbstractAction {
                                 b.setRegistroBoletoIdVueltaGuia(r);
                                 list.add(b);
                             }
-
                         }
+                        
                         r.setRegistroBoletoList(list);
                         list = new ArrayList<>();
                     }
