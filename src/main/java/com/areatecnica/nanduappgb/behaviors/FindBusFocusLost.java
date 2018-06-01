@@ -72,8 +72,8 @@ public class FindBusFocusLost extends FocusAdapter {
 
                 BoletoTableModel model = null;
 
-                if (_guia != null && !_guia.getVueltaGuiaList().isEmpty()) {
-
+                if (_guia != null) {
+                    System.err.println("LA GUIA EXISTE: ");
                     VueltaGuia nuevaVuelta = new VueltaGuia();
                     nuevaVuelta.setRegistroBoletoList(new ArrayList());
                     nuevaVuelta.setVueltaGuiaIdGuia(this.controller.getGuia());
@@ -96,11 +96,16 @@ public class FindBusFocusLost extends FocusAdapter {
 
                     List<VueltaGuia> array = new ArrayList<>();
                     array.add(nuevaVuelta);
-                    //this.controller.setVueltasItems(array);
+                    
+                    this.controller.getGuia().setVueltaGuiaList(new ArrayList());
+                    this.controller.getGuia().getVueltaGuiaList().add(nuevaVuelta);
 
 //                    this.controller.setVueltaGuia(nuevaVuelta);
 //                    this.controller.getVueltasItems().add(nuevaVuelta);
+                    
                     //this.controller.getGuia().setVueltaGuiaList(this.controller.getVueltasItems());
+                    
+                    
                     VueltaGuiaComboBoxModel vueltasModel = new VueltaGuiaComboBoxModel(this.controller.getGuia().getVueltaGuiaList());
                     this.controller.setVueltaGuiaComboBoxModel(vueltasModel);
 

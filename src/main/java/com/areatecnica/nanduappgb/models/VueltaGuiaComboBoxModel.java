@@ -26,6 +26,10 @@ public class VueltaGuiaComboBoxModel extends AbstractListModel implements ComboB
     private List<VueltaGuia> items;
     private VueltaGuia item;
 
+    public List<VueltaGuia> getItems() {
+        return items;
+    }
+
     @Override
     public int getSize() {
         return items.size();

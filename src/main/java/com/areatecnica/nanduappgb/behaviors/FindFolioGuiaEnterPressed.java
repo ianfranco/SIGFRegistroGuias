@@ -102,7 +102,7 @@ public class FindFolioGuiaEnterPressed extends KeyAdapter {
 
                         PanelGuia panel = null;
                         panel = new PanelGuia();
-                        panel.getVueltaLabel().setText(String.valueOf(numeroVueltas+1) + " ?");
+                        panel.getVueltaLabel().setText(String.valueOf(numeroVueltas + 1) + " ?");
                         int option = JOptionPane.showConfirmDialog(null, panel, "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                         if (option == JOptionPane.YES_OPTION) {
@@ -123,14 +123,13 @@ public class FindFolioGuiaEnterPressed extends KeyAdapter {
 //                                
 //                            } 
                             //this.controller.setVueltasItems(_guia.getVueltaGuiaList());
-
                             //this.controller.setVueltaGuia(this.controller.getVueltasItems().get(this.controller.getVueltasItems().size() - 1));
                             VueltaGuia nuevaVuelta = new VueltaGuia();
                             nuevaVuelta.setRegistroBoletoList(new ArrayList());
                             nuevaVuelta.setVueltaGuiaIdGuia(this.controller.getGuia());
                             nuevaVuelta.setVueltaGuiaNumero(numeroVueltas);
 
-                            for (RegistroBoleto r : this.controller.getGuia().getVueltaGuiaList().get(this.controller.getGuia().getVueltaGuiaList().size()-1).getRegistroBoletoList()) {
+                            for (RegistroBoleto r : this.controller.getGuia().getVueltaGuiaList().get(this.controller.getGuia().getVueltaGuiaList().size() - 1).getRegistroBoletoList()) {
                                 //System.err.println("BOLETO:" + r.getRegistroBoletoIdBoleto().getBoletoNombre());
                                 RegistroBoleto nuevoBoleto = new RegistroBoleto();
                                 nuevoBoleto.setRegistroBoletoIdVueltaGuia(nuevaVuelta);
@@ -146,7 +145,7 @@ public class FindFolioGuiaEnterPressed extends KeyAdapter {
                             }
 
                             this.controller.setVueltaGuia(nuevaVuelta);
-                            
+
                             this.controller.getGuia().getVueltaGuiaList().add(nuevaVuelta);
 
                             model = new BoletoTableModel(nuevaVuelta.getRegistroBoletoList(), false);
@@ -167,9 +166,17 @@ public class FindFolioGuiaEnterPressed extends KeyAdapter {
                     } else {
                         try {
 
+                            this.controller.setGuia(new Guia());
+                            this.controller.setVueltaGuia(new VueltaGuia());
+                            this.controller.getGuia().setGuiaTurno(1);
+                            this.model = new BoletoTableModel();
+                            this.controller.setVueltaGuiaComboBoxModel(new VueltaGuiaComboBoxModel(new ArrayList<>()));
+                            this.controller.getView().getVueltaComboBox().setModel(this.controller.getVueltaGuiaComboBoxModel());
                             this.controller.getGuia().setGuiaFolio(folio);
                             this.controller.displayMessage("Nueva Guía");
-                            //
+                            this.controller.getView().getBusTextField().setText("");
+                            this.controller.getView().getConductorTextField().setText("");
+                            this.controller.getView().getTurnoTextField().setText("1");
 
                             this.controller.getView().getFechaGuiaTextField().requestFocus();
 

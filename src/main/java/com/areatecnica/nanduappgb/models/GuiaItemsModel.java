@@ -6,6 +6,7 @@
 package com.areatecnica.nanduappgb.models;
 
 import com.areatecnica.nanduappgb.entities.Guia;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
@@ -18,7 +19,8 @@ public class GuiaItemsModel extends AbstractTableModel {
 
     private List<Guia> items;
     private Guia selected;
-    private String[] columnNames = {"#", "Folio", "Nº Bus", "Conductor"};
+    private String[] columnNames = {"#", "Folio", "Nº Bus", "Conductor", "Turno", "Fecha Ingreso"};
+    private final static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
 
     public GuiaItemsModel(List<Guia> items) {
         this.items = items;
@@ -45,6 +47,10 @@ public class GuiaItemsModel extends AbstractTableModel {
                 return items.get(rowIndex).getGuiaIdBus().getBusNumero();
             case 3:
                 return items.get(rowIndex).getGuiaIdTrabajador().getTrabajadorApellidoPaterno() + " " + items.get(rowIndex).getGuiaIdTrabajador().getTrabajadorApellidoMaterno() + " " + items.get(rowIndex).getGuiaIdTrabajador().getTrabajadorNombres().substring(0, 1) + ".";
+            case 4:
+                return items.get(rowIndex).getGuiaTurno();
+            case 5:
+                return sdf.format(items.get(rowIndex).getGuiaFechaIngreso());
         }
         return null;
     }

@@ -233,15 +233,15 @@ public class RegistroBoletoController extends MainView {
             action = null;
         }
     }
-    
-    private void setTurno(){
-        try{
+
+    private void setTurno() {
+        try {
             String _turno = this.view.getTurnoTextField().getText();
             int turno = Integer.parseInt(_turno);
-            
+
             this.selected.setGuiaTurno(turno);
-            
-        }catch(NumberFormatException e){
+
+        } catch (NumberFormatException e) {
             this.selected.setGuiaTurno(1);
             System.err.println("Error al transformar el numero");
         }
@@ -316,12 +316,16 @@ public class RegistroBoletoController extends MainView {
         this.view.getFolioTextField().requestFocus();
     }
 
+    public VueltaGuiaComboBoxModel getVueltaGuiaComboBoxModel() {
+        return vueltaGuiaComboBoxModel;
+    }
+
     public BoletoTableModel getModel() {
         return model;
     }
 
     public VueltaGuia getVueltaGuia() {
-        
+
         return vueltaGuia;
     }
 
@@ -336,7 +340,9 @@ public class RegistroBoletoController extends MainView {
     public void setVueltaGuiaComboBoxModel(VueltaGuiaComboBoxModel vueltaGuiaComboBoxModel) {
         this.vueltaGuiaComboBoxModel = vueltaGuiaComboBoxModel;
         this.view.getVueltaComboBox().setModel(this.vueltaGuiaComboBoxModel);
-        this.view.getVueltaComboBox().setSelectedIndex(vueltaGuiaComboBoxModel.getSize() - 1);
+        if (!this.vueltaGuiaComboBoxModel.getItems().isEmpty()) {
+            this.view.getVueltaComboBox().setSelectedIndex(vueltaGuiaComboBoxModel.getSize() - 1);
+        }
     }
 
     public void setModel(BoletoTableModel model) {
@@ -352,7 +358,6 @@ public class RegistroBoletoController extends MainView {
 //        this.vueltasItems = vueltasItems;
 //        setVueltaGuia(getVueltasItems().get(getVueltasItems().size() - 1));
 //    }
-
     public Guia getGuia() {
         return selected;
     }
