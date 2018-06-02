@@ -111,8 +111,13 @@ public class GuiaItemsController {
 
             this.selected = this.model.getRowAt(index);
 
-            this.boletosModel = new RegistroBoletoTableModel(selected);
-            this.view.getTableBoletos().setModel(this.boletosModel);
+            if (!this.selected.getVueltaGuiaList().isEmpty()) {
+                this.boletosModel = new RegistroBoletoTableModel(selected);
+                this.view.getTableBoletos().setModel(this.boletosModel);
+            }else{
+                this.boletosModel = new RegistroBoletoTableModel();
+                this.view.getTableBoletos().setModel(this.boletosModel);
+            }
         }
     }
 
