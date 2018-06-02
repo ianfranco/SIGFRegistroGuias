@@ -62,6 +62,7 @@ public class EstructuraRegistroBoletoÑandu {
                 }
             }
         }
+        this.numero = this.vueltaGuia.getVueltaGuiaNumero();
     }
 
     public EstructuraRegistroBoletoÑandu(int numero, Servicio servicio, RegistroBoleto directo, RegistroBoleto planVina, RegistroBoleto local, RegistroBoleto escolarLocal, RegistroBoleto escolarDirecto, List<RegistroBoleto> registro) {

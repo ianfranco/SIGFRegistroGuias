@@ -86,8 +86,8 @@ public class SaveGuiaAction extends AbstractAction {
                     this.dao.update(this.controller.getGuia());
 
 
-                    /*VoucherRegistroVueltaPrintAction v = new VoucherRegistroVueltaPrintAction(this.controller);
-                    v.print();*/
+                    VoucherRegistroVueltaPrintAction v = new VoucherRegistroVueltaPrintAction(this.controller);
+                    v.print();
                     this.controller.reset();
 
                 } catch (Exception e) {

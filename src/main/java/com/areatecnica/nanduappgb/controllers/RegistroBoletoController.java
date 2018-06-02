@@ -95,7 +95,7 @@ public class RegistroBoletoController extends MainView {
         this.view.getFolioTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getFolioTextField()));
 
         this.view.getTurnoTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getTurnoTextField()));
-        this.view.getTurnoTextField().addKeyListener(new NextObject(this.view.getConductorTextField(), this.view.getServicioComboBox(), null, this.view.getVueltaComboBox(), true));
+        this.view.getTurnoTextField().addKeyListener(new NextObject(this.view.getBusTextField(), this.view.getBusTextField(), null, this.view.getBusTextField()));
         this.view.getTurnoTextField().addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
@@ -110,7 +110,7 @@ public class RegistroBoletoController extends MainView {
             }
         });
         this.view.getBusTextField().addFocusListener(new TextSelectionFocusAdapter(this.view.getBusTextField()));
-        this.view.getBusTextField().addKeyListener(new NextObject(this.view.getFechaGuiaTextField(), this.view.getConductorTextField(), null, null));
+        this.view.getBusTextField().addKeyListener(new NextObject(this.view.getFechaGuiaTextField(), this.view.getConductorTextField(), this.view.getTurnoTextField(), null));
 
         this.view.getFechaGuiaTextField().addFocusListener(new FocusAdapter() {
             @Override
@@ -231,7 +231,9 @@ public class RegistroBoletoController extends MainView {
 
     private void findBus() {
         FindBusFocusLost fb = new FindBusFocusLost(RegistroBoletoController.this);
-        fb.find();
+        if (this.selected.getGuiaId() == null) {
+            fb.find();
+        }
     }
 
     private void deleteVuelta() {

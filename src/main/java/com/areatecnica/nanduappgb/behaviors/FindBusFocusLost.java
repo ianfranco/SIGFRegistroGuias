@@ -51,12 +51,13 @@ public class FindBusFocusLost extends FocusAdapter {
 
     @Override
     public void focusLost(FocusEvent e) {
-        find();
+        if (this.controller.getGuia().getGuiaId() == null) {
+            find();
+        }
     }
 
     public void find() {
         try {
-            System.err.println("FINDBUSFOCUSLOST");
             String _busNumero = this.controller.getView().getBusTextField().getText();
 
             Bus _bus = this.dao.findByNumeroBusProceso(Integer.valueOf(_busNumero), this.controller.getProceso().getProceso());
@@ -68,7 +69,6 @@ public class FindBusFocusLost extends FocusAdapter {
                 this.controller.getView().getFlotaTextField().setText(_bus.getBusIdFlota().getFlotaNombre());
 
                 Guia _guia = this.guiaDao.findLastGuiaByBusFecha(_bus, this.controller.getView().getDate());
-                System.err.println("FECHA DE LA BUSQUEDA DE LA GUIA :;  " + this.controller.getGuia().getGuiaFecha());
 
                 BoletoTableModel model = null;
 
@@ -96,16 +96,13 @@ public class FindBusFocusLost extends FocusAdapter {
 
                     List<VueltaGuia> array = new ArrayList<>();
                     array.add(nuevaVuelta);
-                    
+
                     this.controller.getGuia().setVueltaGuiaList(new ArrayList());
                     this.controller.getGuia().getVueltaGuiaList().add(nuevaVuelta);
 
 //                    this.controller.setVueltaGuia(nuevaVuelta);
 //                    this.controller.getVueltasItems().add(nuevaVuelta);
-                    
                     //this.controller.getGuia().setVueltaGuiaList(this.controller.getVueltasItems());
-                    
-                    
                     VueltaGuiaComboBoxModel vueltasModel = new VueltaGuiaComboBoxModel(this.controller.getGuia().getVueltaGuiaList());
                     this.controller.setVueltaGuiaComboBoxModel(vueltasModel);
 
@@ -161,10 +158,6 @@ public class FindBusFocusLost extends FocusAdapter {
             this.controller.getView().getBusTextField().setBackground(Color.GREEN);
             this.controller.getView().getSaveButton().setEnabled(Boolean.FALSE);
         }
-//        } else {
-//            this.controller.getView().getBusTextField().setBackground(Color.WHITE);
-//            this.controller.getView().getSaveButton().setEnabled(Boolean.TRUE);
-//        }
     }
 
 }
