@@ -6,7 +6,6 @@
 package com.areatecnica.nanduappgb.controllers;
 
 import com.areatecnica.nanduappgb.models.EstructuraRegistroBoletoÑandu;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
