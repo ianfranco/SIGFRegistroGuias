@@ -152,10 +152,17 @@ public class RegistroBoletoController extends MainView {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER && view.getTable().getSelectedRow() == (view.getTable().getRowCount() - 1) && ((view.getTable().getSelectedColumn() == 4) || (view.getTable().getSelectedColumn() == 5))) {
                     save();
+                } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE || e.getKeyCode() == KeyEvent.VK_DELETE) {
+                    int column = view.getTable().getSelectedColumn();
+                    int row = view.getTable().getSelectedRow();
+                    
+                    model.setValueAt(new Integer(0), row, column);
+                    view.getTable().changeSelection(row, column, true, true);
                 }
             }
 
         });
+
         this.view.getTable().addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -167,6 +174,7 @@ public class RegistroBoletoController extends MainView {
             }
         });
 
+        //this.view.getTable().addKeyListener(new );
         this.view.getDeleteGuiaButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
